@@ -1,0 +1,524 @@
+/* style.css */
+body {
+    font-family: Consolas;
+    text-align: center;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.adsense {
+    /*border: 1px solid #ddd;*/
+    padding: 20px;
+    margin: 0;
+    user-select: none;
+    pointer-events: none;
+    text-align: center;
+}
+
+.adsense-left, .adsense-right {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    width: 100%;
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    width: 100%;
+}
+
+.game-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+    user-select: none;
+    pointer-events: none;
+    text-align: center;
+    width: 100%;
+}
+
+.game-title h1 {
+    color: #fff;
+    font-size: clamp(1.5rem, 3vw, 3rem);
+    margin: 0;
+    text-transform: uppercase;
+    text-shadow: 4px 1px 5px rgba(0, 0, 0, 0.5);
+    font-weight: 700;
+    font-family: 'Tahoma';
+}
+
+.game-area {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: 100%;
+}
+
+.image-area, .info-area {
+    border: 1px solid #ddd;
+    margin: 5px;
+    width: 100%;
+    background-color: #fff;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.info-area {
+    margin-top: 0;
+    user-select: none;
+    pointer-events: none;
+}
+
+.hangman-area {
+    width: 62px;
+    height: 100px;
+    position: relative;
+    box-sizing: border-box;
+    background-color: #ddd;
+    border-radius: 8px;
+    user-select: none;
+}
+
+.hangman-part {
+    visibility: hidden;
+    position: absolute;
+    background-color: black;
+}
+
+.hangman-base {
+    bottom: 0;
+    left: 10%;
+    width: 25%;
+    height: 5px;
+}
+
+.hangman-pole {
+    top: 0;
+    left: 10%;
+    width: 5px;
+    height: 100%;
+}
+
+.hangman-beam {
+    top: 0;
+    left: 010%;
+    width: 50%;
+    height: 5px;
+}
+
+.hangman-rope {
+    top: 0;
+    left: 60%;
+    width: 1px;
+    height: 30%;
+}
+
+.hangman-head {
+    top: 30%;
+    left: 50%;
+    width: 20%;
+    height: 10%;
+    border-radius: 50%;
+}
+
+.hangman-body {
+    top: 40%;
+    left: 55%;
+    width: 5px;
+    height: 20px;
+}
+
+.hangman-left-arm {
+    top: 45%;
+    left: 28%;
+    width: 27%;
+    height: 2px;
+}
+
+.hangman-right-arm {
+    top: 45%;
+    left: 65%;
+    width: 27%;
+    height: 2px;
+}
+
+.hangman-left-leg {
+    top: 57%;
+    left: 57%;
+    width: 3px;
+    height: 15px;
+    transform: rotate(45deg);
+    transform-origin: top left;
+}
+
+.hangman-right-leg {
+    top: 57%;
+    left: 58%;
+    width: 3px;
+    height: 15px;
+    transform: rotate(-45deg);
+    transform-origin: top right;
+}
+
+.hangman-part.visible {
+    visibility: visible;
+}
+
+.image-area {
+    height: 40vh;
+    flex: 2;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.image-area img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+}
+
+.image-area::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.3s ease;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.image-area:hover::before{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.share-buttons {
+    display: none; /* 기본적으로 숨김 */
+    position: absolute;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+    user-select: none;
+    z-index: 2;
+}
+
+.image-area:hover .share-buttons,
+.image-area:focus .share-buttons {
+    display: flex;
+}
+
+.share-button {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.share-button:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.info-area {
+    flex: 1;
+    text-align: center;
+    margin-top: 0;
+}
+
+.info-area p {
+    display: inline;
+    margin: 0 10px;
+}
+
+.game-footer {
+    text-align: center;
+    margin: 0;
+    user-select: none;
+    pointer-events: none;
+    font-size: 14px;
+    width: 100%;
+}
+
+.guess-inputs {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: row;
+    margin: 10px 0;
+    user-select: none;
+    pointer-events: none;
+}
+
+.guess-input {
+    border-bottom: 2px solid #333;
+    font-size: 20px;
+    text-align: center;
+    width: 20px;
+    margin: 0 5px;
+    outline: none;
+    background-color: transparent;
+    cursor: default;
+    display: inline-block;
+    user-select: none;
+    pointer-events: none;
+}
+
+.guess-correct {
+    font-size: 20px;
+    width: 20px;
+    margin: 0 5px;
+    user-select: none;
+    pointer-events: none;
+    color : green;
+}
+
+.prefix, .postfix {
+    font-size: 20px;
+    margin: 0 30px;
+    user-select: none;
+    pointer-events: none;
+}
+
+.bottom-area {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.guess-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.alphabet-area {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 5px;
+}
+
+.alphabet-letter {
+    font-size: 20px;
+    margin: 5px;
+    user-select: none;
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.alphabet-letter:hover {
+    background-color: #ccc;
+}
+
+.alphabet-letter:active, .alphabet-letter:focus {
+    background-color: #ccc;
+}
+
+.alphabet-letter.clicked.correct {
+  background-color: lightgreen;
+  cursor: default;
+  pointer-events: none;
+}
+
+.alphabet-letter.clicked.incorrect {
+  background-color: lightcoral;
+  cursor: default;
+  pointer-events: none;
+}
+
+.alphabet-letter-mark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+
+@media (min-width: 769px) {
+    .container {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .adsense-left, .adsense-right {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .game-area {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .info-area {
+        height: auto;
+        padding: 5px;
+    }
+
+    .image-area {
+        flex: 2;
+        min-width: 512px;
+        height: 40vh;
+    }
+
+    .bottom-area {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .adsense-left {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: 20%;
+        order: -1;
+    }
+
+    .adsense-right {
+        display: none;
+    }
+
+    .container {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .main-content {
+        width: 100%;
+        height: 80%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .game-area {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .info-area {
+        height: auto;
+        padding: 5px;
+    }
+
+    .info-area p {
+        display: inline;
+        margin: 0 10px;
+        font-size: 12px;
+    }
+
+    .image-area {
+        height: 40vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .image-area img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    .bottom-area {
+        flex-direction: column;
+    }
+    
+    .hangman-area {
+        height: 100px;
+    }
+}
