@@ -1,4 +1,10 @@
-function HangMan({wrongCount}) {
+import React, { useContext } from 'react';
+import { GuessInfoContext } from "./context/GuessInfoContext.js";
+
+function HangMan() {
+    const {guessInfo} = useContext(GuessInfoContext);
+    const wrongCount = guessInfo.inputLetters.length;
+
     return  (
     <div className="hangman-area">
         <div className={`hangman-part hangman-base ${wrongCount > 6 ? 'visible' : ''}`}></div>

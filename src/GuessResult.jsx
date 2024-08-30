@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { QuestionInfoContext } from './QuestionInfoContext.js';
+import { QuestionInfoContext } from './context/QuestionInfoContext.js';
 
 function GuessResult() {
     const {questionInfo} = useContext(QuestionInfoContext);
@@ -7,7 +7,7 @@ function GuessResult() {
     return (
         <div className="guess-inputs">
             <span className="prefix">{questionInfo.prefix}</span>
-            {questionInfo.answer.split("").map((char, index) => (
+            {questionInfo.answer.split("").map((char, index) => (                
             <span key={index} className={`${char === '*' ? 'guess-input' : 'guess-correct'}`}>{char === '*' ? ' ' : char}</span>
             ))}
             <span className="postfix">{questionInfo.postfix}</span>
