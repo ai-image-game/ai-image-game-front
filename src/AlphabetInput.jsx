@@ -4,9 +4,9 @@ import { QuestionInfoContext } from './context/QuestionInfoContext.js';
 import { LettersContext } from './context/LettersContext.js';
 
 function AlphabetInput() {
-    const { questionInfo, setQuestionInfo } = useContext(QuestionInfoContext);
+    const { setQuestionInfo } = useContext(QuestionInfoContext);
     const { letters, setLetters } = useContext(LettersContext);
-    const { guessInfo, setGuessInfo } = useContext(GuessInfoContext);
+    const { setGuessInfo } = useContext(GuessInfoContext);
 
     const onInputLetter = useCallback((event) => {
         const currentGuess = event.target.innerText;
