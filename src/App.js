@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './style.css';
-import Info from './info.jsx';
-import ImageInfo from './ImageInfo.jsx';
-import GuessResult from './GuessResult.jsx';
-import HangManArea from './HangMan.jsx';
-import AlphabetInput from './AlphabetInput.jsx';
+import Info from './jsx/info.jsx';
+import ImageInfo from './jsx/ImageInfo.jsx';
+import GuessResult from './jsx/GuessResult.jsx';
+import HangManArea from './jsx/HangMan.jsx';
+import AlphabetInput from './jsx/AlphabetInput.jsx';
 import QuestionInfoProvider from './context/QuestionInfoContext.js';
 import GuessInfoProvider from './context/GuessInfoContext.js';
 import LettersProvider from './context/LettersContext.js';

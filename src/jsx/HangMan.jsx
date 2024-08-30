@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { GuessInfoContext } from "./context/GuessInfoContext.js";
+import { GuessInfoContext } from "../context/GuessInfoContext.js";
 
 function HangMan() {
     const {guessInfo} = useContext(GuessInfoContext);
