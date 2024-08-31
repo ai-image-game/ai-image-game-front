@@ -1,8 +1,4 @@
-import React, { useContext } from 'react';
-import { GuessInfoContext } from "../context/GuessInfoContext.js";
-
-function HangMan() {
-    const {guessInfo} = useContext(GuessInfoContext);
+function HangMan({guessInfo}) {
     const wrongCount = guessInfo.inputLetters.length;
 
     return  (

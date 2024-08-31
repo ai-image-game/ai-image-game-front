@@ -1,25 +1,46 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './style.css';
 import Info from './jsx/info.jsx';
 import ImageInfo from './jsx/ImageInfo.jsx';
 import GuessResult from './jsx/GuessResult.jsx';
 import HangManArea from './jsx/HangMan.jsx';
 import AlphabetInput from './jsx/AlphabetInput.jsx';
-import QuestionInfoProvider from './context/QuestionInfoContext.js';
-import GuessInfoProvider from './context/GuessInfoContext.js';
-import LettersProvider from './context/LettersContext.js';
+import Guess from "./module/Guess";
 
 function App() {
-  const [imageInfo, setImageInfo] = useState({
-    mobileImage : "image_mobile.jpg",
-    pcImage : "image.png"
+  const [ totalInfo, setTotalInfo ] = useState({
+    gameInfo : {
+      "level" : 1,
+      "questions" : 10,
+      "corrects" : 0
+    },
+    imageInfo : {
+      mobileImage : "image_mobile.jpg",
+      pcImage : "image.png"
+    }
   });
 
-  const [gameInfo, setGameInfo] = useState({
-    "level" : 1,
-    "questions" : 10,
-    "corrects" : 0
+  const [ currentStageInfo, setCurrentStageInfo ] = useState( {
+    questionInfo : {
+      answer : "*******",
+      prefix : null,
+      postfix : " Dad"
+    },
+    guessInfo : {
+      currentGuess : "",
+      inputLetters : [],
+      answerIndexList: []
+    },
+    letters : "abcdefghijklmnopqrstuvwxyz'".split("").map((letter) =>
+    ({
+      letter : letter,
+      correct : null
+    }))
   });
+
+  const onInputLetter = (event) => {
+    Guess(event.target.innerText, totalInfo, setTotalInfo, setCurrentStageInfo);
+  }
 
   return (
     <div className="App">
@@ -30,34 +51,28 @@ function App() {
             <h1>AI IMAGE GAME</h1>
           </div>
           <div className="game-area">
-            <Info gameInfo={gameInfo}/>
+            <Info gameInfo={totalInfo.gameInfo}/>
             <div className="image-area">
-              <ImageInfo imageInfo={imageInfo}/>
+              <ImageInfo imageInfo={totalInfo.imageInfo}/>
             </div>
             <div className="share-buttons">
                 <button className="share-button instagram-button">Instagram</button>
                 <button className="share-button twitter-button">X</button>
               </div>
           </div>
-          <QuestionInfoProvider>
             <div className="game-footer">
               <p>This image created by Chat GPT. Chat GPT titled </p>
-                <GuessResult/>
+                <GuessResult questionInfo={currentStageInfo.questionInfo}/>
             </div>
             <div className="bottom-area">
               <div className="guess-area">
-                <GuessInfoProvider>
-                  <HangManArea />
-                  <LettersProvider>
-                      <AlphabetInput/>
-                  </LettersProvider>
-                </GuessInfoProvider>
+                  <HangManArea guessInfo={currentStageInfo.guessInfo}/>
+                  <AlphabetInput letters={currentStageInfo.letters} onInputLetter={onInputLetter}/>
               </div>
               <div className="footer">
                 <p>Bug report to <a href="mailto:blarblar@gmail.com">blarblar@gmail.com</a></p>
               </div>
             </div>
-          </QuestionInfoProvider>
         </div>
         <div className="adsense adsense-right">Google Adsense Area</div>
       </div>
