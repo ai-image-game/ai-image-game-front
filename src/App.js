@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './style.css';
 import Info from './jsx/info.jsx';
 import ImageInfo from './jsx/ImageInfo.jsx';
@@ -6,6 +6,7 @@ import GuessResult from './jsx/GuessResult.jsx';
 import HangManArea from './jsx/HangMan.jsx';
 import AlphabetInput from './jsx/AlphabetInput.jsx';
 import Guess from "./module/Guess";
+import NextStage from "./module/NextStage";
 
 function App() {
   const [ totalInfo, setTotalInfo ] = useState({
@@ -39,8 +40,14 @@ function App() {
   });
 
   const onInputLetter = (event) => {
-    Guess(event.target.innerText, totalInfo, setTotalInfo, setCurrentStageInfo);
+    Guess(event.target.innerText, totalInfo, currentStageInfo, setTotalInfo, setCurrentStageInfo);
   }
+
+  useEffect(() => {
+    if (!currentStageInfo.questionInfo.answer.includes("*")) {
+      setTimeout( () => NextStage(setCurrentStageInfo, setTotalInfo), 3000);
+    }
+  }, [currentStageInfo.questionInfo.answer]);
 
   return (
     <div className="App">
