@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import './style.css';
+import './css/App.css';
 import Info from './jsx/info.jsx';
 import ImageInfo from './jsx/ImageInfo.jsx';
 import GuessResult from './jsx/GuessResult.jsx';
@@ -36,8 +36,11 @@ function App() {
     ({
       letter : letter,
       correct : null
-    }))
+    })),
+    isCorrect : false
   });
+
+  const [isCorrect, setIsCorrect] = useState(false);
 
   const onInputLetter = (event) => {
     Guess(event.target.innerText, totalInfo, currentStageInfo, setTotalInfo, setCurrentStageInfo);
@@ -45,7 +48,12 @@ function App() {
 
   useEffect(() => {
     if (!currentStageInfo.questionInfo.answer.includes("*")) {
-      setTimeout( () => NextStage(setCurrentStageInfo, setTotalInfo), 3000);
+      setTimeout( () => { setIsCorrect(true);});
+      setTimeout( () => {
+        NextStage(setCurrentStageInfo, setTotalInfo);
+        setIsCorrect(false);
+      }, 4000);
+
     }
   }, [currentStageInfo.questionInfo.answer]);
 
@@ -59,27 +67,25 @@ function App() {
           </div>
           <div className="game-area">
             <Info gameInfo={totalInfo.gameInfo}/>
-            <div className="image-area">
-              <ImageInfo imageInfo={totalInfo.imageInfo}/>
-            </div>
+            <ImageInfo isCorrect={isCorrect} imageInfo={totalInfo.imageInfo}/>
             <div className="share-buttons">
                 <button className="share-button instagram-button">Instagram</button>
                 <button className="share-button twitter-button">X</button>
               </div>
           </div>
-            <div className="game-footer">
-              <p>This image created by Chat GPT. Chat GPT titled </p>
-                <GuessResult questionInfo={currentStageInfo.questionInfo}/>
+          <div className="game-footer">
+            <p>This image created by Chat GPT. Chat GPT titled </p>
+              <GuessResult questionInfo={currentStageInfo.questionInfo}/>
+          </div>
+          <div className="bottom-area">
+            <div className="guess-area">
+                <HangManArea guessInfo={currentStageInfo.guessInfo}/>
+                <AlphabetInput letters={currentStageInfo.letters} onInputLetter={onInputLetter}/>
             </div>
-            <div className="bottom-area">
-              <div className="guess-area">
-                  <HangManArea guessInfo={currentStageInfo.guessInfo}/>
-                  <AlphabetInput letters={currentStageInfo.letters} onInputLetter={onInputLetter}/>
-              </div>
-              <div className="footer">
-                <p>Bug report to <a href="mailto:blarblar@gmail.com">blarblar@gmail.com</a></p>
-              </div>
+            <div className="footer">
+              <p>Bug report to <a href="mailto:blarblar@gmail.com">blarblar@gmail.com</a></p>
             </div>
+          </div>
         </div>
         <div className="adsense adsense-right">Google Adsense Area</div>
       </div>

@@ -1,0 +1,72 @@
+
+
+/* 배경 이미지 스타일 */
+img.correctImg {
+    z-index: 3;
+}
+
+/* 파티클 컨테이너 설정 */
+.particle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translate(50%, 50%);
+    pointer-events: none; /* 클릭 등 사용자 이벤트 무시 */
+    z-index: 4;
+}
+
+/* 파티클 스타일 */
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #FFB6C1; /* 기본 파스텔 색상 */
+    border-radius: 50%;
+    opacity: 0;
+    animation: explode 1.5s ease-out 1 forwards;
+}
+
+/* 파티클 터지는 애니메이션 */
+@keyframes explode {
+    0% {
+        transform: translate(50%, 50%) scale(0);
+        opacity: 1;
+    }
+    70% {
+        transform: translate(calc(50% + 300px * var(--x)), calc(50% + 300px * var(--y))) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(calc(50% + 300px * var(--x)), calc(50% + 300px * var(--y))) scale(0);
+        opacity: 0;
+    }
+}
+
+/* 파티클 위치 및 색상 설정 */
+.particle:nth-child(1) { --x: 0.2; --y: -0.4; background-color: #FFB6C1; } /* 파스텔 핑크 */
+.particle:nth-child(2) { --x: 0.7; --y: -0.2; background-color: #87CEEB; } /* 파스텔 블루 */
+.particle:nth-child(3) { --x: -0.4; --y: 0.8; background-color: #FFD700; } /* 파스텔 옐로우 */
+.particle:nth-child(4) { --x: -0.6; --y: -0.3; background-color: #98FB98; } /* 파스텔 그린 */
+.particle:nth-child(5) { --x: 0.3; --y: 0.6; background-color: #FFA07A; } /* 파스텔 오렌지 */
+.particle:nth-child(6) { --x: -0.8; --y: -0.7; background-color: #DDA0DD; } /* 파스텔 퍼플 */
+.particle:nth-child(7) { --x: -0.1; --y: 0.9; background-color: #AFEEEE; } /* 파스텔 민트 */
+.particle:nth-child(8) { --x: 0.9; --y: -0.5; background-color: #FF69B4; } /* 핫핑크 */
+
+div.bright {
+    animation: brightEffect 2s ease-out forwards; /* Dimmed 애니메이션 추가 */
+}
+
+/* Dimmed 효과 애니메이션 */
+@keyframes brightEffect {
+    0% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.5);
+    }
+    100% {
+        filter: brightness(1);
+    }
+}

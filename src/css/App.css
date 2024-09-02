@@ -1,4 +1,4 @@
-/* style.css */
+/* App.css */
 body {
     font-family: Consolas;
     text-align: center;
@@ -233,6 +233,10 @@ body {
 }
 
 .image-area:hover::before{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.image-area .dimmed{
     background-color: rgba(0, 0, 0, 0.5);
 }
 
