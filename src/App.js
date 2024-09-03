@@ -48,11 +48,11 @@ function App() {
 
   useEffect(() => {
     if (!currentStageInfo.questionInfo.answer.includes("*")) {
-      setTimeout( () => { setIsCorrect(true);});
+      setIsCorrect(true);
       setTimeout( () => {
         NextStage(setCurrentStageInfo, setTotalInfo);
         setIsCorrect(false);
-      }, 4000);
+      }, 5000);
 
     }
   }, [currentStageInfo.questionInfo.answer]);

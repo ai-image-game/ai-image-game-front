@@ -60,8 +60,6 @@ body {
 }
 
 .game-title {
-    font-size: 1.5rem;
-    font-weight: bold;
     margin: 0;
     user-select: none;
     pointer-events: none;
@@ -70,13 +68,15 @@ body {
 }
 
 .game-title h1 {
-    color: #fff;
+    color: white;
     font-size: clamp(1.5rem, 3vw, 3rem);
     margin: 0;
+    font-weight: 10;
     text-transform: uppercase;
-    text-shadow: 4px 1px 5px rgba(0, 0, 0, 0.5);
-    font-weight: 700;
-    font-family: 'Tahoma';
+    -webkit-text-stroke: 1px #606060;
+    text-shadow: 4px 1px 5px rgb(106, 106, 106);
+    font-family: "Luckiest Guy", cursive;
+    -webkit-font-smoothing: antialiased;
 }
 
 .game-area {
@@ -103,6 +103,20 @@ body {
     margin-top: 0;
     user-select: none;
     pointer-events: none;
+}
+
+.info-area p.changed {
+    animation: changeColor 500ms ease 2 alternate ;
+}
+
+@keyframes changeColor {
+    0% {
+        background-color : white;
+    }
+
+    100% {
+        background-color : greenyellow;
+    }
 }
 
 .hangman-area {
