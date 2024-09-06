@@ -29,34 +29,78 @@ function App() {
     },
     guessInfo : {
       currentGuess : "",
-      inputLetters : [],
+      wrongLetters : [],
       answerIndexList: []
     },
     letters : "abcdefghijklmnopqrstuvwxyz'".split("").map((letter) =>
     ({
       letter : letter,
       correct : null
-    })),
-    isCorrect : false
+    }))
   });
 
-  const [isCorrect, setIsCorrect] = useState(false);
-  const [isLevelUp, setIsLevelUp] = useState(false);
+  const [ stageStatus, setStageStatus ] = useState(
+      {
+        isCorrect : false,
+        isLevelUp : false,
+        isGameOver : false
+      }
+  )
 
   const onInputLetter = (event) => {
     Guess(event.target.innerText, totalInfo, currentStageInfo, setTotalInfo, setCurrentStageInfo);
   }
 
   useEffect(() => {
+    setStageStatus((prevState) => ({
+      ...prevState,
+      isGameOver : currentStageInfo.guessInfo.wrongLetters.length === 10
+    }));
+  }, [currentStageInfo.guessInfo.wrongLetters]);
+
+  useEffect(() => {
     if (!currentStageInfo.questionInfo.answer.includes("*")) {
-      setIsCorrect(true);
-      setIsLevelUp(totalInfo.gameInfo.questions - 1 === 0)
+      setStageStatus((prevState) => ({
+        ...prevState,
+            isCorrect : true,
+            isLevelUp: (totalInfo.gameInfo.questions - 1) === 0,
+        })
+      );
       setTimeout( () => {
         NextStage(setCurrentStageInfo, setTotalInfo);
-        setIsCorrect(false);
+        setStageStatus(prevState => ({
+          ...prevState,
+          isCorrect: false
+        }));
       }, 5000);
     }
   }, [currentStageInfo.questionInfo.answer]);
+
+  function onRetry() {
+    setStageStatus({
+      isCorrect : false,
+      isLevelUp : false,
+      isGameOver : false
+    });
+
+    setCurrentStageInfo({
+      questionInfo : {
+        answer : "*******",
+        prefix : null,
+        postfix : " Dad"
+      },
+        guessInfo : {
+          currentGuess : "",
+          wrongLetters : [],
+          answerIndexList: []
+        },
+        letters : "abcdefghijklmnopqrstuvwxyz'".split("").map((letter) =>
+        ({
+          letter : letter,
+          correct : null
+        }))
+    });
+  }
 
   return (
     <div className="App">
@@ -68,7 +112,7 @@ function App() {
           </div>
           <div className="game-area">
             <Info gameInfo={totalInfo.gameInfo}/>
-            <ImageInfo isCorrect={isCorrect} isLevelUp={isLevelUp} imageInfo={totalInfo.imageInfo}/>
+            <ImageInfo stageStatus={stageStatus} imageInfo={totalInfo.imageInfo} onRetry={onRetry}/>
             <div className="share-buttons">
                 <button className="share-button instagram-button">Instagram</button>
                 <button className="share-button twitter-button">X</button>

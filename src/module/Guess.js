@@ -7,7 +7,7 @@ const Guess = (currentGuess, totalInfo, currentStageInfo, setTotalInfo, setCurre
         guessInfo : {
             ...prevState,
             currentGuess: currentGuess
-            , inputLetters: [...prevState.guessInfo.inputLetters]
+            , wrongLetters: [...prevState.guessInfo.wrongLetters]
         }
     }));
 
@@ -22,7 +22,7 @@ const Guess = (currentGuess, totalInfo, currentStageInfo, setTotalInfo, setCurre
             ...prevState.guessInfo,
             currentGuess: currentGuess,
             answerIndexList: isCorrect ? correctIndexList : [],
-            inputLetters: isCorrect ? [...prevState.guessInfo.inputLetters] : [...prevState.guessInfo.inputLetters, currentGuess]
+            wrongLetters: isCorrect ? [...prevState.guessInfo.wrongLetters] : [...prevState.guessInfo.wrongLetters, currentGuess]
         }
         ,questionInfo : {
             ...prevState.questionInfo,

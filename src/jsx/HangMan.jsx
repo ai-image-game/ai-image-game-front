@@ -1,5 +1,5 @@
 function HangMan({guessInfo}) {
-    const wrongCount = guessInfo.inputLetters.length;
+    const wrongCount = guessInfo.wrongLetters.length;
 
     return  (
     <div className="hangman-area">

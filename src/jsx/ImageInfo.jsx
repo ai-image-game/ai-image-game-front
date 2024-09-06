@@ -1,10 +1,11 @@
 import React, {useState, useEffect, useRef} from 'react';
 import '../css/ImageInfo.css'
 
-function ImageInfo({isCorrect, isLevelUp, imageInfo}) {
+function ImageInfo({stageStatus, imageInfo, onRetry}) {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const [isCorrectVisible, setIsCorrectVisible] = useState(false);
     const [isLevelUpVisible, setIsLevelUpVisible] = useState(false);
+    const [isGameOverVisible, setIsGameOverVisible] = useState(false);
     const imgRef = useRef(null);
 
     useEffect(() => {
@@ -23,7 +24,15 @@ function ImageInfo({isCorrect, isLevelUp, imageInfo}) {
 
     useEffect(() => {
         let timer;
-        if (isLevelUp) {
+        if (stageStatus.isGameOver) {
+            setIsGameOverVisible(true);
+            return;
+        } else {
+            setIsGameOverVisible(false);
+            return;
+        }
+
+        if (stageStatus.isLevelUp) {
             setIsLevelUpVisible(true);
         }
         if (imgRef.current) {
@@ -32,7 +41,7 @@ function ImageInfo({isCorrect, isLevelUp, imageInfo}) {
             };
         }
 
-        if (isCorrect) {
+        if (stageStatus.isCorrect) {
             timer = setTimeout(() => {
                 setIsCorrectVisible(true);
             }, 1000);
@@ -44,11 +53,13 @@ function ImageInfo({isCorrect, isLevelUp, imageInfo}) {
             }
         }
 
-        return () => { clearTimeout(timer) }
-    }, [isCorrect, isLevelUp]);
+        return () => {
+            clearTimeout(timer)
+        }
+    }, [stageStatus]);
 
     return (
-        <div className={`image-area ${isCorrect ? 'bright' : ''}`}>
+        <div className={`image-area ${stageStatus.isCorrect ? 'bright' : ''}`}>
             <img ref={imgRef} src={isMobile ? imageInfo.mobileImage : imageInfo.pcImage}/>
             {isCorrectVisible && !isLevelUpVisible && <div className="correct">
                 <h1>
@@ -75,6 +86,11 @@ function ImageInfo({isCorrect, isLevelUp, imageInfo}) {
                     <span>P</span>
                     <span>!</span>
                 </h1>
+            </div>
+            }
+            {isGameOverVisible && <div className="gameover">
+                <p>GAME OVER</p>
+                <button className="retry-button" onClick={onRetry}>See Ads And Retry.</button>
             </div>
             }
         </div>

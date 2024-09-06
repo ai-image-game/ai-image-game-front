@@ -3,7 +3,7 @@ function NextStage(setCurrentStageInfo, setTotalInfo) {
             guessInfo : {
                 currentGuess: null,
                 answerIndexList: [],
-                inputLetters: []
+                wrongLetters: []
             },
             questionInfo : {
                 answer : "********",
