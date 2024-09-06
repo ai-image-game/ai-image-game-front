@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const Guess = (currentGuess, totalInfo, currentStageInfo, setTotalInfo, setCurrentStageInfo) => {
-    let answerList = totalInfo.gameInfo.questions === 10 ? ["s", "n", "o", "r", "i", "n", "g"] : ["d", "i", "n", "o", "s", "a", "u", "r"];
+    let answerList = totalInfo.gameInfo.questions !== 1 ? ["s", "n", "o", "r", "i", "n", "g"] : ["d", "i", "n", "o", "s", "a", "u", "r"];
     setCurrentStageInfo(prevState => ({
         ...prevState,
         guessInfo : {

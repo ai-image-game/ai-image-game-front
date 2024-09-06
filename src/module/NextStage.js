@@ -20,7 +20,7 @@ function NextStage(setCurrentStageInfo, setTotalInfo) {
 
         setTotalInfo((prevState) => ({
             gameInfo : {
-                level : prevState.gameInfo.level,
+                level : prevState.gameInfo.questions - 1 === 0 ? prevState.gameInfo.level + 1 : prevState.gameInfo.level,
                 questions : prevState.gameInfo.questions - 1,
                 corrects : prevState.gameInfo.corrects + 1
             },

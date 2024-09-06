@@ -1,9 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react';
-import '../css/Congratulation.css'
+import '../css/ImageInfo.css'
 
-function ImageInfo({isCorrect, imageInfo}) {
+function ImageInfo({isCorrect, isLevelUp, imageInfo}) {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-    const [isCongratulation, setIsCongratulation] = useState(false);
+    const [isCorrectVisible, setIsCorrectVisible] = useState(false);
+    const [isLevelUpVisible, setIsLevelUpVisible] = useState(false);
     const imgRef = useRef(null);
 
     useEffect(() => {
@@ -22,25 +23,34 @@ function ImageInfo({isCorrect, imageInfo}) {
 
     useEffect(() => {
         let timer;
+        if (isLevelUp) {
+            setIsLevelUpVisible(true);
+        }
+        if (imgRef.current) {
+            imgRef.current.onload = () => {
+                setIsLevelUpVisible(false);
+            };
+        }
+
         if (isCorrect) {
             timer = setTimeout(() => {
-                setIsCongratulation(true);
+                setIsCorrectVisible(true);
             }, 1000);
         } else {
             if (imgRef.current) {
                 imgRef.current.onload = () => {
-                    setIsCongratulation(false);
+                    setIsCorrectVisible(false);
                 };
             }
         }
 
         return () => { clearTimeout(timer) }
-    }, [isCorrect]);
+    }, [isCorrect, isLevelUp]);
 
     return (
         <div className={`image-area ${isCorrect ? 'bright' : ''}`}>
             <img ref={imgRef} src={isMobile ? imageInfo.mobileImage : imageInfo.pcImage}/>
-            {isCongratulation && <div className="correct">
+            {isCorrectVisible && !isLevelUpVisible && <div className="correct">
                 <h1>
                     <span>C</span>
                     <span>O</span>
@@ -49,6 +59,20 @@ function ImageInfo({isCorrect, imageInfo}) {
                     <span>E</span>
                     <span>C</span>
                     <span>T</span>
+                    <span>!</span>
+                </h1>
+            </div>
+            }
+            {isLevelUpVisible && <div className="levelup">
+                <h1>
+                    <span>L</span>
+                    <span>E</span>
+                    <span>V</span>
+                    <span>E</span>
+                    <span>L</span>
+                    <span>&nbsp;</span>
+                    <span>U</span>
+                    <span>P</span>
                     <span>!</span>
                 </h1>
             </div>

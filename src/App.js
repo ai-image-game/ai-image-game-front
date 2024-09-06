@@ -11,9 +11,9 @@ import NextStage from "./module/NextStage";
 function App() {
   const [ totalInfo, setTotalInfo ] = useState({
     gameInfo : {
-      "level" : 1,
-      "questions" : 10,
-      "corrects" : 0
+      level : 1,
+      questions : 2,
+      corrects : 0
     },
     imageInfo : {
       mobileImage : "image_mobile.jpg",
@@ -41,6 +41,7 @@ function App() {
   });
 
   const [isCorrect, setIsCorrect] = useState(false);
+  const [isLevelUp, setIsLevelUp] = useState(false);
 
   const onInputLetter = (event) => {
     Guess(event.target.innerText, totalInfo, currentStageInfo, setTotalInfo, setCurrentStageInfo);
@@ -49,11 +50,11 @@ function App() {
   useEffect(() => {
     if (!currentStageInfo.questionInfo.answer.includes("*")) {
       setIsCorrect(true);
+      setIsLevelUp(totalInfo.gameInfo.questions - 1 === 0)
       setTimeout( () => {
         NextStage(setCurrentStageInfo, setTotalInfo);
         setIsCorrect(false);
       }, 5000);
-
     }
   }, [currentStageInfo.questionInfo.answer]);
 
@@ -67,7 +68,7 @@ function App() {
           </div>
           <div className="game-area">
             <Info gameInfo={totalInfo.gameInfo}/>
-            <ImageInfo isCorrect={isCorrect} imageInfo={totalInfo.imageInfo}/>
+            <ImageInfo isCorrect={isCorrect} isLevelUp={isLevelUp} imageInfo={totalInfo.imageInfo}/>
             <div className="share-buttons">
                 <button className="share-button instagram-button">Instagram</button>
                 <button className="share-button twitter-button">X</button>
