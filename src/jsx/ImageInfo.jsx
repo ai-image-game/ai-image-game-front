@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import '../css/ImageInfo.css'
 
-function ImageInfo({stageStatus, imageInfo, onRetry}) {
+function ImageInfo({stageStatus, imageInfo, onRetry, onShare}) {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const [isCorrectVisible, setIsCorrectVisible] = useState(false);
     const [isLevelUpVisible, setIsLevelUpVisible] = useState(false);
@@ -57,7 +57,6 @@ function ImageInfo({stageStatus, imageInfo, onRetry}) {
             clearTimeout(timer)
         }
     }, [stageStatus]);
-
     return (
         <div className={`image-area ${stageStatus.isCorrect ? 'bright' : ''}`}>
             <img ref={imgRef} src={isMobile ? imageInfo.mobileImage : imageInfo.pcImage}/>
@@ -88,11 +87,13 @@ function ImageInfo({stageStatus, imageInfo, onRetry}) {
                 </h1>
             </div>
             }
-            {isGameOverVisible && <div className="gameover">
+            <div className="gameover">
                 <p>GAME OVER</p>
-                <button className="retry-button" onClick={onRetry}>See Ads And Retry.</button>
+                <button className="retry-button" onClick={onRetry}>Watch Ads & Try Again!</button>
+                <button className="skip-button">Skip</button>
+                <button className="share-button" onClick={onShare}>Share and Ask</button>
             </div>
-            }
+
         </div>
     );
 }

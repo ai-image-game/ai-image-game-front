@@ -7,6 +7,7 @@ import HangManArea from './jsx/HangMan.jsx';
 import AlphabetInput from './jsx/AlphabetInput.jsx';
 import Guess from "./module/Guess";
 import NextStage from "./module/NextStage";
+import Footer from "./jsx/Footer";
 
 function App() {
   const [ totalInfo, setTotalInfo ] = useState({
@@ -43,7 +44,8 @@ function App() {
       {
         isCorrect : false,
         isLevelUp : false,
-        isGameOver : false
+        isGameOver : false,
+        isShare : false
       }
   )
 
@@ -78,28 +80,42 @@ function App() {
 
   function onRetry() {
     setStageStatus({
-      isCorrect : false,
-      isLevelUp : false,
-      isGameOver : false
+      isCorrect: false,
+      isLevelUp: false,
+      isGameOver: false
     });
 
     setCurrentStageInfo({
-      questionInfo : {
-        answer : "*******",
-        prefix : null,
-        postfix : " Dad"
+      questionInfo: {
+        answer: "*******",
+        prefix: null,
+        postfix: " Dad"
       },
-        guessInfo : {
-          currentGuess : "",
-          wrongLetters : [],
-          answerIndexList: []
-        },
-        letters : "abcdefghijklmnopqrstuvwxyz'".split("").map((letter) =>
-        ({
-          letter : letter,
-          correct : null
-        }))
+      guessInfo: {
+        currentGuess: "",
+        wrongLetters: [],
+        answerIndexList: []
+      },
+      letters: "abcdefghijklmnopqrstuvwxyz'".split("").map((letter) =>
+          ({
+            letter: letter,
+            correct: null
+          }))
     });
+  }
+
+    function onShare()  {
+      setStageStatus((prevState) => ({
+        ...prevState,
+        isShare: true
+      }));
+
+      setTimeout(() => {
+        setStageStatus((prevState) => ({
+          ...prevState,
+          isShare: false
+        }));
+      }, 5000);
   }
 
   return (
@@ -112,11 +128,7 @@ function App() {
           </div>
           <div className="game-area">
             <Info gameInfo={totalInfo.gameInfo}/>
-            <ImageInfo stageStatus={stageStatus} imageInfo={totalInfo.imageInfo} onRetry={onRetry}/>
-            <div className="share-buttons">
-                <button className="share-button instagram-button">Instagram</button>
-                <button className="share-button twitter-button">X</button>
-              </div>
+            <ImageInfo stageStatus={stageStatus} imageInfo={totalInfo.imageInfo} onRetry={onRetry} onShare={onShare}/>
           </div>
           <div className="game-footer">
             <p>This image created by Chat GPT. Chat GPT titled </p>
@@ -127,12 +139,10 @@ function App() {
                 <HangManArea guessInfo={currentStageInfo.guessInfo}/>
                 <AlphabetInput letters={currentStageInfo.letters} onInputLetter={onInputLetter}/>
             </div>
-            <div className="footer">
-              <p>Bug report to <a href="mailto:blarblar@gmail.com">blarblar@gmail.com</a></p>
-            </div>
+            <Footer stageStatus={stageStatus}/>
           </div>
         </div>
-        <div className="adsense adsense-right">Google Adsense Area</div>
+        <div className="adsense adsense-right"></div>
       </div>
     </div>
   );

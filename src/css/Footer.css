@@ -1,0 +1,46 @@
+div.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+    padding-top: 30px;
+}
+
+div.share-area {
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-start;
+   border-radius: 10px;
+}
+div.share-area-pink {
+    animation: share-area-pink ease-in-out 2s 2;
+}
+
+img.fb {
+    background-color: black;
+    border-radius: 20px;
+}
+
+img.logo {
+    width:30px;
+    margin-right:10px;
+}
+
+div.report {
+    padding: 0;
+    font-size:12px;
+}
+
+@keyframes share-area-pink {
+    0% {
+        background-color: white;
+    }
+
+    50% {
+        background-color: hotpink;
+    }
+
+    100% {
+        background-color: white;
+    }
+}
