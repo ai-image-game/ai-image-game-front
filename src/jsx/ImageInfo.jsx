@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import '../css/ImageInfo.css'
 
-function ImageInfo({stageStatus, imageInfo, onRetry, onShare}) {
+function ImageInfo({stageStatus, imageInfo, setStageStatus, setCurrentStageInfo}) {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const [isCorrectVisible, setIsCorrectVisible] = useState(false);
     const [isLevelUpVisible, setIsLevelUpVisible] = useState(false);
@@ -29,7 +29,6 @@ function ImageInfo({stageStatus, imageInfo, onRetry, onShare}) {
             return;
         } else {
             setIsGameOverVisible(false);
-            return;
         }
 
         if (stageStatus.isLevelUp) {
@@ -52,11 +51,47 @@ function ImageInfo({stageStatus, imageInfo, onRetry, onShare}) {
                 };
             }
         }
-
         return () => {
             clearTimeout(timer)
         }
     }, [stageStatus]);
+
+
+    function onRetry() {
+        setStageStatus({
+            isCorrect: false,
+            isLevelUp: false,
+            isGameOver: false
+        });
+
+        setCurrentStageInfo((prev) => ({
+            ...prev,
+            guessInfo: {
+                currentGuess: "",
+                wrongLetters: [],
+                answerIndexList: []
+            },
+            letters: prev.letters.map((letterInfo) =>
+                ({
+                    letter: letterInfo.letter,
+                    correct: null
+                }))
+        }));
+    }
+
+    function onShare()  {
+        setStageStatus((prevState) => ({
+            ...prevState,
+            isShare: true
+        }));
+
+        setTimeout(() => {
+            setStageStatus((prevState) => ({
+                ...prevState,
+                isShare: false
+            }));
+        }, 5000);
+    }
     return (
         <div className={`image-area ${stageStatus.isCorrect ? 'bright' : ''}`}>
             <img ref={imgRef} src={isMobile ? imageInfo.mobileImage : imageInfo.pcImage}/>

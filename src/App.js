@@ -10,6 +10,7 @@ import NextStage from "./module/NextStage";
 import Footer from "./jsx/Footer";
 
 function App() {
+  const MAX_TRY = 10;
   const [ totalInfo, setTotalInfo ] = useState({
     gameInfo : {
       level : 1,
@@ -59,7 +60,7 @@ function App() {
   useEffect(() => {
     setStageStatus((prevState) => ({
       ...prevState,
-      isGameOver : currentStageInfo.guessInfo.wrongLetters.length === 10
+      isGameOver : currentStageInfo.guessInfo.wrongLetters.length === MAX_TRY
     }));
   }, [currentStageInfo.guessInfo.wrongLetters]);
 
@@ -79,47 +80,7 @@ function App() {
         }));
       }, 5000);
     }
-  }, [currentStageInfo.questionInfo.answer]);
-
-  function onRetry() {
-    setStageStatus({
-      isCorrect: false,
-      isLevelUp: false,
-      isGameOver: false
-    });
-
-    setCurrentStageInfo({
-      questionInfo: {
-        answer: "*******",
-        prefix: null,
-        postfix: " Dad"
-      },
-      guessInfo: {
-        currentGuess: "",
-        wrongLetters: [],
-        answerIndexList: []
-      },
-      letters: "abcdefghijklmnopqrstuvwxyz'".split("").map((letter) =>
-          ({
-            letter: letter,
-            correct: null
-          }))
-    });
-  }
-
-    function onShare()  {
-      setStageStatus((prevState) => ({
-        ...prevState,
-        isShare: true
-      }));
-
-      setTimeout(() => {
-        setStageStatus((prevState) => ({
-          ...prevState,
-          isShare: false
-        }));
-      }, 5000);
-  }
+  }, [currentStageInfo.questionInfo.answer, totalInfo.gameInfo.questions]);
 
   return (
     <div className="App">
@@ -131,7 +92,7 @@ function App() {
           </div>
           <div className="game-area">
             <Info gameInfo={totalInfo.gameInfo}/>
-            <ImageInfo stageStatus={stageStatus} imageInfo={totalInfo.imageInfo} onRetry={onRetry} onShare={onShare}/>
+            <ImageInfo stageStatus={stageStatus} imageInfo={totalInfo.imageInfo} setStageStatus={setStageStatus} setCurrentStageInfo={setCurrentStageInfo}/>
           </div>
           <div className="game-footer">
             <p>This image created by Chat GPT. Chat GPT titled </p>
