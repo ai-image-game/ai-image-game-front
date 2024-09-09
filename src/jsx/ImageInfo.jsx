@@ -1,11 +1,13 @@
 import React, {useState, useEffect, useRef} from 'react';
 import '../css/ImageInfo.css'
+import {clear} from "@testing-library/user-event/dist/clear";
 
-function ImageInfo({stageStatus, imageInfo, setStageStatus, setCurrentStageInfo}) {
+function ImageInfo({stageStatus, imageInfo, setStageStatus, setCurrentStageInfo, onRestart}) {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const [isCorrectVisible, setIsCorrectVisible] = useState(false);
     const [isLevelUpVisible, setIsLevelUpVisible] = useState(false);
     const [isGameOverVisible, setIsGameOverVisible] = useState(false);
+    const [isClearVisible, setIsClearVisible] = useState(false);
     const imgRef = useRef(null);
 
     useEffect(() => {
@@ -23,7 +25,6 @@ function ImageInfo({stageStatus, imageInfo, setStageStatus, setCurrentStageInfo}
     }, []);
 
     useEffect(() => {
-        let timer;
         if (stageStatus.isGameOver) {
             setIsGameOverVisible(true);
             return;
@@ -31,17 +32,37 @@ function ImageInfo({stageStatus, imageInfo, setStageStatus, setCurrentStageInfo}
             setIsGameOverVisible(false);
         }
 
-        if (stageStatus.isLevelUp) {
-            setIsLevelUpVisible(true);
-        }
-        if (imgRef.current) {
-            imgRef.current.onload = () => {
-                setIsLevelUpVisible(false);
-            };
+        let clearTimer;
+        if (stageStatus.isClear) {
+            clearTimer = setTimeout(() => {
+                setIsClearVisible(true);
+            }, 1000);
+            return;
+        } else {
+            if (imgRef.current) {
+                imgRef.current.onload = () => {
+                    setIsClearVisible(false);
+                };
+            }
         }
 
+        let levelUpTimer;
+        if (stageStatus.isLevelUp) {
+            levelUpTimer = setTimeout(() => {
+                setIsLevelUpVisible(true);
+            }, 1000);
+            return;
+        } else {
+            if (imgRef.current) {
+                imgRef.current.onload = () => {
+                    setIsLevelUpVisible(false);
+                };
+            }
+        }
+
+        let correctTimer;
         if (stageStatus.isCorrect) {
-            timer = setTimeout(() => {
+            correctTimer = setTimeout(() => {
                 setIsCorrectVisible(true);
             }, 1000);
         } else {
@@ -52,7 +73,7 @@ function ImageInfo({stageStatus, imageInfo, setStageStatus, setCurrentStageInfo}
             }
         }
         return () => {
-            clearTimeout(timer)
+            clearTimeout(levelUpTimer) && clearTimeout(correctTimer) && clearTimeout(clearTimer);
         }
     }, [stageStatus]);
 
@@ -92,10 +113,31 @@ function ImageInfo({stageStatus, imageInfo, setStageStatus, setCurrentStageInfo}
             }));
         }, 5000);
     }
+
     return (
         <div className={`image-area ${stageStatus.isCorrect ? 'bright' : ''}`}>
             <img ref={imgRef} src={isMobile ? imageInfo.mobileImage : imageInfo.pcImage}/>
-            {isCorrectVisible && !isLevelUpVisible && <div className="correct">
+            {<div className="congratulation clear">
+                <h1>
+                    <span>G</span>
+                    <span>A</span>
+                    <span>M</span>
+                    <span>E</span>
+                    <span>&nbsp;</span>
+                    <span>C</span>
+                    <span>O</span>
+                    <span>M</span>
+                    <span>P</span>
+                    <span>L</span>
+                    <span>E</span>
+                    <span>T</span>
+                    <span>E</span>
+                    <span>D</span>
+                    <span>!</span>
+                </h1>
+                <button className="restart-button" onClick={onRestart}>Restart from Level 1</button>
+            </div>}
+            {isCorrectVisible && !isLevelUpVisible && <div className="congratulation correct">
                 <h1>
                     <span>C</span>
                     <span>O</span>
@@ -108,7 +150,7 @@ function ImageInfo({stageStatus, imageInfo, setStageStatus, setCurrentStageInfo}
                 </h1>
             </div>
             }
-            {isLevelUpVisible && <div className="levelup">
+            {isLevelUpVisible && !isClearVisible && <div className="congratulation levelup">
                 <h1>
                     <span>L</span>
                     <span>E</span>
@@ -134,3 +176,4 @@ function ImageInfo({stageStatus, imageInfo, setStageStatus, setCurrentStageInfo}
 }
 
 export default ImageInfo;
+

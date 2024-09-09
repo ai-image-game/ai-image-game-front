@@ -11,12 +11,10 @@ import Footer from "./jsx/Footer";
 
 function App() {
   const MAX_TRY = 10;
+  const MAX_LEVEL = 2;
+
   const [ totalInfo, setTotalInfo ] = useState({
-    gameInfo : {
-      level : 1,
-      questions : 2,
-      corrects : 0
-    },
+    gameInfo : { level : 1, questions : 2, corrects : 0 },
     imageInfo : {
       mobileImage : "image_mobile.jpg",
       pcImage : "image.png",
@@ -46,6 +44,7 @@ function App() {
       {
         isCorrect : false,
         isLevelUp : false,
+        isClear : false,
         isGameOver : false,
         isShare : false
       }
@@ -69,7 +68,7 @@ function App() {
       setStageStatus((prevState) => ({
         ...prevState,
             isCorrect : true,
-            isLevelUp: (totalInfo.gameInfo.questions - 1) === 0,
+            isLevelUp: (totalInfo.gameInfo.questions - 1) === 0
         })
       );
       setTimeout( () => {
@@ -80,7 +79,20 @@ function App() {
         }));
       }, 5000);
     }
-  }, [currentStageInfo.questionInfo.answer, totalInfo.gameInfo.questions]);
+  }, [currentStageInfo.questionInfo.answer]);
+
+  useEffect(() => {
+    if (totalInfo.gameInfo.questions === 0 && totalInfo.gameInfo.level === MAX_LEVEL) {
+      setStageStatus((prevState) => ({
+        ...prevState,
+        isClear : true
+      }));
+    }
+  }, [totalInfo.gameInfo]);
+
+  function onRestart() {
+    console.log("todo restart!");
+  }
 
   return (
     <div className="App">
@@ -92,7 +104,7 @@ function App() {
           </div>
           <div className="game-area">
             <Info gameInfo={totalInfo.gameInfo}/>
-            <ImageInfo stageStatus={stageStatus} imageInfo={totalInfo.imageInfo} setStageStatus={setStageStatus} setCurrentStageInfo={setCurrentStageInfo}/>
+            <ImageInfo stageStatus={stageStatus} imageInfo={totalInfo.imageInfo} setStageStatus={setStageStatus} setCurrentStageInfo={setCurrentStageInfo} onRestart={onRestart}/>
           </div>
           <div className="game-footer">
             <p>This image created by Chat GPT. Chat GPT titled </p>
