@@ -50,7 +50,7 @@ function App() {
       }
   );
 
-  const [url, setUrl ] = useState(window.location.href + "/" + totalInfo.imageInfo.id);
+  const [url, setUrl ] = useState(window.location.href + totalInfo.imageInfo.id);
 
   const onInputLetter = (event) => {
     Guess(event.target.innerText, totalInfo, currentStageInfo, setTotalInfo, setCurrentStageInfo);
