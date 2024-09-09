@@ -1,5 +1,13 @@
 import '../css/Footer.css';
-function Footer({stageStatus}) {
+function Footer({stageStatus, url}) {
+    function copyTextToClipboard() {
+        navigator.clipboard.writeText(url).then(function () {
+            alert('This page URL has been copied.');
+        }, function (err) {
+            console.error('Could not copy text: ', err);
+        });
+    }
+
     return (
         <div className="footer">
             <div className={`share-area ${stageStatus.isShare ? 'share-area-pink' : ''}`}>
@@ -15,7 +23,7 @@ function Footer({stageStatus}) {
                     <img src="whats-app.png" className="logo"/>
                 </a>
                 <a href="#">
-                    <img src="link.png" className="logo"/>
+                    <img src="link.png" className="logo copy" onClick={copyTextToClipboard}/>
                 </a>
             </div>
             <div className="report">

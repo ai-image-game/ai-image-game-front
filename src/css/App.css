@@ -115,101 +115,6 @@ body {
     }
 }
 
-.hangman-area {
-    width: 62px;
-    height: 100px;
-    position: relative;
-    box-sizing: border-box;
-    background-color: #ddd;
-    border-radius: 8px;
-    user-select: none;
-}
-
-.hangman-part {
-    visibility: hidden;
-    position: absolute;
-    background-color: black;
-}
-
-.hangman-base {
-    bottom: 0;
-    left: 10%;
-    width: 25%;
-    height: 5px;
-}
-
-.hangman-pole {
-    top: 0;
-    left: 10%;
-    width: 5px;
-    height: 100%;
-}
-
-.hangman-beam {
-    top: 0;
-    left: 010%;
-    width: 50%;
-    height: 5px;
-}
-
-.hangman-rope {
-    top: 0;
-    left: 60%;
-    width: 1px;
-    height: 30%;
-}
-
-.hangman-head {
-    top: 30%;
-    left: 50%;
-    width: 20%;
-    height: 10%;
-    border-radius: 50%;
-}
-
-.hangman-body {
-    top: 40%;
-    left: 55%;
-    width: 5px;
-    height: 20px;
-}
-
-.hangman-left-arm {
-    top: 45%;
-    left: 28%;
-    width: 27%;
-    height: 2px;
-}
-
-.hangman-right-arm {
-    top: 45%;
-    left: 65%;
-    width: 27%;
-    height: 2px;
-}
-
-.hangman-left-leg {
-    top: 57%;
-    left: 57%;
-    width: 3px;
-    height: 15px;
-    transform: rotate(45deg);
-    transform-origin: top left;
-}
-
-.hangman-right-leg {
-    top: 57%;
-    left: 58%;
-    width: 3px;
-    height: 15px;
-    transform: rotate(-45deg);
-    transform-origin: top right;
-}
-
-.hangman-part.visible {
-    visibility: visible;
-}
-
 .info-area {
     flex: 1;
     text-align: center;
@@ -260,7 +165,7 @@ body {
     margin: 0 5px;
     user-select: none;
     pointer-events: none;
-    color : green;
+    color : black;
 }
 
 .prefix, .postfix {
@@ -431,9 +336,5 @@ body {
 
     .bottom-area {
         flex-direction: column;
-    }
-    
-    .hangman-area {
-        height: 100px;
     }
 }

@@ -26,6 +26,10 @@ img.logo {
     margin-right:10px;
 }
 
+img.copy {
+    cursor: pointer;
+}
+
 div.report {
     padding: 0;
     font-size:12px;

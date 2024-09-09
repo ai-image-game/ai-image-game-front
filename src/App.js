@@ -18,7 +18,8 @@ function App() {
     },
     imageInfo : {
       mobileImage : "image_mobile.jpg",
-      pcImage : "image.png"
+      pcImage : "image.png",
+      id : "ABCD"
     }
   });
 
@@ -47,7 +48,9 @@ function App() {
         isGameOver : false,
         isShare : false
       }
-  )
+  );
+
+  const [url, setUrl ] = useState(window.location.href + "/" + totalInfo.imageInfo.id);
 
   const onInputLetter = (event) => {
     Guess(event.target.innerText, totalInfo, currentStageInfo, setTotalInfo, setCurrentStageInfo);
@@ -139,7 +142,7 @@ function App() {
                 <HangManArea guessInfo={currentStageInfo.guessInfo}/>
                 <AlphabetInput letters={currentStageInfo.letters} onInputLetter={onInputLetter}/>
             </div>
-            <Footer stageStatus={stageStatus}/>
+            <Footer stageStatus={stageStatus} url={url}/>
           </div>
         </div>
         <div className="adsense adsense-right"></div>

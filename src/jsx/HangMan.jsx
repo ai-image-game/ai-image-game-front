@@ -1,8 +1,10 @@
+import '../css/HangMan.css'
+
 function HangMan({guessInfo}) {
     const wrongCount = guessInfo.wrongLetters.length;
 
     return  (
-    <div className="hangman-area">
+    <div className={`hangman-area ${wrongCount > 9 ? 'killed' : ''}`}>
         <div className={`hangman-part hangman-base ${wrongCount > 6 ? 'visible' : ''}`}></div>
         <div className={`hangman-part hangman-pole ${wrongCount > 7 ? 'visible' : ''}`}></div>
         <div className={`hangman-part hangman-beam ${wrongCount > 8 ? 'visible' : ''}`}></div>

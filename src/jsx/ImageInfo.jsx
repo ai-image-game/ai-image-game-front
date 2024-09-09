@@ -87,12 +87,12 @@ function ImageInfo({stageStatus, imageInfo, onRetry, onShare}) {
                 </h1>
             </div>
             }
-            <div className="gameover">
+            {isGameOverVisible && <div className="gameover">
                 <p>GAME OVER</p>
                 <button className="retry-button" onClick={onRetry}>Watch Ads & Try Again!</button>
                 <button className="skip-button">Skip</button>
                 <button className="share-button" onClick={onShare}>Share and Ask</button>
-            </div>
+            </div>}
 
         </div>
     );
