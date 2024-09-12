@@ -37,45 +37,51 @@ function App() {
     ({
       letter : letter,
       correct : null
-    }))
+    })),
+    status : {
+      isCorrect : false,
+      isLevelUp : false,
+      isClear : false,
+      isGameOver : false,
+      isShare : false
+    }
   });
-
-  const [ stageStatus, setStageStatus ] = useState(
-      {
-        isCorrect : false,
-        isLevelUp : false,
-        isClear : false,
-        isGameOver : false,
-        isShare : false
-      }
-  );
-
   const [url, setUrl ] = useState(window.location.href + totalInfo.imageInfo.id);
 
   const onInputLetter = (event) => {
     Guess(event.target.innerText, totalInfo, currentStageInfo, setTotalInfo, setCurrentStageInfo);
   }
 
+
   useEffect(() => {
-    setStageStatus((prevState) => ({
+    setCurrentStageInfo(prevState => ({
       ...prevState,
-      isGameOver : currentStageInfo.guessInfo.wrongLetters.length === MAX_TRY
+      status : {
+        ...prevState,
+        isGameOver : currentStageInfo.guessInfo.wrongLetters.length === MAX_TRY
+      }
     }));
   }, [currentStageInfo.guessInfo.wrongLetters]);
 
   useEffect(() => {
     if (!currentStageInfo.questionInfo.answer.includes("*")) {
-      setStageStatus((prevState) => ({
+      setCurrentStageInfo(prevState => ({
         ...prevState,
-            isCorrect : true,
-            isLevelUp: (totalInfo.gameInfo.questions - 1) === 0
+          status : {
+              ...prevState,
+              isCorrect : true,
+              isLevelUp: (totalInfo.gameInfo.questions - 1) === 0
+          }
         })
       );
       setTimeout( () => {
         NextStage(setCurrentStageInfo, setTotalInfo);
-        setStageStatus(prevState => ({
+        setCurrentStageInfo(prevState => ({
           ...prevState,
-          isCorrect: false
+          status : {
+            ...prevState,
+            isCorrect: false
+          }
         }));
       }, 5000);
     }
@@ -83,9 +89,12 @@ function App() {
 
   useEffect(() => {
     if (totalInfo.gameInfo.questions === 0 && totalInfo.gameInfo.level === MAX_LEVEL) {
-      setStageStatus((prevState) => ({
+      setCurrentStageInfo(prevState=> ({
         ...prevState,
-        isClear : true
+        stage : {
+          ...prevState,
+          isClear : true
+        }
       }));
     }
   }, [totalInfo.gameInfo]);
@@ -104,7 +113,7 @@ function App() {
           </div>
           <div className="game-area">
             <Info gameInfo={totalInfo.gameInfo}/>
-            <ImageInfo stageStatus={stageStatus} imageInfo={totalInfo.imageInfo} setStageStatus={setStageStatus} setCurrentStageInfo={setCurrentStageInfo} onRestart={onRestart}/>
+            <ImageInfo currentStageInfo={currentStageInfo} setCurrentStageInfo={setCurrentStageInfo} imageInfo={totalInfo.imageInfo} onRestart={onRestart}/>
           </div>
           <div className="game-footer">
             <p>This image created by Chat GPT. Chat GPT titled </p>
@@ -115,7 +124,7 @@ function App() {
                 <HangManArea guessInfo={currentStageInfo.guessInfo}/>
                 <AlphabetInput letters={currentStageInfo.letters} onInputLetter={onInputLetter}/>
             </div>
-            <Footer stageStatus={stageStatus} url={url}/>
+            <Footer stageStatus={currentStageInfo.status} url={url}/>
           </div>
         </div>
         <div className="adsense adsense-right"></div>

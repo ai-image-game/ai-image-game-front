@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import '../css/ImageInfo.css'
 import {clear} from "@testing-library/user-event/dist/clear";
 
-function ImageInfo({stageStatus, imageInfo, setStageStatus, setCurrentStageInfo, onRestart}) {
+function ImageInfo({currentStageInfo, setCurrentStageInfo, imageInfo, onRestart}) {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const [isCorrectVisible, setIsCorrectVisible] = useState(false);
     const [isLevelUpVisible, setIsLevelUpVisible] = useState(false);
@@ -25,7 +25,7 @@ function ImageInfo({stageStatus, imageInfo, setStageStatus, setCurrentStageInfo,
     }, []);
 
     useEffect(() => {
-        if (stageStatus.isGameOver) {
+        if (currentStageInfo.status.isGameOver) {
             setIsGameOverVisible(true);
             return;
         } else {
@@ -33,7 +33,7 @@ function ImageInfo({stageStatus, imageInfo, setStageStatus, setCurrentStageInfo,
         }
 
         let clearTimer;
-        if (stageStatus.isClear) {
+        if (currentStageInfo.status.isClear) {
             clearTimer = setTimeout(() => {
                 setIsClearVisible(true);
             }, 1000);
@@ -47,7 +47,7 @@ function ImageInfo({stageStatus, imageInfo, setStageStatus, setCurrentStageInfo,
         }
 
         let levelUpTimer;
-        if (stageStatus.isLevelUp) {
+        if (currentStageInfo.status.isLevelUp) {
             levelUpTimer = setTimeout(() => {
                 setIsLevelUpVisible(true);
             }, 1000);
@@ -61,7 +61,7 @@ function ImageInfo({stageStatus, imageInfo, setStageStatus, setCurrentStageInfo,
         }
 
         let correctTimer;
-        if (stageStatus.isCorrect) {
+        if (currentStageInfo.status.isCorrect) {
             correctTimer = setTimeout(() => {
                 setIsCorrectVisible(true);
             }, 1000);
@@ -75,16 +75,10 @@ function ImageInfo({stageStatus, imageInfo, setStageStatus, setCurrentStageInfo,
         return () => {
             clearTimeout(levelUpTimer) && clearTimeout(correctTimer) && clearTimeout(clearTimer);
         }
-    }, [stageStatus]);
+    }, [currentStageInfo.status]);
 
 
     function onRetry() {
-        setStageStatus({
-            isCorrect: false,
-            isLevelUp: false,
-            isGameOver: false
-        });
-
         setCurrentStageInfo((prev) => ({
             ...prev,
             guessInfo: {
@@ -97,27 +91,41 @@ function ImageInfo({stageStatus, imageInfo, setStageStatus, setCurrentStageInfo,
                     letter: letterInfo.letter,
                     correct: null
                 }))
+            ,
+            status : {
+                isCorrect : false,
+                isLevelUp : false,
+                isClear : false,
+                isGameOver : false,
+                isShare : false
+            }
         }));
     }
 
     function onShare()  {
-        setStageStatus((prevState) => ({
+        setCurrentStageInfo((prevState) => ({
             ...prevState,
-            isShare: true
+            status : {
+                ...prevState,
+                isShare: true
+            }
         }));
 
         setTimeout(() => {
-            setStageStatus((prevState) => ({
+            setCurrentStageInfo((prevState) => ({
                 ...prevState,
-                isShare: false
+                status : {
+                    ...prevState,
+                    isShare: false
+                }
             }));
         }, 5000);
     }
 
     return (
-        <div className={`image-area ${stageStatus.isCorrect ? 'bright' : ''}`}>
+        <div className={`image-area ${currentStageInfo.status.isCorrect ? 'bright' : ''}`}>
             <img ref={imgRef} src={isMobile ? imageInfo.mobileImage : imageInfo.pcImage}/>
-            {<div className="congratulation clear">
+            {isClearVisible && <div className="congratulation clear">
                 <h1>
                     <span>G</span>
                     <span>A</span>
