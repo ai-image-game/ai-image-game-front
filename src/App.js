@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './css/App.css';
 import Info from './jsx/info.jsx';
 import ImageInfo from './jsx/ImageInfo.jsx';
@@ -10,6 +10,8 @@ import NextStage from "./module/NextStage";
 import Footer from "./jsx/Footer";
 
 function App() {
+  const appRef = useRef(null);
+
   const MAX_TRY = 10;
   const MAX_LEVEL = 2;
 
@@ -48,10 +50,13 @@ function App() {
   });
   const [url, setUrl ] = useState(window.location.href + totalInfo.imageInfo.id);
 
-  const onInputLetter = (event) => {
+  const onClickLetter = (event) => {
     Guess(event.target.innerText, totalInfo, currentStageInfo, setTotalInfo, setCurrentStageInfo);
   }
 
+  const onInputLetter = (event) => {
+    Guess(event.key, totalInfo, currentStageInfo, setTotalInfo, setCurrentStageInfo);
+  }
 
   useEffect(() => {
     setCurrentStageInfo(prevState => ({
@@ -103,8 +108,14 @@ function App() {
     console.log("todo restart!");
   }
 
+  useEffect(() => {
+    if (appRef.current) {
+      appRef.current.focus();
+    }
+  }, []);
+
   return (
-    <div className="App">
+    <div className="App" ref={appRef} tabIndex="0" onKeyDown={onInputLetter}>
       <div className="container">
         <div className="adsense adsense-left">Google Adsense Area</div>
         <div className="main-content">
@@ -122,7 +133,7 @@ function App() {
           <div className="bottom-area">
             <div className="guess-area">
                 <HangManArea guessInfo={currentStageInfo.guessInfo}/>
-                <AlphabetInput letters={currentStageInfo.letters} onInputLetter={onInputLetter}/>
+                <AlphabetInput letters={currentStageInfo.letters} onInputLetter={onClickLetter}/>
             </div>
             <Footer stageStatus={currentStageInfo.status} url={url}/>
           </div>
