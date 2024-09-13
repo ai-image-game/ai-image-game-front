@@ -1,5 +1,14 @@
-function NextStage(setCurrentStageInfo, setTotalInfo) {
-        setCurrentStageInfo ((prevState) => ({
+function NextStage(setImageGameInfo) {
+        setImageGameInfo ((prevState) => ({
+            gameInfo : {
+                level : prevState.gameInfo.questions - 1 === 0 ? prevState.gameInfo.level + 1 : prevState.gameInfo.level,
+                questions : prevState.gameInfo.questions - 1,
+                corrects : prevState.gameInfo.corrects + 1
+            },
+            imageInfo : {
+                mobileImage : "image2_mobile.jpg",
+                pcImage : "image2.webp"
+            },
             guessInfo : {
                 currentGuess: null,
                 answerIndexList: [],
@@ -16,18 +25,6 @@ function NextStage(setCurrentStageInfo, setTotalInfo) {
                     correct : null
                 })
             )
-        }));
-
-        setTotalInfo((prevState) => ({
-            gameInfo : {
-                level : prevState.gameInfo.questions - 1 === 0 ? prevState.gameInfo.level + 1 : prevState.gameInfo.level,
-                questions : prevState.gameInfo.questions - 1,
-                corrects : prevState.gameInfo.corrects + 1
-            },
-            imageInfo : {
-                mobileImage : "image2_mobile.jpg",
-                pcImage : "image2.webp"
-            }
         }));
 }
 

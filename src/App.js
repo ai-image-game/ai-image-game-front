@@ -15,16 +15,13 @@ function App() {
   const MAX_TRY = 10;
   const MAX_LEVEL = 1;
 
-  const [ totalInfo, setTotalInfo ] = useState({
+  const [ imageGameInfo, setImageGameInfo ] = useState( {
     gameInfo : { level : 1, questions : 2, corrects : 0 },
     imageInfo : {
       mobileImage : "image_mobile.jpg",
       pcImage : "image.png",
       id : "ABCD"
-    }
-  });
-
-  const [ currentStageInfo, setCurrentStageInfo ] = useState( {
+    },
     questionInfo : {
       answer : "*******",
       prefix : null,
@@ -48,33 +45,34 @@ function App() {
       isShare : false
     }
   });
-  const [url, setUrl ] = useState(window.location.href + totalInfo.imageInfo.id);
+  const [url, setUrl ] = useState(window.location.href + imageGameInfo.imageInfo.id);
 
   const onClickLetter = (event) => {
-    Guess(event.target.innerText, totalInfo, currentStageInfo, setTotalInfo, setCurrentStageInfo);
+    Guess(event.target.innerText, imageGameInfo, setImageGameInfo);
   }
 
   const onInputLetter = (event) => {
-    if (currentStageInfo.letters.find((letterInfo) => letterInfo.letter === event.key) !== undefined) {
-      Guess(event.key, totalInfo, currentStageInfo, setTotalInfo, setCurrentStageInfo);
+    if (!imageGameInfo.status.isGameOver
+        && imageGameInfo.letters.find((letterInfo) => letterInfo.letter === event.key) !== undefined) {
+      Guess(event.key, imageGameInfo, setImageGameInfo);
     }
   }
 
   useEffect(() => {
-    setCurrentStageInfo(prevState => ({
+    setImageGameInfo(prevState => ({
       ...prevState,
       status : {
         ...prevState,
-        isGameOver : currentStageInfo.guessInfo.wrongLetters.length === MAX_TRY
+        isGameOver : imageGameInfo.guessInfo.wrongLetters.length === MAX_TRY
       }
     }));
-  }, [currentStageInfo.guessInfo.wrongLetters]);
+  }, [imageGameInfo.guessInfo.wrongLetters]);
 
   useEffect(() => {
-    const isLastQuestion = (totalInfo.gameInfo.questions - 1) === 0;
-    const isClear = isLastQuestion && totalInfo.gameInfo.level === MAX_LEVEL;
-    if (!currentStageInfo.questionInfo.answer.includes("*")) {
-      setCurrentStageInfo(prevState => ({
+    const isLastQuestion = (imageGameInfo.gameInfo.questions - 1) === 0;
+    const isClear = isLastQuestion && imageGameInfo.gameInfo.level === MAX_LEVEL;
+    if (!imageGameInfo.questionInfo.answer.includes("*")) {
+      setImageGameInfo(prevState => ({
         ...prevState,
           status : {
               ...prevState,
@@ -85,8 +83,8 @@ function App() {
         })
       );
       setTimeout( () => {
-        NextStage(setCurrentStageInfo, setTotalInfo);
-        setCurrentStageInfo(prevState => ({
+        NextStage(setImageGameInfo);
+        setImageGameInfo(prevState => ({
           ...prevState,
           status : {
             ...prevState,
@@ -95,7 +93,7 @@ function App() {
         }));
       }, 5000);
     }
-  }, [currentStageInfo.questionInfo.answer]);
+  }, [imageGameInfo.questionInfo.answer]);
 
   function onRestart() {
     console.log("todo restart!");
@@ -116,19 +114,19 @@ function App() {
             <h1>AI IMAGE GAME</h1>
           </div>
           <div className="game-area">
-            <Info gameInfo={totalInfo.gameInfo}/>
-            <ImageInfo currentStageInfo={currentStageInfo} setCurrentStageInfo={setCurrentStageInfo} imageInfo={totalInfo.imageInfo} onRestart={onRestart}/>
+            <Info gameInfo={imageGameInfo.gameInfo}/>
+            <ImageInfo imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo} onRestart={onRestart}/>
           </div>
           <div className="game-footer">
             <p>This image created by Chat GPT. Chat GPT titled </p>
-              <GuessResult questionInfo={currentStageInfo.questionInfo}/>
+              <GuessResult questionInfo={imageGameInfo.questionInfo}/>
           </div>
           <div className="bottom-area">
             <div className="guess-area">
-                <HangManArea guessInfo={currentStageInfo.guessInfo}/>
-                <AlphabetInput letters={currentStageInfo.letters} onInputLetter={onClickLetter}/>
+                <HangManArea guessInfo={imageGameInfo.guessInfo}/>
+                <AlphabetInput letters={imageGameInfo.letters} onInputLetter={onClickLetter}/>
             </div>
-            <Footer stageStatus={currentStageInfo.status} url={url}/>
+            <Footer stageStatus={imageGameInfo.status} url={url}/>
           </div>
         </div>
         <div className="adsense adsense-right"></div>

@@ -1,8 +1,6 @@
-import { useState } from "react";
-
-const Guess = (currentGuess, totalInfo, currentStageInfo, setTotalInfo, setCurrentStageInfo) => {
-    let answerList = totalInfo.gameInfo.questions !== 1 ? ["s", "n", "o", "r", "i", "n", "g"] : ["d", "i", "n", "o", "s", "a", "u", "r"];
-    setCurrentStageInfo(prevState => ({
+const Guess = (currentGuess, imageGameInfo, setImageGameInfo) => {
+    let answerList = imageGameInfo.gameInfo.questions !== 1 ? ["s", "n", "o", "r", "i", "n", "g"] : ["d", "i", "n", "o", "s", "a", "u", "r"];
+    setImageGameInfo(prevState => ({
         ...prevState,
         guessInfo : {
             ...prevState,
@@ -16,7 +14,7 @@ const Guess = (currentGuess, totalInfo, currentStageInfo, setTotalInfo, setCurre
 
     const isCorrect = correctIndexList.length > 0;
 
-    setCurrentStageInfo(prevState => ({
+    setImageGameInfo(prevState => ({
         ...prevState,
         guessInfo : {
             ...prevState.guessInfo,
