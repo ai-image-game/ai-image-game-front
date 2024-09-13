@@ -13,7 +13,7 @@ function App() {
   const appRef = useRef(null);
 
   const MAX_TRY = 10;
-  const MAX_LEVEL = 2;
+  const MAX_LEVEL = 1;
 
   const [ totalInfo, setTotalInfo ] = useState({
     gameInfo : { level : 1, questions : 2, corrects : 0 },
@@ -55,7 +55,9 @@ function App() {
   }
 
   const onInputLetter = (event) => {
-    Guess(event.key, totalInfo, currentStageInfo, setTotalInfo, setCurrentStageInfo);
+    if (currentStageInfo.letters.find((letterInfo) => letterInfo.letter === event.key) !== undefined) {
+      Guess(event.key, totalInfo, currentStageInfo, setTotalInfo, setCurrentStageInfo);
+    }
   }
 
   useEffect(() => {
@@ -69,13 +71,16 @@ function App() {
   }, [currentStageInfo.guessInfo.wrongLetters]);
 
   useEffect(() => {
+    const isLastQuestion = (totalInfo.gameInfo.questions - 1) === 0;
+    const isClear = isLastQuestion && totalInfo.gameInfo.level === MAX_LEVEL;
     if (!currentStageInfo.questionInfo.answer.includes("*")) {
       setCurrentStageInfo(prevState => ({
         ...prevState,
           status : {
               ...prevState,
               isCorrect : true,
-              isLevelUp: (totalInfo.gameInfo.questions - 1) === 0
+              isClear : isClear,
+              isLevelUp: isLastQuestion
           }
         })
       );
@@ -91,18 +96,6 @@ function App() {
       }, 5000);
     }
   }, [currentStageInfo.questionInfo.answer]);
-
-  useEffect(() => {
-    if (totalInfo.gameInfo.questions === 0 && totalInfo.gameInfo.level === MAX_LEVEL) {
-      setCurrentStageInfo(prevState=> ({
-        ...prevState,
-        stage : {
-          ...prevState,
-          isClear : true
-        }
-      }));
-    }
-  }, [totalInfo.gameInfo]);
 
   function onRestart() {
     console.log("todo restart!");
