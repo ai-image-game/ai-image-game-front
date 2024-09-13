@@ -1,3 +1,5 @@
+import '../css/AlphabetInput.css';
+
 function AlphabetInput({letters, onInputLetter}) {
     return (
         <div className="alphabet-area">

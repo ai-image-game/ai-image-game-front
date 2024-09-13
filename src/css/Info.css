@@ -1,0 +1,52 @@
+.info-area {
+    flex: 1;
+    border: 1px solid #ddd;
+    margin: 0 5px 5px 5px;
+    width: 100%;
+    background-color: #fff;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    user-select: none;
+    pointer-events: none;
+    text-align: center;
+}
+
+.info-area p {
+    display: inline;
+    margin: 0 10px;
+}
+
+.info-area p.changed {
+    animation: changeColor 500ms ease 2 alternate ;
+}
+
+@keyframes changeColor {
+    0% {
+        background-color : white;
+    }
+
+    100% {
+        background-color : greenyellow;
+    }
+}
+
+@media (min-width: 769px) {
+    .info-area {
+        height: auto;
+        padding: 5px;
+    }
+}
+
+@media (max-width: 768px) {
+    .info-area {
+        height: auto;
+        padding: 5px;
+    }
+
+    .info-area p {
+        display: inline;
+        margin: 0 10px;
+        font-size: 12px;
+    }
+}

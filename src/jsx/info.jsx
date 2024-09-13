@@ -1,3 +1,4 @@
+import '../css/Info.css';
 import { useState, useEffect, useRef } from 'react';
 
 function Info({ gameInfo }) {

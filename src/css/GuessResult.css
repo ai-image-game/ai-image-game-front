@@ -1,0 +1,40 @@
+div.guess-inputs {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: row;
+    margin: 10px 0;
+    user-select: none;
+    pointer-events: none;
+}
+
+.prefix, .postfix {
+    font-size: 20px;
+    margin: 0 30px;
+    user-select: none;
+    pointer-events: none;
+}
+
+
+.guess-input {
+    border-bottom: 2px solid #333;
+    font-size: 20px;
+    text-align: center;
+    width: 20px;
+    margin: 0 5px;
+    outline: none;
+    background-color: transparent;
+    cursor: default;
+    display: inline-block;
+    user-select: none;
+    pointer-events: none;
+}
+
+.guess-correct {
+    font-size: 20px;
+    width: 20px;
+    margin: 0 5px;
+    user-select: none;
+    pointer-events: none;
+    color : black;
+}

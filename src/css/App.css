@@ -90,43 +90,6 @@ body {
     width: 100%;
 }
 
-.info-area {
-    border: 1px solid #ddd;
-    margin: 0 5px 5px 5px;
-    width: 100%;
-    background-color: #fff;
-    box-sizing: border-box;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    user-select: none;
-    pointer-events: none;
-}
-
-.info-area p.changed {
-    animation: changeColor 500ms ease 2 alternate ;
-}
-
-@keyframes changeColor {
-    0% {
-        background-color : white;
-    }
-
-    100% {
-        background-color : greenyellow;
-    }
-}
-
-.info-area {
-    flex: 1;
-    text-align: center;
-    margin-top: 0;
-}
-
-.info-area p {
-    display: inline;
-    margin: 0 10px;
-}
-
 .game-footer {
     text-align: center;
     margin: 0;
@@ -134,46 +97,6 @@ body {
     pointer-events: none;
     font-size: 14px;
     width: 100%;
-}
-
-.guess-inputs {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    flex-direction: row;
-    margin: 10px 0;
-    user-select: none;
-    pointer-events: none;
-}
-
-.guess-input {
-    border-bottom: 2px solid #333;
-    font-size: 20px;
-    text-align: center;
-    width: 20px;
-    margin: 0 5px;
-    outline: none;
-    background-color: transparent;
-    cursor: default;
-    display: inline-block;
-    user-select: none;
-    pointer-events: none;
-}
-
-.guess-correct {
-    font-size: 20px;
-    width: 20px;
-    margin: 0 5px;
-    user-select: none;
-    pointer-events: none;
-    color : black;
-}
-
-.prefix, .postfix {
-    font-size: 20px;
-    margin: 0 30px;
-    user-select: none;
-    pointer-events: none;
 }
 
 .bottom-area {
@@ -193,61 +116,6 @@ body {
     width: 100%;
 }
 
-.alphabet-area {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    gap: 5px;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin: 5px;
-}
-
-.alphabet-letter {
-    font-size: 20px;
-    margin: 5px;
-    user-select: none;
-    cursor: pointer;
-    text-align: center;
-    box-sizing: border-box;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.alphabet-letter:hover {
-    background-color: #ccc;
-}
-
-.alphabet-letter:active, .alphabet-letter:focus {
-    background-color: #ccc;
-}
-
-.alphabet-letter.clicked.correct {
-  background-color: lightgreen;
-  cursor: default;
-  pointer-events: none;
-}
-
-.alphabet-letter.clicked.incorrect {
-  background-color: lightcoral;
-  cursor: default;
-  pointer-events: none;
-}
-
-.alphabet-letter-mark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: black;
-    font-weight: bold;
-    font-size: 1.2em;
-  }
 
 @media (min-width: 769px) {
     .container {
@@ -277,11 +145,6 @@ body {
         justify-content: center;
         align-items: center;
         width: 100%;
-    }
-
-    .info-area {
-        height: auto;
-        padding: 5px;
     }
 
     .bottom-area {
@@ -322,17 +185,6 @@ body {
     .game-area {
         flex-direction: column;
         width: 100%;
-    }
-
-    .info-area {
-        height: auto;
-        padding: 5px;
-    }
-
-    .info-area p {
-        display: inline;
-        margin: 0 10px;
-        font-size: 12px;
     }
 
     .bottom-area {

@@ -1,3 +1,5 @@
+import '../css/GuessResult.css';
+
 function GuessResult({questionInfo}) {
     return (
         <div className="guess-inputs">

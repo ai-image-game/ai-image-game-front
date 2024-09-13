@@ -1,0 +1,56 @@
+
+.alphabet-area {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 5px;
+}
+
+.alphabet-letter {
+    font-size: 20px;
+    margin: 5px;
+    user-select: none;
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.alphabet-letter:hover {
+    background-color: #ccc;
+}
+
+.alphabet-letter:active, .alphabet-letter:focus {
+    background-color: #ccc;
+}
+
+.alphabet-letter.clicked.correct {
+    background-color: lightgreen;
+    cursor: default;
+    pointer-events: none;
+}
+
+.alphabet-letter.clicked.incorrect {
+    background-color: lightcoral;
+    cursor: default;
+    pointer-events: none;
+}
+
+.alphabet-letter-mark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-weight: bold;
+    font-size: 1.2em;
+}
