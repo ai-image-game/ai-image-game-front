@@ -1,5 +1,5 @@
-const Guess = (currentGuess, imageGameInfo, setImageGameInfo) => {
-    let answerList = imageGameInfo.gameInfo.questions !== 1 ? ["s", "n", "o", "r", "i", "n", "g"] : ["d", "i", "n", "o", "s", "a", "u", "r"];
+const Guess = (answer, currentGuess, imageGameInfo, setImageGameInfo) => {
+    let answerList = answer.split("");
     setImageGameInfo(prevState => ({
         ...prevState,
         guessInfo : {
@@ -9,8 +9,7 @@ const Guess = (currentGuess, imageGameInfo, setImageGameInfo) => {
         }
     }));
 
-    const correctIndexList = answerList.map((c, index) => c === currentGuess ? index : null)
-        .filter(index => index != null);// TODO 맞는지 확인
+    const correctIndexList = answerList.map((c, index) => c === currentGuess ? index : null).filter(index => index != null);
 
     const isCorrect = correctIndexList.length > 0;
 

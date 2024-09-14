@@ -25,7 +25,7 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
     }, []);
 
     useEffect(() => {
-        if (imageGameInfo.status.isGameOver) {
+        if (imageGameInfo.statusInfo.isGameOver) {
             setIsGameOverVisible(true);
             return;
         } else {
@@ -33,7 +33,7 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
         }
 
         let clearTimer;
-        if (imageGameInfo.status.isClear) {
+        if (imageGameInfo.statusInfo.isClear) {
             clearTimer = setTimeout(() => {
                 setIsClearVisible(true);
             }, 1000);
@@ -47,7 +47,7 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
         }
 
         let levelUpTimer;
-        if (imageGameInfo.status.isLevelUp) {
+        if (imageGameInfo.statusInfo.isLevelUp) {
             levelUpTimer = setTimeout(() => {
                 setIsLevelUpVisible(true);
             }, 1000);
@@ -61,7 +61,7 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
         }
 
         let correctTimer;
-        if (imageGameInfo.status.isCorrect) {
+        if (imageGameInfo.statusInfo.isCorrect) {
             correctTimer = setTimeout(() => {
                 setIsCorrectVisible(true);
             }, 1000);
@@ -75,7 +75,7 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
         return () => {
             clearTimeout(levelUpTimer) && clearTimeout(correctTimer) && clearTimeout(clearTimer);
         }
-    }, [imageGameInfo.status]);
+    }, [imageGameInfo.statusInfo]);
 
 
     function onRetry() {
@@ -92,7 +92,7 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
                     correct: null
                 }))
             ,
-            status : {
+            statusInfo : {
                 isCorrect : false,
                 isLevelUp : false,
                 isClear : false,
@@ -123,7 +123,7 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
     }
 
     return (
-        <div className={`image-area ${imageGameInfo.status.isCorrect ? 'bright' : ''}`}>
+        <div className={`image-area ${imageGameInfo.statusInfo.isCorrect ? 'bright' : ''}`}>
             <img ref={imgRef} src={isMobile ? imageGameInfo.imageInfo.mobileImage : imageGameInfo.imageInfo.pcImage}/>
             {isClearVisible && <div className="congratulation clear">
                 <h1>

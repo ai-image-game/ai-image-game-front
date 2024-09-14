@@ -6,91 +6,106 @@ import GuessResult from './jsx/GuessResult.jsx';
 import HangManArea from './jsx/HangMan.jsx';
 import AlphabetInput from './jsx/AlphabetInput.jsx';
 import Guess from "./module/Guess";
-import NextStage from "./module/NextStage";
 import Footer from "./jsx/Footer";
+import axios from 'axios';
+
 
 function App() {
   const appRef = useRef(null);
 
   const MAX_TRY = 10;
-  const MAX_LEVEL = 1;
 
+  const [ answer, setAnswer ] = useState("");
   const [ imageGameInfo, setImageGameInfo ] = useState( {
-    gameInfo : { level : 1, questions : 2, corrects : 0 },
-    imageInfo : {
-      mobileImage : "image_mobile.jpg",
-      pcImage : "image.png",
-      id : "ABCD"
-    },
-    questionInfo : {
-      answer : "*******",
-      prefix : null,
-      postfix : " Dad"
-    },
-    guessInfo : {
-      currentGuess : "",
-      wrongLetters : [],
-      answerIndexList: []
-    },
-    letters : "abcdefghijklmnopqrstuvwxyz'".split("").map((letter) =>
-    ({
-      letter : letter,
-      correct : null
-    })),
-    status : {
-      isCorrect : false,
-      isLevelUp : false,
-      isClear : false,
-      isGameOver : false,
-      isShare : false
-    }
+    gameInfo : { level : 1, questions : 0, corrects : 0 },
+    imageInfo : { mobileImage : "", pcImage : "", id : "" },
+    questionInfo : { answer : "", prefix : null, postfix : null },
+    guessInfo : initGuessInfo(),
+    letters : initLetters(),
+    statusInfo : { isCorrect : false, isLevelUp : false, isClear : false, isGameOver : false, isShare : false }
   });
-  const [url, setUrl ] = useState(window.location.href + imageGameInfo.imageInfo.id);
+
+  const apiClient = axios.create({
+    baseURL: 'http://localhost', // API의 기본 URL
+    timeout: 10000, // 요청 제한 시간 (ms)
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept' : 'application/json'
+    },
+    withCredentials : true
+  });
+
+  useEffect(() => getImageGame(), []);
+
+  function initGuessInfo() {
+    return { currentGuess : "", wrongLetters : [], answerIndexList: [] };
+  }
+  function initLetters() {
+    return "abcdefghijklmnopqrstuvwxyz'".split("").map((letter) => ({letter : letter, correct : null}));
+  }
+
+  function getImageGame() {
+    apiClient.put("/api/v1/image-game", imageGameInfo)
+        .then((response) => {
+          console.log(" imageGameInfo.imageInfo.uuid : " + imageGameInfo.imageInfo.uuid);
+          console.log(" response.data.imageInfo.uuid : " + response.data.imageInfo.uuid);
+          if (imageGameInfo.imageInfo.uuid === response.data.imageInfo.uuid) {
+            getImageGame();
+            return;
+          }
+
+          let answer = response.data.questionInfo.answer;
+          setAnswer(answer);
+          response.data.questionInfo.answer = answer.split("").map((letter) => letter === ' ' ? ' ' : '*').join("");
+
+          response.data.statusInfo = {
+            isLevelUp : response.data.statusInfo.levelUp,
+            isClear : response.data.statusInfo.clear,
+            isCorrect : false,
+            isGameOver : false,
+            isShare : false
+          };
+          response.data.guessInfo = initGuessInfo();
+          response.data.letters = initLetters();
+          setImageGameInfo(response.data);
+        }).catch((e) => console.log(e));
+  }
+
+  const [url, setUrl ] = useState(window.location.href);
 
   const onClickLetter = (event) => {
-    Guess(event.target.innerText, imageGameInfo, setImageGameInfo);
+    Guess(answer, event.target.innerText, imageGameInfo, setImageGameInfo);
   }
 
   const onInputLetter = (event) => {
-    if (!imageGameInfo.status.isGameOver
+    if (!imageGameInfo.statusInfo.isGameOver
         && imageGameInfo.letters.find((letterInfo) => letterInfo.letter === event.key) !== undefined) {
-      Guess(event.key, imageGameInfo, setImageGameInfo);
+      Guess(answer, event.key, imageGameInfo, setImageGameInfo);
     }
   }
 
   useEffect(() => {
     setImageGameInfo(prevState => ({
       ...prevState,
-      status : {
-        ...prevState,
+      statusInfo : {
+        ...prevState.statusInfo,
         isGameOver : imageGameInfo.guessInfo.wrongLetters.length === MAX_TRY
       }
     }));
   }, [imageGameInfo.guessInfo.wrongLetters]);
 
   useEffect(() => {
-    const isLastQuestion = (imageGameInfo.gameInfo.questions - 1) === 0;
-    const isClear = isLastQuestion && imageGameInfo.gameInfo.level === MAX_LEVEL;
-    if (!imageGameInfo.questionInfo.answer.includes("*")) {
+    if (imageGameInfo.questionInfo.answer !== '' && !imageGameInfo.questionInfo.answer.includes("*")) {
       setImageGameInfo(prevState => ({
         ...prevState,
-          status : {
-              ...prevState,
-              isCorrect : true,
-              isClear : isClear,
-              isLevelUp: isLastQuestion
+        statusInfo : {
+              ...prevState.statusInfo,
+              isCorrect : true
           }
         })
       );
       setTimeout( () => {
-        NextStage(setImageGameInfo);
-        setImageGameInfo(prevState => ({
-          ...prevState,
-          status : {
-            ...prevState,
-            isCorrect: false
-          }
-        }));
+        getImageGame();
       }, 5000);
     }
   }, [imageGameInfo.questionInfo.answer]);
@@ -126,7 +141,7 @@ function App() {
                 <HangManArea guessInfo={imageGameInfo.guessInfo}/>
                 <AlphabetInput letters={imageGameInfo.letters} onInputLetter={onClickLetter}/>
             </div>
-            <Footer stageStatus={imageGameInfo.status} url={url}/>
+            <Footer stageStatus={imageGameInfo.statusInfo} url={url}/>
           </div>
         </div>
         <div className="adsense adsense-right"></div>
