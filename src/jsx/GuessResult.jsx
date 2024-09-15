@@ -5,7 +5,13 @@ function GuessResult({questionInfo}) {
         <div className="guess-inputs">
             <span className="prefix">{questionInfo.prefix}</span>
             {questionInfo.answer.split("").map((char, index) => (
-            <span key={index} className={`${char === '*' ? 'guess-input' : 'guess-correct'}`}>{char === '*' ? ' ' : char}</span>
+                <span key={index} className={`${char === '*' ? 'guess-input' : 'guess-correct'}`}>
+                {char === '*' ? ' ' : char}
+                    {
+                        Array(5).fill("").map((_, index) => (
+                        <span key={index} className={`${char === '*' ? '' : 'particle'}`}></span>
+                    ))}
+            </span>
             ))}
             <span className="postfix">{questionInfo.postfix}</span>
         </div>

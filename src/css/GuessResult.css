@@ -31,10 +31,65 @@ div.guess-inputs {
 }
 
 .guess-correct {
+    position: relative;
     font-size: 20px;
     width: 20px;
     margin: 0 5px;
     user-select: none;
     pointer-events: none;
-    color : black;
+    text-decoration: underline;
+    text-decoration-color: lightgreen;
+    display: inline-block;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: green;
+    border-radius: 50%;
+    animation: explode 2s ease-out forwards;
+    opacity: 0;
+}
+
+/* 파티클 애니메이션 정의 */
+@keyframes explode {
+    0% {
+        transform: translate(-10px, 10px);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--x), var(--y));
+        opacity: 0;
+    }
+}
+.particle:nth-child(2) {
+    --x: 50px;
+    --y: -30px;
+    animation-delay: 0s;
+    background-color: lightseagreen;
+}
+.particle:nth-child(3) {
+    --x: -40px;
+    --y: -20px;
+    animation-delay: 0.1s;
+    background-color: lightcoral;
+}
+.particle:nth-child(4) {
+    --x: 30px;
+    --y: 40px;
+    animation-delay: 0.2s;
+    background-color: lightslategrey;
+}
+.particle:nth-child(5) {
+    --x: -30px;
+    --y: 30px;
+    animation-delay: 0.3s;
+    background-color: lightsalmon;
+}
+.particle:nth-child(6) {
+    --x: 20px;
+    --y: -50px;
+    animation-delay: 0.4s;
+    background-color: lightskyblue;
 }
