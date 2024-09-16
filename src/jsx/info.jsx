@@ -52,9 +52,9 @@ function Info({ gameInfo }) {
 
     return (
         <div className="info-area">
-            <p className={levelChanged ? 'changed' : ''}><b>Level</b>: {gameInfo.level}</p>
-            <p className={questionsChanged ? 'changed' : ''}><b>Questions</b>: {gameInfo.questions}</p>
-            <p className={correctChanged ? 'changed' : ''}><b>Corrects</b>: <span>{gameInfo.corrects}</span></p>
+            <p className={levelChanged ? 'changed' : ''}><b>Level</b>: {gameInfo.level === 0 ? '-' : gameInfo.level}</p>
+            <p className={questionsChanged ? 'changed' : ''}><b>Questions</b>: {gameInfo.level === 0 ? '-' :gameInfo.questions}</p>
+            <p className={correctChanged ? 'changed' : ''}><b>Corrects</b>: <span>{gameInfo.level === 0 ? '-' :gameInfo.corrects}</span></p>
         </div>
     );
 }

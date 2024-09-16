@@ -45,30 +45,40 @@ function App() {
   }
 
   function getImageGame() {
-    apiClient.put("/api/v1/image-game", imageGameInfo)
+    if (window.location.pathname.includes("share")) {
+      const pathParts = window.location.pathname.split('/');
+      const uuid = pathParts[pathParts.length - 1];
+      apiClient.get("/api/v1/image-game/" + uuid)
+          .then((response) => {
+            createImageGameInfo(response);
+          }).catch((e) => console.log(e));
+    } else {
+      apiClient.put("/api/v1/image-game", imageGameInfo)
         .then((response) => {
-          console.log(" imageGameInfo.imageInfo.uuid : " + imageGameInfo.imageInfo.uuid);
-          console.log(" response.data.imageInfo.uuid : " + response.data.imageInfo.uuid);
           if (imageGameInfo.imageInfo.uuid === response.data.imageInfo.uuid) {
             getImageGame();
             return;
           }
-
-          let answer = response.data.questionInfo.answer;
-          setAnswer(answer);
-          response.data.questionInfo.answer = answer.split("").map((letter) => letter === ' ' ? ' ' : '*').join("");
-
-          response.data.statusInfo = {
-            isLevelUp : response.data.statusInfo.levelUp,
-            isClear : response.data.statusInfo.clear,
-            isCorrect : false,
-            isGameOver : false,
-            isShare : false
-          };
-          response.data.guessInfo = initGuessInfo();
-          response.data.letters = initLetters();
-          setImageGameInfo(response.data);
+          createImageGameInfo(response);
         }).catch((e) => console.log(e));
+    }
+  }
+
+  function createImageGameInfo(response) {
+    let answer = response.data.questionInfo.answer;
+    setAnswer(answer);
+    response.data.questionInfo.answer = answer.split("").map((letter) => letter === ' ' ? ' ' : '*').join("");
+
+    response.data.statusInfo = {
+      isLevelUp : response.data.statusInfo.levelUp,
+      isClear : response.data.statusInfo.clear,
+      isCorrect : false,
+      isGameOver : false,
+      isShare : false
+    };
+    response.data.guessInfo = initGuessInfo();
+    response.data.letters = initLetters();
+    setImageGameInfo(response.data);
   }
 
   const [url, setUrl ] = useState(window.location.href);
@@ -105,7 +115,11 @@ function App() {
         })
       );
       setTimeout( () => {
-        getImageGame();
+        if (window.location.pathname.includes("/share")) {
+          window.location.href = "/";
+        } else {
+          getImageGame();
+        }
       }, 5000);
     }
   }, [imageGameInfo.questionInfo.answer]);
