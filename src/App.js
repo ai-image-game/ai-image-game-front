@@ -8,6 +8,7 @@ import AlphabetInput from './jsx/AlphabetInput.jsx';
 import Guess from "./module/Guess";
 import Footer from "./jsx/Footer";
 import axios from 'axios';
+import CookieBanner from "./jsx/CookieBanner";
 
 
 function App() {
@@ -159,6 +160,7 @@ function App() {
           </div>
         </div>
         <div className="adsense adsense-right"></div>
+        <CookieBanner />
       </div>
     </div>
   );
