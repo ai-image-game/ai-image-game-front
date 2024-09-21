@@ -82,7 +82,7 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
         setImageGameInfo((prev) => ({
             ...prev,
             guessInfo: {
-                currentGuess: "",
+                input: "",
                 wrongLetters: [],
                 answerIndexList: []
             },

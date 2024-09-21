@@ -5,9 +5,11 @@ import ImageInfo from './jsx/ImageInfo.jsx';
 import GuessResult from './jsx/GuessResult.jsx';
 import HangManArea from './jsx/HangMan.jsx';
 import AlphabetInput from './jsx/AlphabetInput.jsx';
-import Guess from "./module/Guess";
+import {guess, initSocket} from "./module/Guess";
 import Footer from "./jsx/Footer";
 import axios from 'axios';
+import SockJS from 'sockjs-client';
+import { Client } from '@stomp/stompjs';
 import CookieBanner from "./jsx/CookieBanner";
 
 
@@ -16,11 +18,11 @@ function App() {
 
   const MAX_TRY = 10;
 
-  const [ answer, setAnswer ] = useState("");
+  const [ maskedAnswer, setMaskedAnswer ] = useState("");
   const [ imageGameInfo, setImageGameInfo ] = useState( {
     gameInfo : { level : 1, questions : 0, corrects : 0 },
     imageInfo : { mobileImage : "", pcImage : "", id : "" },
-    questionInfo : { answer : "", prefix : null, postfix : null },
+    questionInfo : { maskedAnswer : "", prefix : null, postfix : null },
     guessInfo : initGuessInfo(),
     letters : initLetters(),
     statusInfo : { isCorrect : false, isLevelUp : false, isClear : false, isGameOver : false, isShare : false }
@@ -35,11 +37,12 @@ function App() {
     },
     withCredentials : true
   });
+  const [stompClient, setStompClient] = useState(null);
 
   useEffect(() => getImageGame(), []);
 
   function initGuessInfo() {
-    return { currentGuess : "", wrongLetters : [], answerIndexList: [] };
+    return { input : "", wrongLetters : [], answerIndexList: [] };
   }
   function initLetters() {
     return "abcdefghijklmnopqrstuvwxyz'".split("").map((letter) => ({letter : letter, correct : null}));
@@ -65,10 +68,9 @@ function App() {
     }
   }
 
+
   function createImageGameInfo(response) {
-    let answer = response.data.questionInfo.answer;
-    setAnswer(answer);
-    response.data.questionInfo.answer = answer.split("").map((letter) => letter === ' ' ? ' ' : '*').join("");
+    setMaskedAnswer(response.data.questionInfo.maskedAnswer);
 
     response.data.statusInfo = {
       isLevelUp : response.data.statusInfo.levelUp,
@@ -80,20 +82,36 @@ function App() {
     response.data.guessInfo = initGuessInfo();
     response.data.letters = initLetters();
     setImageGameInfo(response.data);
+
+    initSocket(response.data, setImageGameInfo);
   }
 
   const [url, setUrl ] = useState(window.location.href);
 
   const onClickLetter = (event) => {
-    Guess(answer, event.target.innerText, imageGameInfo, setImageGameInfo);
+    changeInput(event.target.innerText);
   }
 
   const onInputLetter = (event) => {
     if (!imageGameInfo.statusInfo.isGameOver
         && imageGameInfo.letters.find((letterInfo) => letterInfo.letter === event.key) !== undefined) {
-      Guess(answer, event.key, imageGameInfo, setImageGameInfo);
+      changeInput(event.key);
     }
   }
+
+  const changeInput = (input) => {
+    setImageGameInfo(prevState => ({
+      ...prevState,
+      guessInfo : {
+        ...prevState.guessInfo,
+        input: input
+      }
+    }));
+  }
+
+  useEffect(() => {
+    guess(imageGameInfo.guessInfo);
+  }, [imageGameInfo.guessInfo.input]);
 
   useEffect(() => {
     setImageGameInfo(prevState => ({
@@ -106,7 +124,7 @@ function App() {
   }, [imageGameInfo.guessInfo.wrongLetters]);
 
   useEffect(() => {
-    if (imageGameInfo.questionInfo.answer !== '' && !imageGameInfo.questionInfo.answer.includes("*")) {
+    if (imageGameInfo.questionInfo.maskedAnswer !== '' && !imageGameInfo.questionInfo.maskedAnswer.includes("*")) {
       setImageGameInfo(prevState => ({
         ...prevState,
         statusInfo : {
@@ -123,7 +141,7 @@ function App() {
         }
       }, 5000);
     }
-  }, [imageGameInfo.questionInfo.answer]);
+  }, [imageGameInfo.questionInfo.maskedAnswer]);
 
   function onRestart() {
     console.log("todo restart!");
