@@ -25,7 +25,7 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
     }, []);
 
     useEffect(() => {
-        if (imageGameInfo.statusInfo.isGameOver) {
+        if (imageGameInfo.statusInfo.gameOver) {
             setIsGameOverVisible(true);
             return;
         } else {
@@ -33,7 +33,7 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
         }
 
         let clearTimer;
-        if (imageGameInfo.statusInfo.isClear) {
+        if (imageGameInfo.statusInfo.clear) {
             clearTimer = setTimeout(() => {
                 setIsClearVisible(true);
             }, 1000);
@@ -47,7 +47,7 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
         }
 
         let levelUpTimer;
-        if (imageGameInfo.statusInfo.isLevelUp) {
+        if (imageGameInfo.statusInfo.levelUp) {
             levelUpTimer = setTimeout(() => {
                 setIsLevelUpVisible(true);
             }, 1000);
@@ -61,7 +61,7 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
         }
 
         let correctTimer;
-        if (imageGameInfo.statusInfo.isCorrect) {
+        if (imageGameInfo.statusInfo.correct) {
             correctTimer = setTimeout(() => {
                 setIsCorrectVisible(true);
             }, 1000);
@@ -93,7 +93,7 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
                 }))
             ,
             statusInfo : {
-                isCorrect : false,
+                correct : false,
                 isLevelUp : false,
                 isClear : false,
                 isGameOver : false,
@@ -123,7 +123,7 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
     }
 
     return (
-        <div className={`image-area ${imageGameInfo.statusInfo.isCorrect ? 'bright' : ''}`}>
+        <div className={`image-area ${imageGameInfo.statusInfo.correct ? 'bright' : ''}`}>
             <img ref={imgRef} src={isMobile ? imageGameInfo.imageInfo.mobileImage : imageGameInfo.imageInfo.pcImage}/>
             {isClearVisible && <div className="congratulation clear">
                 <h1>

@@ -3,7 +3,10 @@ import {Client} from "@stomp/stompjs";
 
 let client = null;
 let isConnected = false;
-export function initSocket(imageGameInfo, setImageGameInfo) {
+
+export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo) {
+    if (client != null) return;
+
     const sockJS = new SockJS('http://localhost/connect');
 
     client = new Client({
@@ -18,15 +21,16 @@ export function initSocket(imageGameInfo, setImageGameInfo) {
         console.log('Connected: ' + frame);
         isConnected = true;
 
-        client.subscribe('/user/queue/init', (message) => {
-            const response = JSON.parse(message.body);
-            console.log('Received message from server:', response);
-        });
-
         client.subscribe('/user/queue/guess', (message) => {
             const response = JSON.parse(message.body);
             console.log('Received message from server:', response);
-            receiveMessage(response, setImageGameInfo);
+            processGuessResult(response, setImageGameInfo);
+        });
+
+        client.subscribe('/user/queue/next', (message) => {
+            const response = JSON.parse(message.body);
+            console.log('Received message from server:', response);
+            processImageGameInfo(response);
         });
 
         client.publish({
@@ -52,6 +56,8 @@ export function initSocket(imageGameInfo, setImageGameInfo) {
 }
 
 export function guess (guessInfo) {
+    console.log("guess information", guessInfo);
+
     if (client && isConnected) {
         client.publish({
             destination: '/image-game/guess',
@@ -60,7 +66,15 @@ export function guess (guessInfo) {
     }
 }
 
-function receiveMessage(response, setImageGameInfo) {
+export function goNextStage () {
+    if (client && isConnected) {
+        client.publish({
+            destination: '/image-game/next'
+        });
+    }
+}
+
+function processGuessResult(response, setImageGameInfo) {
         setImageGameInfo(prevState => ({
             ...prevState,
             guessInfo : {
@@ -71,10 +85,9 @@ function receiveMessage(response, setImageGameInfo) {
             }
             ,questionInfo : {
                 ...prevState.questionInfo,
-                maskedAnswer : prevState.questionInfo.maskedAnswer.split('').map((char, index) => {
-                    return response.guessResult.answerIndexList.includes(index) ? response.guessResult.input : char
-                }).join('')
+                maskedAnswer : response.questionInfo.maskedAnswer
             }
+            ,statusInfo : response.statusInfo
             , letters :
                 prevState.letters.map(letterInfo =>
                     letterInfo.letter === response.guessResult.input ? { letter : letterInfo.letter, correct : response.guessResult.answerIndexList.length > 0 } : letterInfo

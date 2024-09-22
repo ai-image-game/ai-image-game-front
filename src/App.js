@@ -5,27 +5,25 @@ import ImageInfo from './jsx/ImageInfo.jsx';
 import GuessResult from './jsx/GuessResult.jsx';
 import HangManArea from './jsx/HangMan.jsx';
 import AlphabetInput from './jsx/AlphabetInput.jsx';
-import {guess, initSocket} from "./module/Guess";
+import { guess, initSocket, goNextStage } from "./module/Websocket";
 import Footer from "./jsx/Footer";
 import axios from 'axios';
-import SockJS from 'sockjs-client';
-import { Client } from '@stomp/stompjs';
 import CookieBanner from "./jsx/CookieBanner";
 
 
 function App() {
   const appRef = useRef(null);
+  const initRef = useRef(false);
 
   const MAX_TRY = 10;
 
-  const [ maskedAnswer, setMaskedAnswer ] = useState("");
   const [ imageGameInfo, setImageGameInfo ] = useState( {
     gameInfo : { level : 1, questions : 0, corrects : 0 },
-    imageInfo : { mobileImage : "", pcImage : "", id : "" },
+    imageInfo : { mobileImage : "", pcImage : "", uuid : "" },
     questionInfo : { maskedAnswer : "", prefix : null, postfix : null },
     guessInfo : initGuessInfo(),
     letters : initLetters(),
-    statusInfo : { isCorrect : false, isLevelUp : false, isClear : false, isGameOver : false, isShare : false }
+    statusInfo : { correct : false, levelUp : false, clear : false, gameOver : false, share : false }
   });
 
   const apiClient = axios.create({
@@ -37,9 +35,12 @@ function App() {
     },
     withCredentials : true
   });
-  const [stompClient, setStompClient] = useState(null);
 
-  useEffect(() => getImageGame(), []);
+  useEffect(() => {
+    if (initRef.current) return;
+    initImageGame();
+    initRef.current = true;
+  }, []);
 
   function initGuessInfo() {
     return { input : "", wrongLetters : [], answerIndexList: [] };
@@ -48,42 +49,36 @@ function App() {
     return "abcdefghijklmnopqrstuvwxyz'".split("").map((letter) => ({letter : letter, correct : null}));
   }
 
-  function getImageGame() {
+  function initImageGame() {
+
     if (window.location.pathname.includes("share")) {
       const pathParts = window.location.pathname.split('/');
       const uuid = pathParts[pathParts.length - 1];
       apiClient.get("/api/v1/image-game/" + uuid)
           .then((response) => {
-            createImageGameInfo(response);
+            processImageGameInfo(response.data);
+            initSocket(response.data, setImageGameInfo, processImageGameInfo);
           }).catch((e) => console.log(e));
     } else {
       apiClient.put("/api/v1/image-game", imageGameInfo)
         .then((response) => {
-          if (imageGameInfo.imageInfo.uuid === response.data.imageInfo.uuid) {
-            getImageGame();
-            return;
-          }
-          createImageGameInfo(response);
+          processImageGameInfo(response.data);
+          initSocket(response.data, setImageGameInfo, processImageGameInfo);
         }).catch((e) => console.log(e));
     }
   }
 
-
-  function createImageGameInfo(response) {
-    setMaskedAnswer(response.data.questionInfo.maskedAnswer);
-
-    response.data.statusInfo = {
-      isLevelUp : response.data.statusInfo.levelUp,
-      isClear : response.data.statusInfo.clear,
-      isCorrect : false,
-      isGameOver : false,
+  function processImageGameInfo(response) {
+    response.statusInfo = {
+      levelUp : response.statusInfo.levelUp,
+      clear : response.statusInfo.clear,
+      correct : false,
+      gameOver : false,
       isShare : false
     };
-    response.data.guessInfo = initGuessInfo();
-    response.data.letters = initLetters();
-    setImageGameInfo(response.data);
-
-    initSocket(response.data, setImageGameInfo);
+    response.guessInfo = initGuessInfo();
+    response.letters = initLetters();
+    setImageGameInfo(response);
   }
 
   const [url, setUrl ] = useState(window.location.href);
@@ -93,7 +88,7 @@ function App() {
   }
 
   const onInputLetter = (event) => {
-    if (!imageGameInfo.statusInfo.isGameOver
+    if (!imageGameInfo.statusInfo.gameOver
         && imageGameInfo.letters.find((letterInfo) => letterInfo.letter === event.key) !== undefined) {
       changeInput(event.key);
     }
@@ -110,6 +105,7 @@ function App() {
   }
 
   useEffect(() => {
+    if (imageGameInfo.guessInfo.input === '') return;
     guess(imageGameInfo.guessInfo);
   }, [imageGameInfo.guessInfo.input]);
 
@@ -124,24 +120,16 @@ function App() {
   }, [imageGameInfo.guessInfo.wrongLetters]);
 
   useEffect(() => {
-    if (imageGameInfo.questionInfo.maskedAnswer !== '' && !imageGameInfo.questionInfo.maskedAnswer.includes("*")) {
-      setImageGameInfo(prevState => ({
-        ...prevState,
-        statusInfo : {
-              ...prevState.statusInfo,
-              isCorrect : true
-          }
-        })
-      );
+    if (imageGameInfo.statusInfo.correct) {
       setTimeout( () => {
         if (window.location.pathname.includes("/share")) {
           window.location.href = "/";
         } else {
-          getImageGame();
+          goNextStage();
         }
       }, 5000);
     }
-  }, [imageGameInfo.questionInfo.maskedAnswer]);
+  }, [imageGameInfo.statusInfo.correct]);
 
   function onRestart() {
     console.log("todo restart!");
