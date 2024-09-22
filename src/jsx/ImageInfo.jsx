@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
 import '../css/ImageInfo.css'
-import {clear} from "@testing-library/user-event/dist/clear";
 
 function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
