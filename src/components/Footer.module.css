@@ -6,14 +6,14 @@ div.footer {
     padding-top: 30px;
 }
 
-div.share-area {
+div.shareArea {
    display: flex;
    flex-direction: row;
    justify-content: flex-start;
    border-radius: 10px;
 }
-div.share-area-pink {
-    animation: share-area-pink ease-in-out 2s 2;
+div.shareAreaPink {
+    animation: shareAreaPink ease-in-out 2s 2;
 }
 
 img.fb {
@@ -35,7 +35,7 @@ div.report {
     font-size:12px;
 }
 
-@keyframes share-area-pink {
+@keyframes shareAreaPink {
     0% {
         background-color: white;
     }

@@ -1,4 +1,4 @@
-div.guess-inputs {
+div.guessInputs {
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -16,7 +16,7 @@ div.guess-inputs {
 }
 
 
-.guess-input {
+.guessInput {
     border-bottom: 2px solid #333;
     font-size: 20px;
     text-align: center;
@@ -30,7 +30,7 @@ div.guess-inputs {
     pointer-events: none;
 }
 
-.guess-correct {
+.guessCorrect {
     position: relative;
     font-size: 20px;
     width: 20px;

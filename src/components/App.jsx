@@ -1,19 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
-import './css/App.css';
-import Info from './jsx/info.jsx';
-import ImageInfo from './jsx/ImageInfo.jsx';
-import GuessResult from './jsx/GuessResult.jsx';
-import HangManArea from './jsx/HangMan.jsx';
-import AlphabetInput from './jsx/AlphabetInput.jsx';
-import { guess, initSocket, goNextStage } from "./module/Websocket";
-import Footer from "./jsx/Footer";
+import Info from './info.jsx';
+import ImageInfo from './ImageInfo.jsx';
+import GuessResult from './GuessResult.jsx';
+import HangManArea from './HangMan.jsx';
+import AlphabetInput from './AlphabetInput.jsx';
+import { guess, initSocket, goNextStage } from "../common/Websocket";
+import Footer from "./Footer";
 import axios from 'axios';
-import CookieBanner from "./jsx/CookieBanner";
+import CookieBanner from "./CookieBanner";
+import styles from './App.module.css';
 
 
 function App() {
   const appRef = useRef(null);
   const initRef = useRef(false);
+  const [url, setUrl] = useState('');
 
   const MAX_TRY = 10;
 
@@ -38,7 +39,7 @@ function App() {
 
   useEffect(() => {
     if (initRef.current) return;
-    initImageGame();
+    initImageGame(window);
     initRef.current = true;
   }, []);
 
@@ -49,7 +50,8 @@ function App() {
     return "abcdefghijklmnopqrstuvwxyz'".split("").map((letter) => ({letter : letter, correct : null}));
   }
 
-  function initImageGame() {
+  function initImageGame(window) {
+    setUrl(window.location.href);
 
     if (window.location.pathname.includes("share")) {
       const pathParts = window.location.pathname.split('/');
@@ -80,8 +82,6 @@ function App() {
     response.letters = initLetters();
     setImageGameInfo(response);
   }
-
-  const [url, setUrl ] = useState(window.location.href);
 
   const onClickLetter = (event) => {
     changeInput(event.target.innerText);
@@ -142,30 +142,30 @@ function App() {
   }, []);
 
   return (
-    <div className="App" ref={appRef} tabIndex="0" onKeyDown={onInputLetter}>
-      <div className="container">
-        <div className="adsense adsense-left">Google Adsense Area</div>
-        <div className="main-content">
-          <div className="game-title">
+    <div className={styles.app} ref={appRef} tabIndex="0" onKeyDown={onInputLetter}>
+      <div className={styles.container}>
+        <div className={`${styles.adsense} ${styles.adsenseLeft}`}>Google Adsense Area</div>
+        <div className={styles.mainContent}>
+          <div className={styles.gameTitle}>
             <h1>AI IMAGE GAME</h1>
           </div>
-          <div className="game-area">
+          <div className={styles.gameArea}>
             <Info gameInfo={imageGameInfo.gameInfo}/>
             <ImageInfo imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo} onRestart={onRestart}/>
           </div>
-          <div className="game-footer">
+          <div className={styles.gameFooter}>
             <p>This image created by Chat GPT. Chat GPT titled </p>
               <GuessResult questionInfo={imageGameInfo.questionInfo}/>
           </div>
-          <div className="bottom-area">
-            <div className="guess-area">
+          <div className={styles.bottomArea}>
+            <div className={styles.guessArea}>
                 <HangManArea guessInfo={imageGameInfo.guessInfo}/>
                 <AlphabetInput letters={imageGameInfo.letters} onInputLetter={onClickLetter}/>
             </div>
             <Footer stageStatus={imageGameInfo.statusInfo} url={url}/>
           </div>
         </div>
-        <div className="adsense adsense-right"></div>
+        <div className={`${styles.adsense} ${styles.adsenseRight}`}></div>
         <CookieBanner />
       </div>
     </div>

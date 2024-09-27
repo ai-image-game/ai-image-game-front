@@ -1,4 +1,4 @@
-.hangman-area {
+.hangmanArea {
     width: 62px;
     height: 100px;
     position: relative;
@@ -12,41 +12,41 @@
     background-color: lightcoral;
 }
 
-.hangman-part {
+.hangmanPart {
     visibility: hidden;
     position: absolute;
     background-color: black;
 }
 
-.hangman-base {
+.hangmanBase {
     bottom: 0;
     left: 10%;
     width: 25%;
     height: 5px;
 }
 
-.hangman-pole {
+.hangmanPole {
     top: 0;
     left: 10%;
     width: 5px;
     height: 100%;
 }
 
-.hangman-beam {
+.hangmanBeam {
     top: 0;
     left: 010%;
     width: 50%;
     height: 5px;
 }
 
-.hangman-rope {
+.hangmanRope {
     top: 0;
     left: 60%;
     width: 1px;
     height: 30%;
 }
 
-.hangman-head {
+.hangmanHead {
     top: 30%;
     left: 50%;
     width: 20%;
@@ -54,28 +54,28 @@
     border-radius: 50%;
 }
 
-.hangman-body {
+.hangmanBody {
     top: 40%;
     left: 55%;
     width: 5px;
     height: 20px;
 }
 
-.hangman-left-arm {
+.hangmanLeftArm {
     top: 45%;
     left: 28%;
     width: 27%;
     height: 2px;
 }
 
-.hangman-right-arm {
+.hangmanRightArm {
     top: 45%;
     left: 65%;
     width: 27%;
     height: 2px;
 }
 
-.hangman-left-leg {
+.hangmanLeftLeg {
     top: 57%;
     left: 57%;
     width: 3px;
@@ -84,7 +84,7 @@
     transform-origin: top left;
 }
 
-.hangman-right-leg {
+.hangmanRightLeg {
     top: 57%;
     left: 58%;
     width: 3px;
@@ -93,12 +93,12 @@
     transform-origin: top right;
 }
 
-.hangman-part.visible {
+.hangmanPart.visible {
     visibility: visible;
 }
 
 @media (max-width: 768px) {
-    .hangman-area {
+    .hangmanArea {
         height: 100px;
     }
 }

@@ -1,4 +1,4 @@
-import '../css/Info.css';
+import styles from './Info.module.css';
 import { useState, useEffect, useRef } from 'react';
 
 function Info({ gameInfo }) {
@@ -51,10 +51,10 @@ function Info({ gameInfo }) {
     }, [gameInfo.questions]);
 
     return (
-        <div className="info-area">
-            <p className={levelChanged ? 'changed' : ''}><b>Level</b>: {gameInfo.level === 0 ? '-' : gameInfo.level}</p>
-            <p className={questionsChanged ? 'changed' : ''}><b>Questions</b>: {gameInfo.level === 0 ? '-' :gameInfo.questions}</p>
-            <p className={correctChanged ? 'changed' : ''}><b>Corrects</b>: <span>{gameInfo.level === 0 ? '-' :gameInfo.corrects}</span></p>
+        <div className={styles.infoArea}>
+            <p className={`${levelChanged ? styles.changed : ''}`}><b>Level</b>: {gameInfo.level === 0 ? '-' : gameInfo.level}</p>
+            <p className={`${questionsChanged ? styles.changed : ''}`}><b>Questions</b>: {gameInfo.level === 0 ? '-' :gameInfo.questions}</p>
+            <p className={`${correctChanged ? styles.changed : ''}`}><b>Corrects</b>: <span>{gameInfo.level === 0 ? '-' :gameInfo.corrects}</span></p>
         </div>
     );
 }

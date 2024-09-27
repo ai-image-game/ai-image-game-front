@@ -1,4 +1,4 @@
-.fix-banner, .cookie-settings {
+.fixBanner, .cookieSettings {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -10,26 +10,26 @@
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2)
 }
 
-.cookie-settings {
+.cookieSettings {
     display: flex;
     flex-direction: column;
     width: 400px;
 }
 
-.cookie-settings-check {
+.cookieSettingsCheck {
     display: flex;
     flex-direction: column;
     margin : 10px;
 }
 
-.cookie-settings-buttons {
+.cookieSettingsButtons {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
 
-.primary-button {
+.primaryButton {
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
@@ -41,7 +41,7 @@
     font-weight: bold;
 }
 
-.secondary-button {
+.secondaryButton {
     background-color: #F5F5F5;
     color: #333;
     padding: 10px 20px;

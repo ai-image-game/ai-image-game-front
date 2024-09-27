@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react';
-import '../css/ImageInfo.css'
+import styles from './ImageInfo.module.css'
 
-function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
+    const [isMobile, setIsMobile] = useState(true);
     const [isCorrectVisible, setIsCorrectVisible] = useState(false);
     const [isLevelUpVisible, setIsLevelUpVisible] = useState(false);
     const [isGameOverVisible, setIsGameOverVisible] = useState(false);
@@ -11,13 +11,18 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 768);
+            if (typeof window !== 'undefined') {
+                setIsMobile(window.innerWidth <= 768);
+            }
         };
 
-        // Add event listener to detect window resize
+        // 컴포넌트가 마운트될 때 현재 창 크기를 체크
+        handleResize();
+
+        // 창 크기 변경 이벤트 리스너 추가
         window.addEventListener('resize', handleResize);
 
-        // Cleanup the event listener on component unmount
+        // 컴포넌트 언마운트 시 이벤트 리스너 제거
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -122,9 +127,9 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
     }
 
     return (
-        <div className={`image-area ${imageGameInfo.statusInfo.correct ? 'bright' : ''}`}>
+        <div className={`${styles.imageArea} ${imageGameInfo.statusInfo.correct ? styles.bright : ''}`}>
             <img ref={imgRef} src={isMobile ? imageGameInfo.imageInfo.mobileImage : imageGameInfo.imageInfo.pcImage}/>
-            {isClearVisible && <div className="congratulation clear">
+            {isClearVisible && <div className={`${styles.congratulation} ${styles.clear}`}>
                 <h1>
                     <span>G</span>
                     <span>A</span>
@@ -142,9 +147,9 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
                     <span>D</span>
                     <span>!</span>
                 </h1>
-                <button className="restart-button" onClick={onRestart}>Restart from Level 1</button>
+                <button className={styles.restartButton} onClick={onRestart}>Restart from Level 1</button>
             </div>}
-            {isCorrectVisible && !isLevelUpVisible && <div className="congratulation correct">
+            {isCorrectVisible && !isLevelUpVisible && <div className={styles.congratulation}>
                 <h1>
                     <span>C</span>
                     <span>O</span>
@@ -157,7 +162,7 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
                 </h1>
             </div>
             }
-            {isLevelUpVisible && !isClearVisible && <div className="congratulation levelup">
+            {isLevelUpVisible && !isClearVisible && <div className={`${styles.congratulation} ${styles.levelup}`}>
                 <h1>
                     <span>L</span>
                     <span>E</span>
@@ -171,16 +176,14 @@ function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
                 </h1>
             </div>
             }
-            {isGameOverVisible && <div className="gameover">
+            {isGameOverVisible && <div className={styles.gameover}>
                 <p>GAME OVER</p>
-                <button className="retry-button" onClick={onRetry}>Watch Ads & Try Again!</button>
-                <button className="skip-button">Skip</button>
-                <button className="share-button" onClick={onShare}>Share and Ask</button>
+                <button className={styles.retryButton} onClick={onRetry}>Watch Ads & Try Again!</button>
+                <button className={styles.skipButton}>Skip</button>
+                <button className={styles.shareButton} onClick={onShare}>Share and Ask</button>
             </div>}
 
         </div>
     );
 }
-
-export default ImageInfo;
 

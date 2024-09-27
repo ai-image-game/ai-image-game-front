@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CookieConsent, { Cookies } from "react-cookie-consent";
-import "../css/CookieBanner.css"
+import styles from "./CookieBanner.module.css"
 
 const CookieBanner = () => {
     const [showBanner, setShowBanner] = useState(true);
@@ -40,16 +40,16 @@ const CookieBanner = () => {
             {showBanner && (
                     !showSettings ? (
                         // 간단한 초기 배너
-                        <div className="fix-banner">
+                        <div className={styles.fixBanner}>
                             <p>We use cookies to enhance your experience, save your game progress, measure how the site is used, and provide personalized ads.</p>
-                            <button onClick={handleAcceptAll} className="primary-button">OK</button>
-                            <button onClick={() => setShowSettings(true)} className="secondary-button">Cookie Settings</button>
+                            <button onClick={handleAcceptAll} className={styles.primaryButton}>OK</button>
+                            <button onClick={() => setShowSettings(true)} className={styles.secondaryButton}>Cookie Settings</button>
                         </div>
                     ) : (
                         // 쿠키 설정 옵션 표시
-                        <div className="cookie-settings">
+                        <div className={styles.cookieSettings}>
                             <p>Manage your cookie preferences:</p>
-                            <div className="cookie-settings-check">
+                            <div className={styles.cookieSettingsCheck}>
                                 <label>
                                     <input
                                         type="checkbox"
@@ -75,7 +75,7 @@ const CookieBanner = () => {
                                     Marketing Cookies
                                 </label>
                             </div>
-                            <div className="cookie-settings-buttons">
+                            <div className={styles.cookieSettingsButtons}>
                                 <button onClick={handleSavePreferences} className="primary-button">Save Preferences</button>
                                 <button onClick={handleDeclineAll} className="secondary-button">Decline All</button>
                             </div>

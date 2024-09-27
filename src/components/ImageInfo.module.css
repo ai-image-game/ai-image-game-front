@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Mono:400');
 
 @media (max-width: 768px) {
-    .image-area {
+    .imageArea {
         height: 40vh;
         flex: 2;
         min-width: 300px;
@@ -11,10 +11,10 @@
         font-size: 50px;
     }
 
-    div.clear button.restart-button,
-    div.gameover button.retry-button,
-    div.gameover button.skip-button,
-    div.gameover button.share-button {
+    div.clear button.restartButton,
+    div.gameover button.retryButton,
+    div.gameover button.skipButton,
+    div.gameover button.shareButton {
         margin-bottom: 10px;
         width: 90%;
         font-size: 9pt;
@@ -22,14 +22,14 @@
 }
 
 @media (min-width: 769px) {
-    .image-area {
+    .imageArea {
         flex: 2;
         min-width: 500px;
         height: 40vh;
     }
 
-    div.gameover button.retry-button, button.skip-button, button.share-button,
-    div.clear button.restart-button {
+    div.gameover button.retryButton, button.skipButton, button.shareButton,
+    div.clear button.restartButton {
         margin-bottom: 10px;
         width: 80%;
         font-size: 12pt;
@@ -39,18 +39,18 @@
         font-size: 80px;
     }
 
-    div.clear button.restart-button:hover {
+    div.clear button.restartButton:hover {
         background-color: #0066ff;
     }
-    div.gameover button.skip-button:hover {
+    div.gameover button.skipButton:hover {
         background-color: deepskyblue;
     }
-    div.gameover button.share-button:hover {
+    div.gameover button.shareButton:hover {
         background-color: hotpink;
     }
 }
 
-.image-area {
+.imageArea {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,7 +65,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.image-area img {
+.imageArea img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
@@ -73,7 +73,7 @@
     z-index: 1;
 }
 
-.image-area::before {
+.imageArea::before {
     content: '';
     position: absolute;
     top: 0;
@@ -85,7 +85,7 @@
     z-index: 2;
     pointer-events: none;
 }
-.image-area img {
+.imageArea img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
@@ -111,8 +111,8 @@ div.gameover p{
     text-align: center;
     animation: glitch 1s linear infinite;
 }
-div.gameover button.retry-button, button.skip-button, button.share-button,
-div.clear button.restart-button {
+div.gameover button.retryButton, button.skipButton, button.shareButton,
+div.clear button.restartButton {
     font-family: 'Press Start 2P', cursive; /* 버튼에 동일한 폰트 적용 */
     margin-top: 0;
     padding: 10px 20px;
@@ -123,20 +123,20 @@ div.clear button.restart-button {
     transition: background-color 0.3s ease;
 }
 
-div.clear button.restart-button {
+div.clear button.restartButton {
     font-family: "Luckiest Guy", cursive;
 }
 
-div.gameover button.retry-button {
+div.gameover button.retryButton {
     font-family: 'Press Start 2P', cursive;
     animation : changeBtnColor 2s ease infinite;
 }
 
-div.gameover button.skip-button:active{
+div.gameover button.skipButton:active{
     animation: skipBtnColor 0.5s ease 1;
 }
 
-div.gameover  button.share-button:active{
+div.gameover  button.shareButton:active{
     animation: shareBtnColor 0.5s ease 1;
 }
 
@@ -177,7 +177,7 @@ div.gameover  button.share-button:active{
     }
 }
 
-div.gameover button.retry-button:hover{
+div.gameover button.retryButton:hover{
     background-color: greenyellow;
     animation: none;
 }
@@ -285,10 +285,6 @@ div.congratulation::before {
     -250px 0 300px 150px rgba(255, 255, 255, 0.6),
     550px 0 300px 200px rgba(255, 255, 255, 0.6),
     -550px 0 300px 200px rgba(255, 255, 255, 0.6);
-}
-
-::selection {
-    background: transparent;
 }
 
 div.congratulation h1 {
@@ -406,7 +402,7 @@ div.clear h1 span {
     font-size: 60px;
 }
 
-div.clear button.restart-button {
+div.clear button.restartButton {
     font-family: Consolas, monospace;
     position: relative;
     bottom : -20%;
@@ -429,6 +425,6 @@ div.clear button.restart-button {
     }
 }
 
-div.clear button.restart-button:hover {
+div.clear button.restartButton:hover {
     background-color: #b60092;
 }

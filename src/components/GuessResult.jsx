@@ -1,11 +1,11 @@
-import '../css/GuessResult.css';
+import styles from './GuessResult.module.css';
 
 function GuessResult({questionInfo}) {
     return (
-        <div className="guess-inputs">
-            <span className="prefix">{questionInfo.prefix}</span>
+        <div className={styles.guessInputs}>
+            <span className={styles.prefix}>{questionInfo.prefix}</span>
             {questionInfo.maskedAnswer.split("").map((char, index) => (
-                <span key={index} className={`${char === '*' ? 'guess-input' : 'guess-correct'}`}>
+                <span key={index} className={`${char === '*' ? styles.guessInput : styles.guessCorrect}`}>
                 {char === '*' ? ' ' : char}
                     {
                         Array(5).fill("").map((_, index) => (
@@ -13,7 +13,7 @@ function GuessResult({questionInfo}) {
                     ))}
             </span>
             ))}
-            <span className="postfix">{questionInfo.postfix}</span>
+            <span className={styles.postfix}>{questionInfo.postfix}</span>
         </div>
     );
 }

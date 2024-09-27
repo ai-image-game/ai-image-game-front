@@ -1,5 +1,5 @@
 
-.alphabet-area {
+.alphabetArea {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
     gap: 5px;
@@ -9,7 +9,7 @@
     margin: 5px;
 }
 
-.alphabet-letter {
+.alphabetLetter {
     font-size: 20px;
     margin: 5px;
     user-select: none;
@@ -21,27 +21,27 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.alphabet-letter:hover {
+.alphabetLetter:hover {
     background-color: #ccc;
 }
 
-.alphabet-letter:active, .alphabet-letter:focus {
+.alphabetLetter:active, .alphabetLetter:focus {
     background-color: #ccc;
 }
 
-.alphabet-letter.clicked.correct {
+.alphabetLetter.clicked.correct {
     background-color: lightgreen;
     cursor: default;
     pointer-events: none;
 }
 
-.alphabet-letter.clicked.incorrect {
+.alphabetLetter.clicked.incorrect {
     background-color: lightcoral;
     cursor: default;
     pointer-events: none;
 }
 
-.alphabet-letter-mark {
+.alphabetLetterMark {
     position: absolute;
     top: 0;
     left: 0;

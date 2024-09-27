@@ -1,4 +1,4 @@
-.info-area {
+.infoArea {
     flex: 1;
     border: 1px solid #ddd;
     margin: 0 5px 5px 5px;
@@ -12,12 +12,12 @@
     text-align: center;
 }
 
-.info-area p {
+.infoArea p {
     display: inline;
     margin: 0 10px;
 }
 
-.info-area p.changed {
+.infoArea p.changed {
     animation: changeColor 500ms ease 2 alternate ;
 }
 
@@ -32,19 +32,19 @@
 }
 
 @media (min-width: 769px) {
-    .info-area {
+    .infoArea {
         height: auto;
         padding: 5px;
     }
 }
 
 @media (max-width: 768px) {
-    .info-area {
+    .infoArea {
         height: auto;
         padding: 5px;
     }
 
-    .info-area p {
+    .infoArea p {
         display: inline;
         margin: 0 10px;
         font-size: 12px;
