@@ -97,3 +97,11 @@ function processGuessResult(response, setImageGameInfo) {
                 )
         }));
 }
+
+export function disconnect() {
+    if (client && isConnected) {
+        client.deactivate().then(r => {
+            window.location.href = "/"
+        });
+    }
+}

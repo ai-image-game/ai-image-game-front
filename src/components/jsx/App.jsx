@@ -1,6 +1,5 @@
-import Head from 'next/head';
 import { useState, useEffect, useRef } from 'react';
-import { initSocket, goNextStage } from '../../common/Websocket';
+import {initSocket, goNextStage, disconnect} from '../../common/Websocket';
 import { initGuessInfo, initLetters } from '../../common/InitImageGame';
 import Info from './info.jsx';
 import ImageInfo from './ImageInfo.jsx';
@@ -58,7 +57,7 @@ function App({imageGame, currentUrl}) {
   }, [imageGameInfo.statusInfo.correct]);
 
   function onRestart() {
-    console.log("todo restart!");
+    disconnect();
   }
 
   function onSkip() {
