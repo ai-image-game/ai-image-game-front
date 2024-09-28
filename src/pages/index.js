@@ -1,4 +1,53 @@
-import App from '../components/App'
-export default function Home() {
-    return <App/>;
+import App from '../components/jsx/App'
+import {getCurrentUrl, initImageGame, initOpenGraph} from '../common/InitImageGame'
+import axios from 'axios'
+import Head from 'next/head'
+
+export async function getServerSideProps(context) {
+    const { req } = context;
+    const apiClient = axios.create({
+        baseURL: 'http://localhost', // API의 기본 URL
+        timeout: 10000, // 요청 제한 시간 (ms)
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept' : 'application/json'
+        },
+        withCredentials : true
+    });
+
+    let imageGame = null;
+    if (req.url.includes("?")) {
+        const uuid = req.url.split('?')[1];
+        imageGame = (await apiClient.get("/api/v1/image-game/" + uuid)).data;
+    } else {
+        imageGame = initImageGame();
+        imageGame = (await apiClient.put("/api/v1/image-game", imageGame)).data;
+    }
+
+    const currentUrl = getCurrentUrl(req);
+    return { props: { imageGame: imageGame, currentUrl : currentUrl } };
+}
+export default function Home({imageGame, currentUrl}) {
+    const openGraph = initOpenGraph(imageGame, currentUrl);
+
+    return (
+        <>
+            <Head>
+                {/* Facebook Open Graph Tags */}
+                <meta property="og:title" content={openGraph.title}/>
+                <meta property="og:description" content={openGraph.description} />
+                <meta property="og:image" content={imageGame.imageInfo.mobileImage} />
+                <meta property="og:url" content={openGraph.shareUrl} />
+                <meta property="og:type" content="website" />
+
+                {/* X (Twitter) Card Tags */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={openGraph.title} />
+                <meta name="twitter:description" content={openGraph.description} />
+                <meta name="twitter:image" content={imageGame.imageInfo.mobileImage} />
+                <meta name="twitter:site" content="@aiimagegame" />
+            </Head>
+        <App imageGame={imageGame} currentUrl={currentUrl} />
+        </>
+    );
 }
