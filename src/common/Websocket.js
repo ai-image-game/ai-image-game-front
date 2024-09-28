@@ -39,6 +39,11 @@ export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo
         });
     };
 
+    client.onDisconnect = () => {
+        isConnected = false;
+        alert("DisConnected. This page will redirect first page.");
+    };
+
     client.onStompError = (frame) => {
         console.error('Broker reported error: ' + frame.headers['message']);
         console.error('Additional details: ' + frame.body);
