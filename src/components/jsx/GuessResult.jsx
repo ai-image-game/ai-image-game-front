@@ -1,4 +1,4 @@
-import styles from './GuessResult.module.css';
+import styles from '../css/GuessResult.module.css';
 
 function GuessResult({questionInfo}) {
     return (

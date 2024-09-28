@@ -1,4 +1,4 @@
-import styles from './HangMan.module.css'
+import styles from '../css/HangMan.module.css'
 
 function HangMan({guessInfo}) {
     const wrongCount = guessInfo.wrongLetters.length;

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import styles from './ImageInfo.module.css'
+import styles from '../css/ImageInfo.module.css'
 
 export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
     const [isMobile, setIsMobile] = useState(true);

@@ -1,4 +1,4 @@
-import styles from './Footer.module.css';
+import styles from '../css/Footer.module.css';
 function Footer({stageStatus, url}) {
     function copyTextToClipboard() {
         navigator.clipboard.writeText(url).then(function () {

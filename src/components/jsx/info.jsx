@@ -1,4 +1,4 @@
-import styles from './Info.module.css';
+import styles from '../css/Info.module.css';
 import { useState, useEffect, useRef } from 'react';
 
 function Info({ gameInfo }) {

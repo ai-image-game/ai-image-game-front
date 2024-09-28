@@ -1,4 +1,4 @@
-import styles from './AlphabetInput.module.css';
+import styles from '../css/AlphabetInput.module.css';
 
 function AlphabetInput({letters, onInputLetter}) {
     return (
