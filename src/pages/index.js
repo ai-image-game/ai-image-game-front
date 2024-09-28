@@ -33,7 +33,8 @@ export default function Home({imageGame, currentUrl}) {
     return (
         <>
             <Head>
-                <meta property="title" content={openGraph.title}/>
+                <title>AI Image Game</title>
+                <meta property="title" content="AI Image Game"/>
                 <meta property="description" content={openGraph.description}/>
                 <meta property="image" content={imageGame.imageInfo.mobileImage}/>
 
