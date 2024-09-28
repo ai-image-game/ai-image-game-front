@@ -16,13 +16,8 @@ export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart, o
             }
         };
 
-        // 컴포넌트가 마운트될 때 현재 창 크기를 체크
         handleResize();
-
-        // 창 크기 변경 이벤트 리스너 추가
         window.addEventListener('resize', handleResize);
-
-        // 컴포넌트 언마운트 시 이벤트 리스너 제거
         return () => {
             window.removeEventListener('resize', handleResize);
         };
