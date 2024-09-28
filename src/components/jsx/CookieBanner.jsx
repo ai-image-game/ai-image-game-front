@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import CookieConsent, { Cookies } from "react-cookie-consent";
-import styles from "../css/CookieBanner.module.css"
+import React, { useState } from 'react';
+import CookieConsent, { Cookies } from 'react-cookie-consent';
+import styles from '../css/CookieBanner.module.css';
 
 const CookieBanner = () => {
     const [showBanner, setShowBanner] = useState(true);

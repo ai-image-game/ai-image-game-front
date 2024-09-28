@@ -1,5 +1,4 @@
-// pages/_app.js
-import './styles/global.css';  // 글로벌 CSS 적용
+import './styles/global.css';
 
 function AiImageGame({ Component, pageProps }) {
     return (

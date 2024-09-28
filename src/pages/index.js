@@ -1,7 +1,7 @@
-import App from '../components/jsx/App'
-import {getCurrentUrl, initImageGame, initOpenGraph} from '../common/InitImageGame'
-import axios from 'axios'
-import Head from 'next/head'
+import Head from 'next/head';
+import axios from 'axios';
+import App from '../components/jsx/App';
+import { getCurrentUrl, initImageGame, initOpenGraph } from '../common/InitImageGame';
 
 export async function getServerSideProps(context) {
     const { req } = context;
@@ -33,21 +33,25 @@ export default function Home({imageGame, currentUrl}) {
     return (
         <>
             <Head>
+                <meta property="title" content={openGraph.title}/>
+                <meta property="description" content={openGraph.description}/>
+                <meta property="image" content={imageGame.imageInfo.mobileImage}/>
+
                 {/* Facebook Open Graph Tags */}
                 <meta property="og:title" content={openGraph.title}/>
-                <meta property="og:description" content={openGraph.description} />
-                <meta property="og:image" content={imageGame.imageInfo.mobileImage} />
-                <meta property="og:url" content={openGraph.shareUrl} />
-                <meta property="og:type" content="website" />
+                <meta property="og:description" content={openGraph.description}/>
+                <meta property="og:image" content={imageGame.imageInfo.mobileImage}/>
+                <meta property="og:url" content={openGraph.shareUrl}/>
+                <meta property="og:type" content="website"/>
 
                 {/* X (Twitter) Card Tags */}
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content={openGraph.title} />
-                <meta name="twitter:description" content={openGraph.description} />
-                <meta name="twitter:image" content={imageGame.imageInfo.mobileImage} />
-                <meta name="twitter:site" content="@aiimagegame" />
+                <meta name="twitter:card" content="summary_large_image"/>
+                <meta name="twitter:title" content={openGraph.title}/>
+                <meta name="twitter:description" content={openGraph.description}/>
+                <meta name="twitter:image" content={imageGame.imageInfo.mobileImage}/>
+                <meta name="twitter:site" content="@aiimagegame"/>
             </Head>
-        <App imageGame={imageGame} currentUrl={currentUrl} />
+            <App imageGame={imageGame} currentUrl={currentUrl}/>
         </>
     );
 }

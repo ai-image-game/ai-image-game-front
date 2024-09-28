@@ -1,5 +1,5 @@
 import SockJS from "sockjs-client";
-import {Client} from "@stomp/stompjs";
+import { Client } from "@stomp/stompjs";
 
 let client = null;
 let isConnected = false;
