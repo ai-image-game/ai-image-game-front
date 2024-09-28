@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from '../css/ImageInfo.module.css';
 
-export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) {
+export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart, onSkip}) {
     const [isMobile, setIsMobile] = useState(true);
     const [isCorrectVisible, setIsCorrectVisible] = useState(false);
     const [isLevelUpVisible, setIsLevelUpVisible] = useState(false);
@@ -181,7 +181,7 @@ export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) 
             {isGameOverVisible && <div className={styles.gameover}>
                 <p>GAME OVER</p>
                 <button className={styles.retryButton} onClick={onRetry}>Watch Ads & Try Again!</button>
-                <button className={styles.skipButton}>Skip</button>
+                <button className={styles.skipButton} onClick={onSkip}>Skip</button>
                 <button className={styles.shareButton} onClick={onShare}>Share and Ask</button>
             </div>}
 
