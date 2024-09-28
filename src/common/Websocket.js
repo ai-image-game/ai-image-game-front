@@ -61,8 +61,6 @@ export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo
 }
 
 export function guess (guessInfo) {
-    console.log("guess information", guessInfo);
-
     if (client && isConnected) {
         client.publish({
             destination: '/image-game/guess',
