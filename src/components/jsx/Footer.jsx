@@ -8,9 +8,11 @@ function Footer({stageStatus, url}) {
         });
     }
 
+    console.log("stageStatus.share : " + stageStatus.share);
+
     return (
         <div className={styles.footer}>
-            <div className={`${styles.shareArea} ${stageStatus.isShare ? styles.shareAreaPink : ''}`}>
+            <div className={`${styles.shareArea} ${stageStatus.share ? styles.shareAreaPink : ''}`}>
                 <a target="_blank" rel="noreferrer"
                    href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">
                     <img src="facebook.png" className={`${styles.logo} ${styles.fb}`}/>

@@ -98,29 +98,31 @@ export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart}) 
             ,
             statusInfo : {
                 correct : false,
-                isLevelUp : false,
-                isClear : false,
-                isGameOver : false,
-                isShare : false
+                levelUp : false,
+                clear : false,
+                gameOver : false,
+                share : false
             }
         }));
     }
 
     function onShare()  {
+        console.log(imageGameInfo.statusInfo);
         setImageGameInfo((prevState) => ({
             ...prevState,
-            status : {
-                ...prevState,
-                isShare: true
+            statusInfo : {
+                ...prevState.statusInfo,
+                share: true
             }
         }));
 
         setTimeout(() => {
+            console.log(imageGameInfo.statusInfo);
             setImageGameInfo((prevState) => ({
                 ...prevState,
-                status : {
-                    ...prevState,
-                    isShare: false
+                statusInfo : {
+                    ...prevState.statusInfo,
+                    share: false
                 }
             }));
         }, 5000);

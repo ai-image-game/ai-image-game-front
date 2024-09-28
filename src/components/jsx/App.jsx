@@ -38,7 +38,7 @@ function App({imageGame, currentUrl}) {
       clear : response.statusInfo.clear,
       correct : false,
       gameOver : false,
-      isShare : false
+      share : false
     };
     response.guessInfo = initGuessInfo();
     response.letters = initLetters();
