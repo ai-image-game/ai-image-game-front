@@ -33,6 +33,11 @@ export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo
             processImageGameInfo(response);
         });
 
+        client.subscribe('/user/queue/retry', (message => {
+            const response = JSON.parse(message.body);
+            processRetryResult(response, setImageGameInfo);
+        }))
+
         client.publish({
             destination: '/image-game/init',
             body: JSON.stringify(imageGameInfo),
@@ -61,7 +66,6 @@ export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo
             client.deactivate()
                 .then(() => {
                     console.log('Disconnected from server');
-                    window.location.href = "/";
                 });
         }
     };
@@ -74,7 +78,18 @@ export function guess (guessInfo) {
             body: JSON.stringify(guessInfo),
         });
     } else {
-        alert("Disconnected from Server");
+        alert("Disconnected from Server when guess answer");
+        window.location.href = "/";
+    }
+}
+
+export function retry() {
+    if (client && isConnected) {
+        client.publish({
+            destination: '/image-game/retry',
+        });
+    } else {
+        alert("Disconnected from Server when retry.");
         window.location.href = "/";
     }
 }
@@ -84,6 +99,9 @@ export function goNextStage () {
         client.publish({
             destination: '/image-game/next'
         });
+    } else {
+        alert("Disconnected from Server when go to next");
+        window.location.href = "/";
     }
 }
 
@@ -106,6 +124,21 @@ function processGuessResult(response, setImageGameInfo) {
                     letterInfo.letter === response.guessResult.input ? { letter : letterInfo.letter, correct : response.guessResult.answerIndexList.length > 0 } : letterInfo
                 )
         }));
+}
+
+function processRetryResult(response, setImageGameInfo) {
+    console.log(response);
+    setImageGameInfo((prev) => ({
+        ...prev,
+            gameInfo : response,
+            statusInfo : {
+                correct : false,
+                levelUp : false,
+                clear : false,
+                gameOver : false,
+                share : false
+            }
+    }));
 }
 
 export function disconnect() {

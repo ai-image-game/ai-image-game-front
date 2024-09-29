@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { retry } from "../../common/Websocket";
 import styles from '../css/ImageInfo.module.css';
 
 export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart, onSkip}) {
@@ -7,6 +8,7 @@ export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart, o
     const [isLevelUpVisible, setIsLevelUpVisible] = useState(false);
     const [isGameOverVisible, setIsGameOverVisible] = useState(false);
     const [isClearVisible, setIsClearVisible] = useState(false);
+    const [isRemainRetry, setIsRemainRetry] =  useState(true);
     const imgRef = useRef(null);
 
     useEffect(() => {
@@ -78,31 +80,14 @@ export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart, o
 
 
     function onRetry() {
-        setImageGameInfo((prev) => ({
-            ...prev,
-            guessInfo: {
-                input: "",
-                wrongLetters: [],
-                answerIndexList: []
-            },
-            letters: prev.letters.map((letterInfo) =>
-                ({
-                    letter: letterInfo.letter,
-                    correct: null
-                }))
-            ,
-            statusInfo : {
-                correct : false,
-                levelUp : false,
-                clear : false,
-                gameOver : false,
-                share : false
-            }
-        }));
+        if (imageGameInfo.gameInfo.retry === 0) {
+            setIsRemainRetry(false);
+        } else {
+            retry();
+        }
     }
 
     function onShare()  {
-        console.log(imageGameInfo.statusInfo);
         setImageGameInfo((prevState) => ({
             ...prevState,
             statusInfo : {
@@ -126,7 +111,7 @@ export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart, o
     return (
         <div className={`${styles.imageArea} ${imageGameInfo.statusInfo.correct ? styles.bright : ''}`}>
             <img ref={imgRef} src={isMobile ? imageGameInfo.imageInfo.mobileImage : imageGameInfo.imageInfo.pcImage}/>
-            {isClearVisible && <div className={`${styles.congratulation} ${styles.clear}`}>
+            { isClearVisible && <div className={`${styles.congratulation} ${styles.clear}`}>
                 <h1>
                     <span>G</span>
                     <span>A</span>
@@ -146,7 +131,7 @@ export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart, o
                 </h1>
                 <button className={styles.restartButton} onClick={onRestart}>Restart from Level 1</button>
             </div>}
-            {isCorrectVisible && !isLevelUpVisible && <div className={styles.congratulation}>
+            { isCorrectVisible && !isLevelUpVisible && <div className={styles.congratulation}>
                 <h1>
                     <span>C</span>
                     <span>O</span>
@@ -159,7 +144,7 @@ export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart, o
                 </h1>
             </div>
             }
-            {isLevelUpVisible && !isClearVisible && <div className={`${styles.congratulation} ${styles.levelup}`}>
+            { isLevelUpVisible && !isClearVisible && <div className={`${styles.congratulation} ${styles.levelup}`}>
                 <h1>
                     <span>L</span>
                     <span>E</span>
@@ -173,9 +158,10 @@ export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart, o
                 </h1>
             </div>
             }
-            {isGameOverVisible && <div className={styles.gameover}>
+            { isGameOverVisible && <div className={styles.gameover}>
                 <p>GAME OVER</p>
-                <button className={styles.retryButton} onClick={onRetry}>Watch Ads & Try Again!</button>
+                { !isRemainRetry && <button className={styles.restartButton} onClick={onRestart}>Restart from Level 1</button> }
+                { isRemainRetry && <button className={styles.retryButton} onClick={onRetry}>Watch Ads & Try Again!</button> }
                 <button className={styles.skipButton} onClick={onSkip}>Skip</button>
                 <button className={styles.shareButton} onClick={onShare}>Share and Ask</button>
             </div>}

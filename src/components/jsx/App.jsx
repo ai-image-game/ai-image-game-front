@@ -82,7 +82,7 @@ function App({imageGame, currentUrl}) {
           </div>
           <div className={styles.bottomArea}>
             <div className={styles.guessArea}>
-                <HangManArea guessInfo={imageGameInfo.guessInfo}/>
+                <HangManArea gameInfo={imageGameInfo.gameInfo} guessInfo={imageGameInfo.guessInfo}/>
                 <AlphabetInput letters={imageGameInfo.letters} imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo}/>
             </div>
             <Footer stageStatus={imageGameInfo.statusInfo} url={currentUrl}/>

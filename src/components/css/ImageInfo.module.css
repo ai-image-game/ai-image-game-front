@@ -111,7 +111,7 @@ div.gameover p{
     text-align: center;
     animation: glitch 1s linear infinite;
 }
-div.gameover button.retryButton, button.skipButton, button.shareButton,
+div.gameover button.retryButton, button.skipButton, button.shareButton, button.restartButton,
 div.clear button.restartButton {
     font-family: 'Press Start 2P', cursive; /* 버튼에 동일한 폰트 적용 */
     margin-top: 0;
