@@ -9,7 +9,7 @@ function GuessResult({questionInfo}) {
                 {char === '*' ? ' ' : char}
                     {
                         Array(5).fill("").map((_, index) => (
-                        <span key={index} className={`${char === '*' ? '' : 'particle'}`}></span>
+                        <span key={index} className={`${char === '*' ? '' : styles.particle}`}></span>
                     ))}
             </span>
             ))}
