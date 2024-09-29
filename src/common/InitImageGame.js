@@ -1,14 +1,3 @@
-export function initImageGame() {
-    return {
-        gameInfo: {level: 1, questions: 0, corrects: 0},
-        imageInfo: {mobileImage: "", pcImage: "", uuid: ""},
-        questionInfo: {maskedAnswer: "", prefix: null, postfix: null},
-        guessInfo: initGuessInfo(),
-        letters: initLetters(),
-        statusInfo: {correct: false, levelUp: false, clear: false, gameOver: false, share: false}
-    };
-}
-
 export function getCurrentUrl(req) {
     const protocol = req.headers['x-forwarded-proto'] || 'http';
     const host = req.headers.host;

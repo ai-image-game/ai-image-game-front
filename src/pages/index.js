@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import axios from 'axios';
 import App from '../components/jsx/App';
-import { getCurrentUrl, initImageGame, initOpenGraph } from '../common/InitImageGame';
+import { getCurrentUrl, initOpenGraph } from '../common/InitImageGame';
 
 export async function getServerSideProps(context) {
     const { req } = context;
@@ -20,8 +20,7 @@ export async function getServerSideProps(context) {
         const uuid = req.url.split('?')[1];
         imageGame = (await apiClient.get("/api/v1/image-game/" + uuid)).data;
     } else {
-        imageGame = initImageGame();
-        imageGame = (await apiClient.put("/api/v1/image-game", imageGame)).data;
+        imageGame = (await apiClient.put("/api/v1/image-game", {})).data;
     }
 
     const currentUrl = getCurrentUrl(req);
