@@ -8,8 +8,6 @@ function Footer({stageStatus, url}) {
         });
     }
 
-    console.log("stageStatus.share : " + stageStatus.share);
-
     return (
         <div className={styles.footer}>
             <div className={`${styles.shareArea} ${stageStatus.share ? styles.shareAreaPink : ''}`}>

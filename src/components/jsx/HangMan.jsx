@@ -2,11 +2,7 @@ import styles from '../css/HangMan.module.css';
 
 function HangMan({ gameInfo, guessInfo }) {
     const wrongCount = guessInfo.wrongLetters.length;
-    const usedRetry = gameInfo.usedRetry;
-    console.log("usedRetry");
-    console.log(usedRetry);
-    console.log("wrongCount");
-    console.log(wrongCount);
+    const usedRetry = gameInfo.usedRetry;g
 
     return  (
     <div className={`${styles.hangmanArea} ${wrongCount >= (7 + (usedRetry * 7)) ? styles.killed : ''}`}>

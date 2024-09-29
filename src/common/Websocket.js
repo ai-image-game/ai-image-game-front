@@ -127,7 +127,6 @@ function processGuessResult(response, setImageGameInfo) {
 }
 
 function processRetryResult(response, setImageGameInfo) {
-    console.log(response);
     setImageGameInfo((prev) => ({
         ...prev,
             gameInfo : response,

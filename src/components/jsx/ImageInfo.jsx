@@ -97,7 +97,6 @@ export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart, o
         }));
 
         setTimeout(() => {
-            console.log(imageGameInfo.statusInfo);
             setImageGameInfo((prevState) => ({
                 ...prevState,
                 statusInfo : {
