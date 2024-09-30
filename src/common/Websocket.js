@@ -127,16 +127,20 @@ function processGuessResult(response, setImageGameInfo) {
 }
 
 function processRetryResult(response, setImageGameInfo) {
-    setImageGameInfo((prev) => ({
-        ...prev,
-            gameInfo : response,
-            statusInfo : {
+    setImageGameInfo((prevState) => ({
+        ...prevState,
+            gameInfo : response.gameInfo
+            ,guessInfo : {input : "" , wrongLetters : [], answerIndexList : []}
+            ,questionInfo : response.questionInfo
+            ,statusInfo : {
                 correct : false,
                 levelUp : false,
                 clear : false,
                 gameOver : false,
                 share : false
             }
+            , letters :
+                prevState.letters.map(letterInfo => ({ letter : letterInfo.letter, correct : null}))
     }));
 }
 
