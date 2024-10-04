@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { retry } from "../../common/Websocket";
+import {disconnect, goNextStage, retry} from "../../common/Websocket";
 import styles from '../css/ImageInfo.module.css';
 
-export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart, onSkip}) {
+export default function ImageInfo({imageGameInfo, setImageGameInfo}) {
     const [isMobile, setIsMobile] = useState(true);
     const [isCorrectVisible, setIsCorrectVisible] = useState(false);
     const [isLevelUpVisible, setIsLevelUpVisible] = useState(false);
     const [isGameOverVisible, setIsGameOverVisible] = useState(false);
     const [isClearVisible, setIsClearVisible] = useState(false);
-    const [isRemainRetry, setIsRemainRetry] =  useState(true);
     const imgRef = useRef(null);
 
     useEffect(() => {
@@ -78,13 +77,16 @@ export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart, o
         }
     }, [imageGameInfo.statusInfo]);
 
-
     function onRetry() {
-        if (imageGameInfo.gameInfo.retry === 0) {
-            setIsRemainRetry(false);
-        } else {
-            retry();
-        }
+        retry();
+    }
+
+    function onRestart() {
+        window.location.href = "/";
+    }
+
+    function onSkip() {
+        goNextStage();
     }
 
     function onShare()  {
@@ -159,8 +161,8 @@ export default function ImageInfo({imageGameInfo, setImageGameInfo, onRestart, o
             }
             { isGameOverVisible && <div className={styles.gameover}>
                 <p>GAME OVER</p>
-                { !isRemainRetry && <button className={styles.restartButton} onClick={onRestart}>Restart from Level 1</button> }
-                { isRemainRetry && <button className={styles.retryButton} onClick={onRetry}>Watch Ads & Try Again!</button> }
+                { imageGameInfo.gameInfo.retry === 0 && <button className={styles.restartButton} onClick={onRestart}>Restart from Level 1</button> }
+                { imageGameInfo.gameInfo.retry !== 0 && <button className={styles.retryButton} onClick={onRetry}>Watch Ads & Try Again!</button> }
                 <button className={styles.skipButton} onClick={onSkip}>Skip</button>
                 <button className={styles.shareButton} onClick={onShare}>Share and Ask</button>
             </div>}

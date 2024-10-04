@@ -143,11 +143,3 @@ function processRetryResult(response, setImageGameInfo) {
                 prevState.letters.map(letterInfo => ({ letter : letterInfo.letter, correct : null}))
     }));
 }
-
-export function disconnect() {
-    if (client && isConnected) {
-        client.deactivate().then(r => {
-            window.location.href = "/"
-        });
-    }
-}

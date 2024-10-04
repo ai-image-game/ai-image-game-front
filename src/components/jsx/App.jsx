@@ -56,14 +56,6 @@ function App({imageGame, currentUrl}) {
     }
   }, [imageGameInfo.statusInfo.correct]);
 
-  function onRestart() {
-    disconnect();
-  }
-
-  function onSkip() {
-    goNextStage();
-  }
-
   return (
     <div className={styles.app} ref={appRef} tabIndex="0">
       <div className={styles.container}>
@@ -74,7 +66,7 @@ function App({imageGame, currentUrl}) {
           </div>
           <div className={styles.gameArea}>
             <Info gameInfo={imageGameInfo.gameInfo}/>
-            <ImageInfo imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo} onRestart={onRestart} onSkip={onSkip}/>
+            <ImageInfo imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo} />
           </div>
           <div className={styles.gameFooter}>
             <p>This image created by Chat GPT. Chat GPT titled </p>

@@ -12,6 +12,7 @@
     }
 
     div.clear button.restartButton,
+    div.gameover button.restartButton,
     div.gameover button.retryButton,
     div.gameover button.skipButton,
     div.gameover button.shareButton {
@@ -28,7 +29,7 @@
         height: 40vh;
     }
 
-    div.gameover button.retryButton, button.skipButton, button.shareButton,
+    div.gameover button.retryButton, button.skipButton, button.shareButton, button.restartButton,
     div.clear button.restartButton {
         margin-bottom: 10px;
         width: 80%;
@@ -40,7 +41,10 @@
     }
 
     div.clear button.restartButton:hover {
-        background-color: #0066ff;
+        background-color: #beff00;
+    }
+    div.gameover button.restartButton:hover {
+        background-color: #beff00;
     }
     div.gameover button.skipButton:hover {
         background-color: deepskyblue;
@@ -123,12 +127,7 @@ div.clear button.restartButton {
     transition: background-color 0.3s ease;
 }
 
-div.clear button.restartButton {
-    font-family: "Luckiest Guy", cursive;
-}
-
 div.gameover button.retryButton {
-    font-family: 'Press Start 2P', cursive;
     animation : changeBtnColor 2s ease infinite;
 }
 
