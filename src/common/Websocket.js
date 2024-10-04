@@ -46,7 +46,7 @@ export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo
 
     client.onDisconnect = () => {
         isConnected = false;
-        alert("DisConnected. This page will redirect first page.");
+        alert("Disconnected. You will be redirected to the first page.");
     };
 
     client.onStompError = (frame) => {
@@ -78,7 +78,7 @@ export function guess (guessInfo) {
             body: JSON.stringify(guessInfo),
         });
     } else {
-        alert("Disconnected from Server when guess answer");
+        alert("Disconnected from server while guessing the answer.");
         window.location.href = "/";
     }
 }
@@ -89,7 +89,7 @@ export function retry() {
             destination: '/image-game/retry',
         });
     } else {
-        alert("Disconnected from Server when retry.");
+        alert("Disconnected from server while retrying.");
         window.location.href = "/";
     }
 }
@@ -100,7 +100,7 @@ export function goNextStage () {
             destination: '/image-game/next'
         });
     } else {
-        alert("Disconnected from Server when go to next");
+        alert("Disconnected from server while moving to the next.");
         window.location.href = "/";
     }
 }
