@@ -3,7 +3,7 @@ import { initSocket, goNextStage } from '../../common/Websocket';
 import { initGuessInfo, initLetters } from '../../common/InitImageGame';
 import { Luckiest_Guy } from 'next/font/google'
 import Info from './info.jsx';
-import ImageInfo from './ImageInfo.jsx';
+import ImageArea from './ImageArea.jsx';
 import GuessResult from './GuessResult.jsx';
 import HangManArea from './HangMan.jsx';
 import AlphabetInput from './AlphabetInput.jsx';
@@ -71,7 +71,7 @@ function App({imageGame, currentUrl}) {
           </div>
           <div className={styles.gameArea}>
             <Info gameInfo={imageGameInfo.gameInfo}/>
-            <ImageInfo imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo} />
+            <ImageArea imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo} />
           </div>
           <div className={styles.gameFooter}>
             <p>This image created by Chat GPT. Chat GPT titled </p>

@@ -13,7 +13,7 @@ const pressStart2p = Press_Start_2P({
     subsets : ["latin"]
 })
 
-export default function ImageInfo({imageGameInfo, setImageGameInfo}) {
+export default function ImageArea({imageGameInfo, setImageGameInfo}) {
     const [isMobile, setIsMobile] = useState(true);
     const [isCorrectVisible, setIsCorrectVisible] = useState(false);
     const [isLevelUpVisible, setIsLevelUpVisible] = useState(false);
