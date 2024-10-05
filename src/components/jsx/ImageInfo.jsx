@@ -1,6 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {disconnect, goNextStage, retry} from "../../common/Websocket";
+import { goNextStage, retry} from "../../common/Websocket";
 import styles from '../css/ImageInfo.module.css';
+import { Luckiest_Guy, Press_Start_2P } from 'next/font/google';
+
+const luckiestGuyFont = Luckiest_Guy({
+    weight : "400",
+    subsets : ["latin"]
+});
+
+const pressStart2p = Press_Start_2P({
+    weight : "400",
+    subsets : ["latin"]
+})
 
 export default function ImageInfo({imageGameInfo, setImageGameInfo}) {
     const [isMobile, setIsMobile] = useState(true);
@@ -112,7 +123,7 @@ export default function ImageInfo({imageGameInfo, setImageGameInfo}) {
     return (
         <div className={`${styles.imageArea} ${imageGameInfo.statusInfo.correct ? styles.bright : ''}`}>
             <img ref={imgRef} src={isMobile ? imageGameInfo.imageInfo.mobileImage : imageGameInfo.imageInfo.pcImage}/>
-            { isClearVisible && <div className={`${styles.congratulation} ${styles.clear}`}>
+            { isClearVisible && <div className={`${styles.congratulation} ${styles.clear} ${luckiestGuyFont.className}`}>
                 <h1>
                     <span>G</span>
                     <span>A</span>
@@ -130,9 +141,9 @@ export default function ImageInfo({imageGameInfo, setImageGameInfo}) {
                     <span>D</span>
                     <span>!</span>
                 </h1>
-                <button className={styles.restartButton} onClick={onRestart}>Restart from Level 1</button>
+                <button className={`${styles.restartButton} ${pressStart2p.className}`} onClick={onRestart}>Restart from Level 1</button>
             </div>}
-            { isCorrectVisible && !isLevelUpVisible && <div className={styles.congratulation}>
+            { isCorrectVisible && !isLevelUpVisible && <div className={`${styles.congratulation} ${luckiestGuyFont.className}`}>
                 <h1>
                     <span>C</span>
                     <span>O</span>
@@ -145,7 +156,7 @@ export default function ImageInfo({imageGameInfo, setImageGameInfo}) {
                 </h1>
             </div>
             }
-            { isLevelUpVisible && !isClearVisible && <div className={`${styles.congratulation} ${styles.levelup}`}>
+            { isLevelUpVisible && !isClearVisible && <div className={`${styles.congratulation} ${styles.levelup} ${luckiestGuyFont.className}`}>
                 <h1>
                     <span>L</span>
                     <span>E</span>
@@ -159,12 +170,20 @@ export default function ImageInfo({imageGameInfo, setImageGameInfo}) {
                 </h1>
             </div>
             }
-            { isGameOverVisible && <div className={styles.gameover}>
+            { isGameOverVisible && <div className={`${styles.gameover} ${pressStart2p.className}`}>
                 <p>GAME OVER</p>
-                { imageGameInfo.gameInfo.retry === 0 && <button className={styles.restartButton} onClick={onRestart}>Restart from Level 1</button> }
-                { imageGameInfo.gameInfo.retry !== 0 && <button className={styles.retryButton} onClick={onRetry}>Watch Ads & Try Again!</button> }
-                <button className={styles.skipButton} onClick={onSkip}>Skip</button>
-                <button className={styles.shareButton} onClick={onShare}>Share and Ask</button>
+                { imageGameInfo.gameInfo.retry === 0 &&
+                    <button className={`${styles.restartButton} ${pressStart2p.className}`} onClick={onRestart}>
+                        Restart from Level 1
+                    </button>
+                }
+                { imageGameInfo.gameInfo.retry !== 0 &&
+                    <button className={`${styles.retryButton} ${pressStart2p.className}`} onClick={onRetry}>
+                        Watch Ads & Try Again!
+                    </button>
+                }
+                <button className={`${styles.skipButton} ${pressStart2p.className}`} onClick={onSkip}>Skip</button>
+                <button className={`${styles.shareButton} ${pressStart2p.className}`} onClick={onShare}>Share and Ask</button>
             </div>}
 
         </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { initSocket, goNextStage } from '../../common/Websocket';
 import { initGuessInfo, initLetters } from '../../common/InitImageGame';
+import { Luckiest_Guy } from 'next/font/google'
 import Info from './info.jsx';
 import ImageInfo from './ImageInfo.jsx';
 import GuessResult from './GuessResult.jsx';
@@ -10,6 +11,10 @@ import Footer from './Footer';
 import CookieBanner from './CookieBanner';
 import styles from '../css/App.module.css';
 
+const luckiestGuyFont = Luckiest_Guy({
+  weight : "400",
+  subsets : ["latin"]
+});
 
 function App({imageGame, currentUrl}) {
   const appRef = useRef(null);
@@ -61,7 +66,7 @@ function App({imageGame, currentUrl}) {
       <div className={styles.container}>
         <div className={`${styles.adsense} ${styles.adsenseLeft}`}>Google Adsense Area</div>
         <div className={styles.mainContent}>
-          <div className={styles.gameTitle}>
+          <div className={`${luckiestGuyFont.className} ${styles.gameTitle}`}>
             <h1>AI IMAGE GAME</h1>
           </div>
           <div className={styles.gameArea}>
