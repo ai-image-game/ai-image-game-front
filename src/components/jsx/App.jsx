@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import {initSocket, goNextStage, disconnect} from '../../common/Websocket';
+import { initSocket, goNextStage } from '../../common/Websocket';
 import { initGuessInfo, initLetters } from '../../common/InitImageGame';
 import Info from './info.jsx';
 import ImageInfo from './ImageInfo.jsx';
