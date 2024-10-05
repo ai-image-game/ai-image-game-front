@@ -21,7 +21,7 @@ function App({imageGame, currentUrl}) {
   const initRef = useRef(false);
 
   const [ imageGameInfo, setImageGameInfo ] = useState( {
-    gameInfo : { level : 1, questions : 0, corrects : 0 },
+    gameInfo : { level : 1, questions : 10, corrects : 0, retry : 3 },
     imageInfo : { mobileImage : "", pcImage : "", uuid : "" },
     questionInfo : { maskedAnswer : "", prefix : null, postfix : null },
     guessInfo : initGuessInfo(),
@@ -66,7 +66,7 @@ function App({imageGame, currentUrl}) {
       <div className={styles.container}>
         <div className={`${styles.adsense} ${styles.adsenseLeft}`}>Google Adsense Area</div>
         <div className={styles.mainContent}>
-          <div className={`${luckiestGuyFont.className} ${styles.gameTitle}`}>
+          <div className={`${styles.gameTitle} ${luckiestGuyFont.className}`}>
             <h1>AI IMAGE GAME</h1>
           </div>
           <div className={styles.gameArea}>

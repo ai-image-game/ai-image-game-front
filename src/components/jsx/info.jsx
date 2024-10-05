@@ -7,10 +7,10 @@ function Info({ gameInfo }) {
     const [questionsChanged, setQuestionsChanged] = useState(false);
     const [retryChanged, setRetryChanged] = useState(false);
 
-    const updateCorrectCount = useRef(0);
+    const updateCorrectCount = useRef(false);
     useEffect(() => {
-        if (updateCorrectCount.current < 2) {
-            updateCorrectCount.current ++;
+        if (!updateCorrectCount.current) {
+            updateCorrectCount.current = true;
             return;
         }
         setCorrectChanged(true);
@@ -21,10 +21,10 @@ function Info({ gameInfo }) {
         return () => { clearTimeout(timer); };
     }, [gameInfo.corrects]);
 
-    const updateLevelCount = useRef(0);
+    const updateLevelCount = useRef(false);
     useEffect(() => {
-        if (updateLevelCount.current < 2) {
-            updateLevelCount.current ++;
+        if (!updateLevelCount.current) {
+            updateLevelCount.current = true;
             return;
         }
 
@@ -36,10 +36,10 @@ function Info({ gameInfo }) {
         return () => { clearTimeout(timer); };
     }, [gameInfo.level]);
 
-    const updateQuestionCount = useRef(0);
+    const updateQuestionCount = useRef(false);
     useEffect(() => {
-        if (updateQuestionCount.current < 2) {
-            updateQuestionCount.current ++;
+        if (!updateQuestionCount.current) {
+            updateQuestionCount.current = true;
             return;
         }
 
@@ -51,10 +51,10 @@ function Info({ gameInfo }) {
         return () => { clearTimeout(timer); };
     }, [gameInfo.questions]);
 
-    const updateRetryCount = useRef(0);
+    const updateRetryCount = useRef(false);
     useEffect(() => {
-        if (updateRetryCount.current < 2) {
-            updateRetryCount.current ++;
+        if (!updateRetryCount.current) {
+            updateRetryCount.current = true;
             return;
         }
 

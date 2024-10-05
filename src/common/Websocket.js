@@ -119,7 +119,7 @@ function processGuessResult(response, setImageGameInfo) {
                 maskedAnswer : response.questionInfo.maskedAnswer
             }
             ,statusInfo : response.statusInfo
-            , letters :
+            ,letters :
                 prevState.letters.map(letterInfo =>
                     letterInfo.letter === response.guessResult.input ? { letter : letterInfo.letter, correct : response.guessResult.answerIndexList.length > 0 } : letterInfo
                 )
