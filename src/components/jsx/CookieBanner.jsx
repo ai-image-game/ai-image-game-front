@@ -76,8 +76,8 @@ const CookieBanner = () => {
                                 </label>
                             </div>
                             <div className={styles.cookieSettingsButtons}>
-                                <button onClick={handleSavePreferences} className="primary-button">Save Preferences</button>
-                                <button onClick={handleDeclineAll} className="secondary-button">Decline All</button>
+                                <button onClick={handleSavePreferences} className={styles.primaryButton}>Save Preferences</button>
+                                <button onClick={handleDeclineAll} className={styles.secondaryButton}>Decline All</button>
                             </div>
                         </div>
                     )
