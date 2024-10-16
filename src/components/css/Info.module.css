@@ -10,6 +10,9 @@
     user-select: none;
     pointer-events: none;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .infoArea p {
@@ -17,8 +20,22 @@
     margin: 0 10px;
 }
 
-.infoArea p.changed {
-    animation: changeColor 500ms ease 2 alternate ;
+.expBar {
+    flex: 1;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.expFill {
+    height: 100%;
+    background-color: #5dc961;
+    border-radius: 10px;
+    transition: width 0.3s ease;
 }
 
 @keyframes changeColor {

@@ -125,6 +125,7 @@ div.clear button.restartButton {/* 버튼에 동일한 폰트 적용 */
 
 div.gameover button.retryButton {
     animation : changeBtnColor 2s ease infinite;
+    letter-spacing: -2px;
 }
 
 div.gameover button.skipButton:active{
@@ -373,12 +374,12 @@ div.congratulation h1 span:nth-child(13) {
 }
 
 div.levelup {
-    background-color: #7fe142;
-    background-image: -webkit-linear-gradient(90deg, #38a315 0%, #5cf828 100%);
+    background-color: #e1c742;
+    background-image: -webkit-linear-gradient(90deg, #a37115 0%, #eaf828 100%);
 }
 
 div.levelup h1 span {
-    color: #c10064;
+    color: #7a0dff;
 }
 
 div.clear {

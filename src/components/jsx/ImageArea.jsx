@@ -51,9 +51,9 @@ export default function ImageArea({imageGameInfo, setImageGameInfo}) {
             return;
         } else {
             if (imgRef.current) {
-                imgRef.current.onload = () => {
+                if (imgRef.current.complete) {
                     setIsClearVisible(false);
-                };
+                }
             }
         }
 
@@ -65,9 +65,9 @@ export default function ImageArea({imageGameInfo, setImageGameInfo}) {
             return;
         } else {
             if (imgRef.current) {
-                imgRef.current.onload = () => {
+                if (imgRef.current.complete) {
                     setIsLevelUpVisible(false);
-                };
+                }
             }
         }
 
@@ -76,17 +76,24 @@ export default function ImageArea({imageGameInfo, setImageGameInfo}) {
             correctTimer = setTimeout(() => {
                 setIsCorrectVisible(true);
             }, 1000);
-        } else {
-            if (imgRef.current) {
-                imgRef.current.onload = () => {
-                    setIsCorrectVisible(false);
-                };
-            }
         }
+
+        if (imgRef.current) {
+            imgRef.current.onload = () => {
+                hideCongratulation();
+            };
+        }
+
         return () => {
             clearTimeout(levelUpTimer) && clearTimeout(correctTimer) && clearTimeout(clearTimer);
         }
     }, [imageGameInfo.statusInfo]);
+
+    function hideCongratulation() {
+        setIsClearVisible(false);
+        setIsLevelUpVisible(false);
+        setIsCorrectVisible(false);
+    }
 
     function onRetry() {
         retry();
@@ -179,7 +186,7 @@ export default function ImageArea({imageGameInfo, setImageGameInfo}) {
                 }
                 { imageGameInfo.gameInfo.retry !== 0 &&
                     <button className={`${styles.retryButton} ${pressStart2p.className}`} onClick={onRetry}>
-                        Watch Ads & Try Again!
+                        Watch Ads & Try Again!({imageGameInfo.gameInfo.retry})
                     </button>
                 }
                 <button className={`${styles.skipButton} ${pressStart2p.className}`} onClick={onSkip}>Skip</button>

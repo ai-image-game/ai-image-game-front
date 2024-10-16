@@ -108,6 +108,7 @@ export function goNextStage () {
 function processGuessResult(response, setImageGameInfo) {
         setImageGameInfo(prevState => ({
             ...prevState,
+            gameInfo : response.gameInfo,
             guessInfo : {
                 ...prevState.guessInfo,
                 input: response.guessResult.input,

@@ -10,9 +10,11 @@ div.guessInputs {
 
 .prefix, .postfix {
     font-size: 20px;
-    margin: 0 30px;
+    margin: 0 10px;
     user-select: none;
     pointer-events: none;
+    flex-shrink: 0;
+    letter-spacing: -1px;
 }
 
 
