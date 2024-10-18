@@ -6,7 +6,7 @@ function GuessResult({questionInfo}) {
             <span className={styles.prefix}>{questionInfo.prefix}</span>
             {questionInfo.maskedAnswer.split("").map((char, index) => (
                 <span key={index} className={`${char === '*' ? styles.guessInput : styles.guessCorrect}`}>
-                {char === '*' ? ' ' : char}
+                {char === '*' ? ' ' : (index === 0 ? char.toUpperCase() : char)}
                     {
                         Array(5).fill("").map((_, index) => (
                         <span key={index} className={`${char === '*' ? '' : styles.particle}`}></span>
