@@ -10,7 +10,6 @@
 
 # production
 /build
-
 # misc
 .DS_Store
 .env.local
@@ -25,3 +24,6 @@ yarn-error.log*
 *.gz
 .next/*
 .idea/*
+
+
+/public/images/
