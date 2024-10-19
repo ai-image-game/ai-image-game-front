@@ -87,7 +87,7 @@ function App({imageGame, currentUrl}) {
             <Footer/>
           </div>
         </div>
-        <div className={`${styles.adsense} ${styles.adsenseRight}`}></div>
+        <div className={`${styles.adsense} ${styles.adsenseRight}`}>Google Adsense Area</div>
         <CookieBanner />
       </div>
     </div>
