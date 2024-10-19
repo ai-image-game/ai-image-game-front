@@ -45,7 +45,7 @@
     width: 100%;
 }
 
-.gameTitle {
+div.gameTitle {
     margin: 0;
     user-select: none;
     pointer-events: none;
@@ -53,7 +53,7 @@
     width: 100%;
 }
 
-.gameTitle h1 {
+div.gameTitle h1 {
     color: white;
     font-size: clamp(1.5rem, 3vw, 3rem);
     margin: 0;
@@ -64,7 +64,7 @@
     -webkit-font-smoothing: antialiased;
 }
 
-.gameArea {
+div.gameArea {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -74,7 +74,7 @@
     width: 100%;
 }
 
-.gameFooter {
+div.gameFooter {
     text-align: center;
     margin: 0;
     user-select: none;
@@ -83,7 +83,11 @@
     width: 100%;
 }
 
-.bottomArea {
+div.gameFooter p.imageCreatedBy {
+    font-size: clamp(11px, 4vw, 14px);
+}
+
+div.bottomArea {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -92,7 +96,7 @@
     width: 100%;
 }
 
-.guessArea {
+div.guessArea {
     display: flex;
     flex-direction: row;
     justify-content: center;

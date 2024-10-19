@@ -6,10 +6,11 @@ div.guessInputs {
     margin: 10px 0;
     user-select: none;
     pointer-events: none;
+    font-size: clamp(14px, 5vw, 20px);
 }
 
 .prefix, .postfix {
-    font-size: 20px;
+    font-size: inherit;
     margin: 0 10px;
     user-select: none;
     pointer-events: none;
@@ -20,9 +21,10 @@ div.guessInputs {
 
 .guessInput {
     border-bottom: 2px solid #333;
-    font-size: 20px;
+    font-size: inherit;
     text-align: center;
     width: 20px;
+    min-width: 10px;
     margin: 0 5px;
     outline: none;
     background-color: transparent;

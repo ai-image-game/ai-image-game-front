@@ -74,7 +74,7 @@ function App({imageGame, currentUrl}) {
             <ImageArea imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo} />
           </div>
           <div className={styles.gameFooter}>
-            <p>This image created by Chat GPT. Chat GPT titled </p>
+            <p className={styles.imageCreatedBy}>Created by Chat GPT. Chat GPT titled </p>
               <GuessResult questionInfo={imageGameInfo.questionInfo}/>
           </div>
           <div className={styles.bottomArea}>
