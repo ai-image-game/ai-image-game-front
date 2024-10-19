@@ -9,6 +9,7 @@ import HangManArea from './HangMan.jsx';
 import AlphabetInput from './AlphabetInput.jsx';
 import Footer from './Footer';
 import CookieBanner from './CookieBanner';
+import Share from './Share.jsx'
 import styles from '../css/App.module.css';
 
 const luckiestGuyFont = Luckiest_Guy({
@@ -72,6 +73,7 @@ function App({imageGame, currentUrl}) {
           <div className={styles.gameArea}>
             <Info gameInfo={imageGameInfo.gameInfo}/>
             <ImageArea imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo} />
+            <Share stageStatus={imageGameInfo.statusInfo} url={currentUrl} />
           </div>
           <div className={styles.gameFooter}>
             <p className={styles.imageCreatedBy}>Created by Chat GPT. Chat GPT titled </p>
@@ -82,7 +84,7 @@ function App({imageGame, currentUrl}) {
                 <HangManArea guessInfo={imageGameInfo.guessInfo}/>
                 <AlphabetInput letters={imageGameInfo.letters} imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo}/>
             </div>
-            <Footer stageStatus={imageGameInfo.statusInfo} url={currentUrl}/>
+            <Footer/>
           </div>
         </div>
         <div className={`${styles.adsense} ${styles.adsenseRight}`}></div>
