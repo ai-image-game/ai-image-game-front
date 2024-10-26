@@ -126,6 +126,7 @@ function processGuessResult(response, setImageGameInfo) {
                 prevState.letters.map(letterInfo =>
                     letterInfo.letter === response.guessResult.input ? { letter : letterInfo.letter, correct : response.guessResult.answerIndexList.length > 0 } : letterInfo
                 )
+            ,imgHistory : response.statusInfo.levelUp ? [] : [...prevState.imgHistory]
         }));
 }
 

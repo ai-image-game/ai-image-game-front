@@ -27,7 +27,8 @@ function App({imageGame, currentUrl}) {
     questionInfo : { maskedAnswer : "", prefix : null, postfix : null },
     guessInfo : initGuessInfo(),
     letters : initLetters(),
-    statusInfo : { correct : false, levelUp : false, clear : false, gameOver : false, share : false }
+    statusInfo : { correct : false, levelUp : false, clear : false, gameOver : false, share : false },
+    imgHistory : []
   });
 
   useEffect(() => {
@@ -38,6 +39,12 @@ function App({imageGame, currentUrl}) {
   }, []);
 
   function processImageGameInfo(response) {
+    console.log(imageGameInfo.imgHistory);
+    console.log(response.imageInfo.uuid);
+    if (imageGameInfo.imgHistory.includes(response.imageInfo.uuid)) {
+      goNextStage();
+    }
+
     response.statusInfo = {
       levelUp : response.statusInfo.levelUp,
       clear : response.statusInfo.clear,
@@ -47,7 +54,11 @@ function App({imageGame, currentUrl}) {
     };
     response.guessInfo = initGuessInfo();
     response.letters = initLetters();
-    setImageGameInfo(response);
+    setImageGameInfo((prevState) => ({
+      ...prevState,
+      ...response,response,
+      imgHistory : [...prevState.imgHistory, response.imageInfo.uuid]
+    }));
   }
 
   useEffect(() => {
