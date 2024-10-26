@@ -50,7 +50,7 @@ function App({imageGame, currentUrl}) {
     response.letters = initLetters();
     setImageGameInfo((prevState) => {
       if (prevState.imgHistory.includes(response.imageInfo.uuid)) {
-        console.log("go next page");
+        console.log("refreshed.");
         goNextStage();
         return prevState;
       }
