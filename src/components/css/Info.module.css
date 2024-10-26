@@ -32,10 +32,15 @@
 }
 
 .expFill {
+    display: flex;
     height: 100%;
     background-color: #5dc961;
     border-radius: 10px;
     transition: width 0.3s ease;
+    color: white;
+    font-size: 10px;
+    align-items: center;
+    justify-content: center;
 }
 
 @keyframes changeColor {
