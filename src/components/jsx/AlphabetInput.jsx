@@ -16,7 +16,10 @@ function AlphabetInput({letters, imageGameInfo, setImageGameInfo}) {
     }, [imageGameInfo.guessInfo.input]);
 
     const onClickLetter = (event) => {
-        changeInput(event.target.innerText);
+        if (!imageGameInfo.statusInfo.gameOver
+            && imageGameInfo.letters.find((letterInfo) => letterInfo.letter === event.key.toLowerCase()) !== undefined) {
+            changeInput(event.target.innerText);
+        }
     }
 
     const onInputLetter = (event) => {
