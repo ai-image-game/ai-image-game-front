@@ -24,7 +24,7 @@ function Info({ gameInfo }) {
                 <b>Level</b>: {gameInfo.level === 0 ? '-' : gameInfo.level}</p>
             <div className={styles.expBar}>
                 <div className={styles.expFill} style={{width: `${ gameInfo.corrects / (gameInfo.questions + gameInfo.corrects) * 100}%`}}>
-                    { gameInfo.corrects / (gameInfo.questions + gameInfo.corrects) * 100}%
+                    { gameInfo.corrects !== 0 ?  `${gameInfo.corrects / (gameInfo.questions + gameInfo.corrects) * 100}%` : ''}
                 </div>
             </div>
         </div>
