@@ -39,12 +39,6 @@ function App({imageGame, currentUrl}) {
   }, []);
 
   function processImageGameInfo(response) {
-    console.log(imageGameInfo.imgHistory);
-    console.log(response.imageInfo.uuid);
-    if (imageGameInfo.imgHistory.includes(response.imageInfo.uuid)) {
-      goNextStage();
-    }
-
     response.statusInfo = {
       levelUp : response.statusInfo.levelUp,
       clear : response.statusInfo.clear,
@@ -54,11 +48,18 @@ function App({imageGame, currentUrl}) {
     };
     response.guessInfo = initGuessInfo();
     response.letters = initLetters();
-    setImageGameInfo((prevState) => ({
+    setImageGameInfo((prevState) => {
+      if (prevState.imgHistory.includes(response.imageInfo.uuid)) {
+        console.log("go next page");
+        goNextStage();
+        return prevState;
+      }
+
+      return {
       ...prevState,
       ...response,response,
       imgHistory : [...prevState.imgHistory, response.imageInfo.uuid]
-    }));
+    }});
   }
 
   useEffect(() => {
