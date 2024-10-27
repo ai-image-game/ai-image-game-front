@@ -87,11 +87,6 @@
     z-index: 2;
     pointer-events: none;
 }
-.imageArea img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
 
 div.gameover {
     display: flex;
@@ -312,7 +307,7 @@ div.congratulation h1 span {
      top: 20px;
      display: inline-block;
      animation: bounce 0.5s ease 1s 2 alternate;
-     font-size: 80px;
+     font-size: clamp(30px, 15vw, 80px);
      color: #6d28f8;
      text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc,
      0 5px 0 #ccc, 0 6px 0 transparent, 0 7px 0 transparent, 0 8px 0 transparent,

@@ -74,8 +74,7 @@ function App({imageGame, currentUrl}) {
     }
   }, [imageGameInfo.statusInfo.correct]);
 
-  return (
-    <div className={styles.app} ref={appRef} tabIndex="0">
+  return (<div className={styles.app} ref={appRef} tabIndex="0">
       <div className={styles.container}>
         <div className={`${styles.adsense} ${styles.adsenseLeft}`}>Google Adsense Area</div>
         <div className={styles.mainContent}>
@@ -84,23 +83,24 @@ function App({imageGame, currentUrl}) {
           </div>
           <div className={styles.gameArea}>
             <Info gameInfo={imageGameInfo.gameInfo}/>
-            <ImageArea imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo} />
-            <Share stageStatus={imageGameInfo.statusInfo} url={currentUrl} />
+            <ImageArea imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo}/>
+            <Share stageStatus={imageGameInfo.statusInfo} url={currentUrl}/>
           </div>
           <div className={styles.gameFooter}>
             <p className={styles.imageCreatedBy}>Created by Chat GPT. Chat GPT titled </p>
-              <GuessResult questionInfo={imageGameInfo.questionInfo}/>
+            <GuessResult questionInfo={imageGameInfo.questionInfo}/>
           </div>
           <div className={styles.bottomArea}>
             <div className={styles.guessArea}>
-                <HangManArea guessInfo={imageGameInfo.guessInfo}/>
-                <AlphabetInput letters={imageGameInfo.letters} imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo}/>
+              <HangManArea guessInfo={imageGameInfo.guessInfo}/>
+              <AlphabetInput letters={imageGameInfo.letters} imageGameInfo={imageGameInfo}
+                             setImageGameInfo={setImageGameInfo}/>
             </div>
             <Footer/>
           </div>
         </div>
         <div className={`${styles.adsense} ${styles.adsenseRight}`}>Google Adsense Area</div>
-        <CookieBanner />
+        <CookieBanner/>
       </div>
     </div>
   );

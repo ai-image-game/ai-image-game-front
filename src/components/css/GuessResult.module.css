@@ -1,12 +1,15 @@
 div.guessInputs {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: flex-end;
     flex-direction: row;
     margin: 10px 0;
     user-select: none;
     pointer-events: none;
-    font-size: clamp(14px, 5vw, 20px);
+    flex-shrink: 0;
+    font-size: clamp(12px, 5vw, 20px);
+    gap: 5px;
 }
 
 .prefix, .postfix {
@@ -20,12 +23,12 @@ div.guessInputs {
 
 
 .guessInput {
+    flex: 1;
     border-bottom: 2px solid #333;
     font-size: inherit;
     text-align: center;
-    width: 20px;
-    min-width: 10px;
-    margin: 0 5px;
+    max-width: 15px;
+    min-width: 7px;
     outline: none;
     background-color: transparent;
     cursor: default;
@@ -39,10 +42,11 @@ div.guessInputs {
 }
 
 .guessCorrect {
+    flex: 1;
     position: relative;
-    font-size: 20px;
-    width: 20px;
-    margin: 0 5px;
+    font-size: clamp(14px, 5vw, 22px);
+    max-width: 15px;
+    min-width: 7px;
     user-select: none;
     pointer-events: none;
     text-decoration: underline;
@@ -100,4 +104,18 @@ div.guessInputs {
     --y: -50px;
     animation-delay: 0.4s;
     background-color: lightskyblue;
+}
+
+
+@media (max-width: 768px) {
+    .alphabetLetter {
+        margin : 1px;
+        padding : 3px;
+        background-color: transparent;
+        font-size: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    div.guessInputs {
+        gap: 3px;
+    }
 }

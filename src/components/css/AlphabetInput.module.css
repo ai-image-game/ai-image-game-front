@@ -58,6 +58,10 @@
 
 @media (max-width: 768px) {
     .alphabetLetter {
-        margin : 2px;
+        margin : 1px;
+        padding : 3px;
+        background-color: transparent;
+        font-size: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 }

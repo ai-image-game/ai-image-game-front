@@ -1,7 +1,7 @@
 body {
     font-family: Consolas, monospace;
     text-align: center;
-    margin: 0 auto;
+    margin: auto;
     padding: 0;
     display: flex;
     justify-content: center;

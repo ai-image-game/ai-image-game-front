@@ -9,6 +9,7 @@
     padding: 0;
     box-sizing: border-box;
     outline: none;
+    margin: auto;
 }
 
 .adsense {
@@ -33,7 +34,7 @@
     width: 100%;
     height: 100%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: auto;
 }
 
 .mainContent {
@@ -46,7 +47,7 @@
 }
 
 div.gameTitle {
-    margin: 0;
+    margin: auto;
     user-select: none;
     pointer-events: none;
     text-align: center;
@@ -159,7 +160,7 @@ div.guessArea {
         justify-content: center;
         width: 100%;
         height: 100%;
-        margin: 0 auto;
+        margin: auto;
         overflow: hidden;
     }
 
