@@ -7,7 +7,7 @@ let isConnected = false;
 export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo) {
     if (client != null) return;
 
-    const sockJS = new SockJS('http://localhost/connect');
+    const sockJS = new SockJS('http://192.168.219.100/connect');
 
     client = new Client({
         webSocketFactory: () => sockJS,

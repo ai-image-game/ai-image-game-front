@@ -6,7 +6,7 @@ import { getCurrentUrl, initOpenGraph } from '../common/InitImageGame';
 export async function getServerSideProps(context) {
     const { req } = context;
     const apiClient = axios.create({
-        baseURL: 'http://localhost', // API의 기본 URL
+        baseURL: 'http://192.168.219.100', // API의 기본 URL
         timeout: 10000, // 요청 제한 시간 (ms)
         headers: {
             'Content-Type': 'application/json',
