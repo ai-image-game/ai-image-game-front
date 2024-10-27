@@ -1,10 +1,9 @@
 @media (max-width: 768px) {
     .imageArea {
-        height: 40vh;
-        flex: 2;
-        min-width: 300px;
+        max-height: 50%;
+        max-width: 90%;
+        overflow: hidden;
     }
-
     div.clear button.restartButton,
     div.gameover button.restartButton,
     div.gameover button.retryButton,
@@ -19,8 +18,7 @@
 @media (min-width: 769px) {
     .imageArea {
         flex: 2;
-        min-width: 500px;
-        height: 40vh;
+        max-width: 30vw;
     }
 
     div.gameover button.retryButton, button.skipButton, button.shareButton, button.restartButton,
@@ -48,15 +46,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
     position: relative;
-    border: 1px solid #ddd;
-    margin: 5px;
-    width: 100%;
-    background-color: #fff;
+    margin: 2%;
     box-sizing: border-box;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .imageArea img {
@@ -64,7 +56,14 @@
     max-height: 100%;
     object-fit: contain;
     position: relative;
+    display: block;
     z-index: 1;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: auto;
+    height: auto;
 }
 
 .imageArea::before {
@@ -265,7 +264,11 @@ div.congratulation {
     background-size: 100% 100%;
     overflow: hidden;
     -webkit-font-smoothing: antialiased;
-    z-index : 4
+    z-index : 4;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 div.congratulation::before {

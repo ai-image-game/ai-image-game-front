@@ -6,12 +6,11 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin: 5px;
 }
 
 .alphabetLetter {
-    font-size: 20px;
     margin: 5px;
+    padding: 7px;
     user-select: none;
     cursor: pointer;
     text-align: center;
@@ -19,6 +18,7 @@
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: clamp(16px, 3vw, 20px);
 }
 
 .alphabetLetter:hover {
@@ -64,9 +64,8 @@
 
     .alphabetLetter {
         margin : 1px;
-        padding : 3px;
+        padding : 1px;
         background-color: transparent;
-        font-size: 15px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 }

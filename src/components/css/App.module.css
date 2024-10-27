@@ -2,11 +2,11 @@
 .app {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center; 
+    align-items: flex-start;
+    justify-content: center;
     width: 100%;
-    height: 100%;
-    padding: 0;
+    height: 100vh;
+    padding: 10px;
     box-sizing: border-box;
     outline: none;
     margin: auto;
@@ -14,15 +14,15 @@
 
 .adsense {
     /*border: 1px solid #ddd;*/
-    padding: 20px;
     margin: 0;
+    padding: 20px;
     user-select: none;
     pointer-events: none;
     text-align: center;
+    max-height: 5vh;
 }
 
 .adsenseLeft, .adsenseRight {
-    flex: 0 0 25%;
     max-width: 25%;
 }
 
@@ -38,16 +38,12 @@
 }
 
 .mainContent {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-self: flex-start;
     flex: 1;
     width: 100%;
 }
 
 div.gameTitle {
-    margin: auto;
     user-select: none;
     pointer-events: none;
     text-align: center;
@@ -56,7 +52,7 @@ div.gameTitle {
 
 div.gameTitle h1 {
     color: white;
-    font-size: clamp(1.5rem, 3vw, 3rem);
+    font-size: clamp(1.5rem, 5vw, 3rem);
     margin: 0;
     font-weight: 10;
     text-transform: uppercase;
@@ -67,9 +63,7 @@ div.gameTitle h1 {
 
 div.gameArea {
     display: flex;
-    flex: 1;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     margin: 0;
     width: 100%;
@@ -84,17 +78,19 @@ div.gameFooter {
     width: 100%;
 }
 
-div.gameFooter p.imageCreatedBy {
+div.gameFooter span.imageCreatedBy {
     font-size: clamp(8px, 3vw, 14px);
+    margin-top: 10vh;
+    margin-bottom: 10vh;
 }
 
 div.bottomArea {
     display: flex;
-    flex: 1;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 div.guessArea {
@@ -142,16 +138,10 @@ div.guessArea {
 }
 
 @media (max-width: 768px) {
-    .adsenseLeft {
+    .adsenseLeft, .adsenseRight {
         display: block;
         width: 100%;
         max-width: 100%;
-        height: 20%;
-        order: -1;
-    }
-
-    .adsenseRight {
-        display: none;
     }
 
     .container {
@@ -161,7 +151,6 @@ div.guessArea {
         width: 100%;
         height: 100%;
         margin: auto;
-        overflow: hidden;
     }
 
     .mainContent {
@@ -172,11 +161,33 @@ div.guessArea {
     }
 
     .gameArea {
-        flex-direction: column;
         width: 100%;
+        justify-content: flex-start;
     }
 
     .bottomArea {
         flex-direction: column;
+        width: 90vw;
+    }
+}
+
+@media (max-width: 425px) {
+    .adsense {
+        margin: 0 0 10px 0;
+        padding: 0;
+    }
+    .adsenseRight {
+        display: none;
+    }
+    div.gameTitle h1 {
+        color: white;
+        font-size: clamp(14pt, 10vw, 30pt);
+    }
+}
+
+@media (max-width: 400px) {
+    div.gameTitle h1 {
+        color: white;
+        font-size: clamp(14pt, 7vw, 30pt);
     }
 }

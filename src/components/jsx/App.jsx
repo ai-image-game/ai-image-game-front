@@ -87,7 +87,7 @@ function App({imageGame, currentUrl}) {
             <Share stageStatus={imageGameInfo.statusInfo} url={currentUrl}/>
           </div>
           <div className={styles.gameFooter}>
-            <p className={styles.imageCreatedBy}>Created by Chat GPT. Chat GPT titled </p>
+            <span className={styles.imageCreatedBy}>Created by Chat GPT. Chat GPT titled </span>
             <GuessResult questionInfo={imageGameInfo.questionInfo}/>
           </div>
           <div className={styles.bottomArea}>
@@ -102,7 +102,7 @@ function App({imageGame, currentUrl}) {
         <div className={`${styles.adsense} ${styles.adsenseRight}`}>Google Adsense Area</div>
         <CookieBanner/>
       </div>
-    </div>
+      </div>
   );
 }
 

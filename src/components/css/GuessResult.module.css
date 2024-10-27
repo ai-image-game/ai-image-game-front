@@ -4,12 +4,13 @@ div.guessInputs {
     justify-content: center;
     align-items: flex-end;
     flex-direction: row;
-    margin: 5px 0;
     user-select: none;
     pointer-events: none;
     flex-shrink: 0;
     gap: 5px;
-    min-height:2.5vh;
+    min-height:3vh;
+    margin-top: 1vh;
+    margin-bottom: 2vh;
 }
 
 .prefix, .postfix {
@@ -35,7 +36,6 @@ div.guessInputs {
     user-select: none;
     pointer-events: none;
     font-size: clamp(14px, 5vw, 20px);
-    min-height: inherit;
 }
 
 .blank {
@@ -52,7 +52,6 @@ div.guessInputs {
     border-bottom: 2px solid lightgreen;
     display: inline-block;
     font-size: clamp(14px, 5vw, 20px);
-    min-height: inherit;
 }
 
 .particle {
@@ -108,16 +107,13 @@ div.guessInputs {
 }
 
 
-@media (max-width: 768px) {
-    .alphabetLetter {
-        margin : 1px;
-        padding : 3px;
-        background-color: transparent;
-        font-size: 15px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+@media (max-width: 425px) {
     div.guessInputs {
         gap: 3px;
-        min-height:3vh;
+        margin-top: 1vh;
+        margin-bottom: 1vh;
+    }
+    .guessInput, .guessCorrect {
+        font-size: clamp(14px, 4vw, 19px);
     }
 }
