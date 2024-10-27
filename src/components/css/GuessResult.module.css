@@ -9,7 +9,7 @@ div.guessInputs {
     pointer-events: none;
     flex-shrink: 0;
     gap: 5px;
-    min-height:22px;
+    min-height:2.5vh;
 }
 
 .prefix, .postfix {
@@ -118,5 +118,6 @@ div.guessInputs {
     }
     div.guessInputs {
         gap: 3px;
+        min-height:3vh;
     }
 }
