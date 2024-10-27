@@ -178,7 +178,7 @@ export default function ImageArea({imageGameInfo, setImageGameInfo}) {
             </div>
             }
             {isGameOverVisible && <div className={`${styles.gameover} ${pressStart2p.className}`}>
-                <p>GAME OVER</p>
+                <span className={styles.gameover}>GAME OVER</span>
                 {imageGameInfo.gameInfo.retry === 0 &&
                     <button className={`${styles.restartButton} ${pressStart2p.className}`} onClick={onRestart}>
                         Restart from Level 1
@@ -186,7 +186,8 @@ export default function ImageArea({imageGameInfo, setImageGameInfo}) {
                 }
                 {imageGameInfo.gameInfo.retry !== 0 &&
                     <>
-                        <button className={`${styles.retryButton} ${pressStart2p.className}`} onClick={onRetry}>
+                        <button className={`${styles.retryButton} ${pressStart2p.className} 
+                                            ${imageGameInfo.gameInfo.retry === 1 ? `${styles.lastRetry}` : '' }`} onClick={onRetry}>
                             Watch Ads & Try Again!
                             <span
                                 className={`${styles.last}`}> {imageGameInfo.gameInfo.retry === 1 ? "(Last)" : ""}</span>

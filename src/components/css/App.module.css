@@ -85,7 +85,7 @@ div.gameFooter {
 }
 
 div.gameFooter p.imageCreatedBy {
-    font-size: clamp(11px, 4vw, 14px);
+    font-size: clamp(8px, 3vw, 14px);
 }
 
 div.bottomArea {

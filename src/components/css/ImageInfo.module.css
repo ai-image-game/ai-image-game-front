@@ -5,16 +5,12 @@
         min-width: 300px;
     }
 
-    div.gameover p {
-        font-size: 50px;
-    }
-
     div.clear button.restartButton,
     div.gameover button.restartButton,
     div.gameover button.retryButton,
     div.gameover button.skipButton,
     div.gameover button.shareButton {
-        margin-bottom: 10px;
+        margin-bottom: 3%;
         width: 90%;
         font-size: 9pt;
     }
@@ -32,10 +28,6 @@
         margin-bottom: 10px;
         width: 80%;
         font-size: 12pt;
-    }
-
-    div.gameover p {
-        font-size: 80px;
     }
 
     div.clear button.restartButton:hover {
@@ -102,10 +94,12 @@ div.gameover {
     z-index : 4;
 }
 
-div.gameover p{
+div.gameover span.gameover {
     color: white;
     text-align: center;
     animation: glitch 1s linear infinite;
+    font-size: clamp(30px, 15vw, 80px);
+    margin : 10%;
 }
 
 div.gameover span.last {
@@ -130,9 +124,12 @@ div.clear button.restartButton {/* 버튼에 동일한 폰트 적용 */
 div.gameover button.retryButton {
     display: inline-flex;
     animation : changeBtnColor 2s ease infinite;
-    letter-spacing: -2px;
     align-items: center;
     justify-content: center;
+}
+
+div.gameover .lastRetry{
+    letter-spacing: -2px;
 }
 
 div.gameover button.skipButton:active{
@@ -197,14 +194,14 @@ div.gameover button.retryButton:hover{
     }
 }
 
-div.gameover p:before,
-div.gameover p:after{
+div.gameover span.gameover:before,
+div.gameover span.gameover:after{
     content: attr(title);
     position: absolute;
     left: 0;
 }
 
-div.gameover p:before{
+div.gameover span.gameover:before{
     animation: glitchTop 1s linear infinite;
     clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
@@ -222,7 +219,7 @@ div.gameover p:before{
     }
 }
 
-div.gameover p:after{
+div.gameover span.gameover:after{
     animation: glitchBotom 1.5s linear infinite;
     clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
     -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);

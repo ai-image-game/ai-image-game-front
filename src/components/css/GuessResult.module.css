@@ -4,17 +4,17 @@ div.guessInputs {
     justify-content: center;
     align-items: flex-end;
     flex-direction: row;
-    margin: 10px 0;
+    margin: 5px 0;
     user-select: none;
     pointer-events: none;
     flex-shrink: 0;
-    font-size: clamp(12px, 5vw, 20px);
     gap: 5px;
+    min-height:22px;
 }
 
 .prefix, .postfix {
-    font-size: inherit;
-    margin: 0 10px;
+    font-size: clamp(10px, 4vw, 20px);
+    margin:0 5px;
     user-select: none;
     pointer-events: none;
     flex-shrink: 0;
@@ -25,7 +25,6 @@ div.guessInputs {
 .guessInput {
     flex: 1;
     border-bottom: 2px solid #333;
-    font-size: inherit;
     text-align: center;
     max-width: 15px;
     min-width: 7px;
@@ -35,6 +34,8 @@ div.guessInputs {
     display: inline-block;
     user-select: none;
     pointer-events: none;
+    font-size: clamp(14px, 5vw, 20px);
+    min-height: inherit;
 }
 
 .blank {
@@ -44,14 +45,14 @@ div.guessInputs {
 .guessCorrect {
     flex: 1;
     position: relative;
-    font-size: clamp(14px, 5vw, 22px);
     max-width: 15px;
     min-width: 7px;
     user-select: none;
     pointer-events: none;
-    text-decoration: underline;
-    text-decoration-color: lightgreen;
+    border-bottom: 2px solid lightgreen;
     display: inline-block;
+    font-size: clamp(14px, 5vw, 20px);
+    min-height: inherit;
 }
 
 .particle {

@@ -14,7 +14,7 @@ export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo
         debug: (str) => {
             console.log(str);
         },
-        reconnectDelay: 5000,
+        reconnectDelay: 300000,
         heartbeatIncoming : 10000,
         heartbeatOutgoing : 10000
     });
