@@ -20,6 +20,8 @@ export default function ImageArea({imageGameInfo, setImageGameInfo}) {
     const [isGameOverVisible, setIsGameOverVisible] = useState(false);
     const [isClearVisible, setIsClearVisible] = useState(false);
     const imgRef = useRef(null);
+    const [correctMessage, setCorrectMessage] = useState("CORRECT");
+    const correctMessages = ["CORRECT", "PERFECT", "EXCELLENT", "WELL DONE", "GREAT"];
 
     useEffect(() => {
         const handleResize = () => {
@@ -74,6 +76,7 @@ export default function ImageArea({imageGameInfo, setImageGameInfo}) {
         let correctTimer;
         if (imageGameInfo.statusInfo.correct) {
             correctTimer = setTimeout(() => {
+                setCorrectMessage(correctMessages[Math.floor(Math.random() * correctMessages.length)]);
                 setIsCorrectVisible(true);
             }, 1000);
         }
@@ -152,13 +155,10 @@ export default function ImageArea({imageGameInfo, setImageGameInfo}) {
             </div>}
             { isCorrectVisible && !isLevelUpVisible && <div className={`${styles.congratulation} ${luckiestGuyFont.className}`}>
                 <h1>
-                    <span>C</span>
-                    <span>O</span>
-                    <span>R</span>
-                    <span>R</span>
-                    <span>E</span>
-                    <span>C</span>
-                    <span>T</span>
+                    {correctMessage.split("").map((msg, index) => (
+                        <span>{msg}</span>
+                        ))
+                    }
                     <span>!</span>
                 </h1>
             </div>
