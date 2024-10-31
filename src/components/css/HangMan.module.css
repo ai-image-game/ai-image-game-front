@@ -1,14 +1,16 @@
 .hangmanArea {
-    width: 62px;
-    height: 100px;
-    position:relative;
+    width: 3vw;
+    min-width: 64px;
+    height: auto;
+    min-height: 100px;
+    position: relative;
     display: flex;
-    align-items: center;
     box-sizing: border-box;
-    background-color: #e6e3df;
+    background-color: #e6e4e2;
     border-radius: 8px;
     user-select: none;
     overflow: hidden;
+    margin-left: 2%;
     margin-right: 2%;
     padding: 0;
 }
