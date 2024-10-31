@@ -35,7 +35,7 @@ div.guessInputs {
     display: inline-block;
     user-select: none;
     pointer-events: none;
-    font-size: clamp(14px, 5vw, 20px);
+    font-size: clamp(14px, 5vw, 15px);
 }
 
 .blank {
@@ -51,7 +51,7 @@ div.guessInputs {
     pointer-events: none;
     border-bottom: 2px solid lightgreen;
     display: inline-block;
-    font-size: clamp(14px, 5vw, 20px);
+    font-size: clamp(14px, 5vw, 15px);
 }
 
 .particle {

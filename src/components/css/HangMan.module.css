@@ -1,99 +1,24 @@
 .hangmanArea {
     width: 62px;
     height: 100px;
-    position: relative;
+    position:relative;
+    display: flex;
+    align-items: center;
     box-sizing: border-box;
-    background-color: #ddd;
+    background-color: #e6e3df;
     border-radius: 8px;
     user-select: none;
+    overflow: hidden;
     margin-right: 2%;
+    padding: 0;
 }
 
-.killed {
+.hangmanArea img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.killed{
     background-color: lightcoral;
-}
-
-.hangmanPart {
-    visibility: hidden;
-    position: absolute;
-    background-color: black;
-}
-
-.hangmanBase {
-    bottom: 0;
-    left: 10%;
-    width: 25%;
-    height: 5px;
-}
-
-.hangmanPole {
-    top: 0;
-    left: 10%;
-    width: 5px;
-    height: 100%;
-}
-
-.hangmanBeam {
-    top: 0;
-    left: 010%;
-    width: 50%;
-    height: 5px;
-}
-
-.hangmanRope {
-    top: 0;
-    left: 60%;
-    width: 1px;
-    height: 30%;
-}
-
-.hangmanHead {
-    top: 30%;
-    left: 50%;
-    width: 20%;
-    height: 10%;
-    border-radius: 50%;
-}
-
-.hangmanBody {
-    top: 40%;
-    left: 55%;
-    width: 5px;
-    height: 20px;
-}
-
-.hangmanLeftArm {
-    top: 45%;
-    left: 28%;
-    width: 27%;
-    height: 2px;
-}
-
-.hangmanRightArm {
-    top: 45%;
-    left: 65%;
-    width: 27%;
-    height: 2px;
-}
-
-.hangmanLeftLeg {
-    top: 57%;
-    left: 57%;
-    width: 3px;
-    height: 15px;
-    transform: rotate(45deg);
-    transform-origin: top left;
-}
-
-.hangmanRightLeg {
-    top: 57%;
-    left: 58%;
-    width: 3px;
-    height: 15px;
-    transform: rotate(-45deg);
-    transform-origin: top right;
-}
-
-.hangmanPart.visible {
-    visibility: visible;
 }

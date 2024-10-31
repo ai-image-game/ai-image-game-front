@@ -1,21 +1,35 @@
 import styles from '../css/HangMan.module.css';
+import {useEffect} from "react";
 
 function HangMan({ guessInfo }) {
     const wrongCount = guessInfo.wrongLetters.length;
 
-    return  (
-    <div className={`${styles.hangmanArea} ${wrongCount >= 7 ? styles.killed : ''}`}>
-        <div className={`${styles.hangmanPart} ${styles.hangmanBase} ${wrongCount >= 5 ? styles.visible : ''}`}></div>
-        <div className={`${styles.hangmanPart} ${styles.hangmanPole} ${wrongCount >= 5 ? styles.visible : ''}`}></div>
-        <div className={`${styles.hangmanPart} ${styles.hangmanBeam} ${wrongCount >= 6 ? styles.visible : ''}`}></div>
-        <div className={`${styles.hangmanPart} ${styles.hangmanRope} ${wrongCount >= 7 ? styles.visible : ''}`}></div>
-        <div className={`${styles.hangmanPart} ${styles.hangmanHead} ${wrongCount >= 1 ? styles.visible : ''}`}></div>
-        <div className={`${styles.hangmanPart} ${styles.hangmanBody} ${wrongCount >= 2 ? styles.visible : ''}`}></div>
-        <div className={`${styles.hangmanPart} ${styles.hangmanLeftArm} ${wrongCount >= 3 ? styles.visible : ''}`}></div>
-        <div className={`${styles.hangmanPart} ${styles.hangmanRightArm} ${wrongCount >= 3 ? styles.visible : ''}`}></div>
-        <div className={`${styles.hangmanPart} ${styles.hangmanLeftLeg} ${wrongCount >= 4 ? styles.visible : ''}`}></div>
-        <div className={`${styles.hangmanPart} ${styles.hangmanRightLeg} ${wrongCount >= 4 ? styles.visible : ''}`}></div>
-    </div>);
+    useEffect(() => {
+        //pre load
+        const images = [
+            "/images/hangman/hangman_head_small.png",
+            "/images/hangman/hangman_arms_small.png",
+            "/images/hangman/hangman_legs_small.png",
+            "/images/hangman/hangman_stick_small.png",
+            "/images/hangman/hangman_stick_up_small.png",
+            "/images/hangman/hangman_small.png"
+        ];
+
+        images.forEach((src) => {
+            const img = new Image();
+            img.src = src;
+        });
+    }, []);
+
+    return (
+        <div className={`${styles.hangmanArea} ${wrongCount === 6 ? styles.killed : ''}`}>
+            {wrongCount === 1 && <img src="/images/hangman/hangman_head_small.png" alt="hangman_head"/>}
+            {wrongCount === 2 && <img src="/images/hangman/hangman_arms_small.png" alt="hangman_arms"/>}
+            {wrongCount === 3 && <img src="/images/hangman/hangman_legs_small.png" alt="hangman_legs"/>}
+            {wrongCount === 4 && <img src="/images/hangman/hangman_stick_small.png" alt="hangman_stick"/>}
+            {wrongCount === 5 && <img src="/images/hangman/hangman_stick_up_small.png" alt="hangman_stick_up"/>}
+            {wrongCount === 6 && <img src="/images/hangman/hangman_small.png" alt="hangman"/>}
+        </div>);
 }
 
 export default HangMan;
