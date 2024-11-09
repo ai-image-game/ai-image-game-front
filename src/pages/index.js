@@ -2,23 +2,34 @@ import Head from 'next/head';
 import axios from 'axios';
 import App from '../components/jsx/App';
 import { getCurrentUrl, initOpenGraph } from '../common/InitImageGame';
+import * as cookie from 'cookie';
 
 export async function getServerSideProps(context) {
+    const cookies = context.req.headers.cookie || '';
+
     const { req } = context;
+    const BASE_URL = 'http://192.168.219.100';
     const apiClient = axios.create({
-        baseURL: 'http://192.168.219.100', // API의 기본 URL
+        baseURL: BASE_URL, // API의 기본 URL
         timeout: 10000, // 요청 제한 시간 (ms)
         headers: {
             'Content-Type': 'application/json',
             'Accept' : 'application/json'
-        },
-        withCredentials : true
+        }
+    });
+
+    apiClient.interceptors.request.use(request => {
+        request.headers['Cookie'] = cookies;
+        return request;
     });
 
     let imageGame = null;
+
     if (req.url.includes("?")) {
         const uuid = req.url.split('?')[1];
         imageGame = (await apiClient.get("/api/v1/image-game/" + uuid)).data;
+    } else if (cookies !== '') {
+        imageGame = (await apiClient.get("/api/v1/image-game/reconnect")).data;
     } else {
         imageGame = (await apiClient.put("/api/v1/image-game", {})).data;
     }

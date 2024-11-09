@@ -11,6 +11,7 @@ import Footer from './Footer';
 import CookieBanner from './CookieBanner';
 import Share from './Share.jsx'
 import styles from '../css/App.module.css';
+import CryptoJS from 'crypto-js';
 
 const luckiestGuyFont = Luckiest_Guy({
   weight : "400",
@@ -20,6 +21,7 @@ const luckiestGuyFont = Luckiest_Guy({
 function App({imageGame, currentUrl}) {
   const appRef = useRef(null);
   const initRef = useRef(false);
+  const [isDisconnect, setIsDisconnect] = useState (false);
 
   const [ imageGameInfo, setImageGameInfo ] = useState( {
     gameInfo : { level : 1, questions : 10, corrects : 0, retry : 3 },
@@ -34,7 +36,7 @@ function App({imageGame, currentUrl}) {
   useEffect(() => {
     if (initRef.current) return;
     processImageGameInfo(imageGame);
-    initSocket(imageGame, setImageGameInfo, processImageGameInfo);
+    initSocket(imageGame, setImageGameInfo, processImageGameInfo, setIsDisconnect);
     initRef.current = true;
   }, []);
 
@@ -46,8 +48,8 @@ function App({imageGame, currentUrl}) {
       gameOver : false,
       share : false
     };
-    response.guessInfo = initGuessInfo();
-    response.letters = initLetters();
+    response.guessInfo = response.guessResult === undefined || response.guessResult === null ?  initGuessInfo(response) : response.guessResult;
+    response.letters = response.letters === undefined ? initLetters(response) : response.letters;
     setImageGameInfo((prevState) => {
       if (prevState.imgHistory.includes(response.imageInfo.uuid)) {
         console.log("refreshed.");
@@ -58,9 +60,24 @@ function App({imageGame, currentUrl}) {
       return {
       ...prevState,
       ...response,response,
-      imgHistory : [...prevState.imgHistory, response.imageInfo.uuid]
+      imgHistory : response.imgHistory === undefined ? [...prevState.imgHistory, response.imageInfo.uuid] : response.imgHistory
     }});
   }
+
+  useEffect(() => {
+    if (isDisconnect) {
+      fetch('/api/setCookie', {
+        method : 'POST',
+        credentials: 'include',
+        headers : {
+          'Content-Type' : 'application/json',
+        },
+        body: JSON.stringify({data : imageGameInfo}),
+      })
+          .then((data) => console.log(data))
+          .catch((error) => console.error("Error:", error));
+    }
+  }, [isDisconnect]);
 
   useEffect(() => {
     if (imageGameInfo.statusInfo.correct) {

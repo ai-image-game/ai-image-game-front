@@ -3,8 +3,9 @@ import { Client } from "@stomp/stompjs";
 
 let client = null;
 let isConnected = false;
+let functionCookies = false;
 
-export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo) {
+export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo, setIsDisconnect) {
     if (client != null) return;
 
     const sockJS = new SockJS('http://192.168.219.100/connect');
@@ -48,7 +49,7 @@ export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo
 
     client.onDisconnect = () => {
         isConnected = false;
-        alert("Disconnected. You will be redirected to the first page.");
+        if (functionCookies) setIsDisconnect(true);
     };
 
     client.onStompError = (frame) => {
@@ -59,6 +60,7 @@ export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo
     client.onWebSocketClose = function(evt) {
         isConnected = false;
         console.log(evt);
+        if (functionCookies) setIsDisconnect(true);
     };
 
     client.activate();
@@ -73,6 +75,10 @@ export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo
     };
 }
 
+export function changeUsingFunctionCookies(useFunctionCookies) {
+    functionCookies = useFunctionCookies;
+}
+
 export function guess (guessInfo) {
     if (client && isConnected) {
         client.publish({
@@ -80,7 +86,7 @@ export function guess (guessInfo) {
             body: JSON.stringify(guessInfo),
         });
     } else {
-        alert("Disconnected from server while guessing the answer.");
+        console.log("Disconnected from server while guessing the answer.");
         window.location.href = "/";
     }
 }
@@ -91,7 +97,7 @@ export function retry() {
             destination: '/image-game/retry',
         });
     } else {
-        alert("Disconnected from server while retrying.");
+        console.log("Disconnected from server while retrying.");
         window.location.href = "/";
     }
 }
@@ -102,7 +108,7 @@ export function goNextStage () {
             destination: '/image-game/next'
         });
     } else {
-        alert("Disconnected from server while moving to the next.");
+        console.log("Disconnected from server while moving to the next.");
         window.location.href = "/";
     }
 }

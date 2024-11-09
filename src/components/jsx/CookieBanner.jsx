@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CookieConsent, { Cookies } from 'react-cookie-consent';
 import styles from '../css/CookieBanner.module.css';
+import { changeUsingFunctionCookies } from '../../common/Websocket'
 
 const CookieBanner = () => {
     const [showBanner, setShowBanner] = useState(true);
@@ -12,6 +13,8 @@ const CookieBanner = () => {
     const handleAcceptAll = () => {
         console.log("All cookies accepted.");
         setShowBanner(false);
+        changeUsingFunctionCookies(true);
+
         // 모든 쿠키 사용 동의 처리 로직
         /*window.gtag('consent', 'update', {
             'analytics_storage': 'granted'
@@ -29,6 +32,7 @@ const CookieBanner = () => {
 
     const handleSavePreferences = () => {
         console.log("Preferences saved:", { functionalCookies, analyticsCookies, marketingCookies });
+        if (functionalCookies) changeUsingFunctionCookies(true);
         /* window.gtag('consent', 'update', {
             'analytics_storage': analyticsCookies ? 'granted' : 'denied'
         }); */ //TODO Google Analytics
