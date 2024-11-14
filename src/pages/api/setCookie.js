@@ -14,6 +14,7 @@ export default function saveImageGameInfo(req, res) {
 
         res.setHeader('Set-Cookie', cookie.serialize('savedData', encryptedData, {
             path : '/',
+            maxAge : 60 * 60 * 24 * 100,
             secure : false
         }));
         res.status(200).json({message : 'success'});

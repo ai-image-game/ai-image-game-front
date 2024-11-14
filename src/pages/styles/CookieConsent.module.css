@@ -1,0 +1,38 @@
+
+
+.container {
+    justify-content: center;
+    min-width: 300px;
+    max-width: 1200px;
+    padding: 20px;
+}
+a.homeButton {
+    padding: 10px 15px;
+    background-color: black;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+}
+a.homeButton:hover {
+    background-color: #0056b3;
+}
+h1.title {
+    text-align: center;
+    margin: 20px auto;
+    font-size: clamp(16px, 3vw, 20px);
+}
+h2.subTitle {
+    color: #333;
+    margin-top: 20px;
+    font-size: clamp(12px, 2vw, 16px);
+}
+p.info {
+    margin-bottom: 15px;
+    font-size: clamp(12px, 1vw, 16px);
+}
+li.list {
+    font-size: clamp(12px, 1vw, 16px);
+    justify-self: flex-start;
+    text-align: left;
+}

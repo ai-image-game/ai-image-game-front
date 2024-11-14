@@ -1,4 +1,4 @@
-import './styles/global.css';
+import './styles/Global.css';
 
 function AiImageGame({ Component, pageProps }) {
     return (

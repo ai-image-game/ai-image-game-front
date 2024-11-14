@@ -1,29 +1,27 @@
 import React, { useState } from 'react';
-import CookieConsent, { Cookies } from 'react-cookie-consent';
+import { Cookies } from 'react-cookie-consent';
 import styles from '../css/CookieBanner.module.css';
-import { changeUsingFunctionCookies } from '../../common/Websocket'
+
+let useFunctionCookies = null;
 
 const CookieBanner = () => {
     const [showBanner, setShowBanner] = useState(true);
     const [showSettings, setShowSettings] = useState(false);
-    const [functionalCookies, setFunctionalCookies] = useState(true); // 기본값을 true로 설정하여 "OK" 클릭 시 활성화
-    const [analyticsCookies, setAnalyticsCookies] = useState(true); // 기본값을 true로 설정하여 "OK" 클릭 시 활성화
-    const [marketingCookies, setMarketingCookies] = useState(true); // 기본값을 true로 설정하여 "OK" 클릭 시 활성화
+    const [functionalCookies, setFunctionalCookies] = useState(true);
+    const [analyticsCookies, setAnalyticsCookies] = useState(true);
+    const [marketingCookies, setMarketingCookies] = useState(true);
 
     const handleAcceptAll = () => {
-        console.log("All cookies accepted.");
         setShowBanner(false);
-        changeUsingFunctionCookies(true);
+        useFunctionCookies = true;
 
-        // 모든 쿠키 사용 동의 처리 로직
         /*window.gtag('consent', 'update', {
             'analytics_storage': 'granted'
         });*/ //TODO GOOGLE ANALYTICS
     };
 
     const handleDeclineAll = () => {
-        console.log("All cookies declined.");
-        Cookies.remove("gameData"); // 게임 데이터를 저장하지 않도록 설정
+        Cookies.remove("savedData");
         /*window.gtag('consent', 'update', {
             'analytics_storage': 'denied'
         });*/ //TODO GOOGLE ANALYTICS
@@ -31,8 +29,7 @@ const CookieBanner = () => {
     };
 
     const handleSavePreferences = () => {
-        console.log("Preferences saved:", { functionalCookies, analyticsCookies, marketingCookies });
-        if (functionalCookies) changeUsingFunctionCookies(true);
+        useFunctionCookies = functionalCookies;
         /* window.gtag('consent', 'update', {
             'analytics_storage': analyticsCookies ? 'granted' : 'denied'
         }); */ //TODO Google Analytics
@@ -43,16 +40,14 @@ const CookieBanner = () => {
         <div>
             {showBanner && (
                     !showSettings ? (
-                        // 간단한 초기 배너
                         <div className={styles.fixBanner}>
                             <p>We use cookies to enhance your experience, save your game progress, measure how the site is used, and provide personalized ads.</p>
                             <button onClick={handleAcceptAll} className={styles.primaryButton}>OK</button>
                             <button onClick={() => setShowSettings(true)} className={styles.secondaryButton}>Cookie Settings</button>
                         </div>
                     ) : (
-                        // 쿠키 설정 옵션 표시
                         <div className={styles.cookieSettings}>
-                            <p>Manage your cookie preferences:</p>
+                            <p>We use cookies for the following three purposes:</p>
                             <div className={styles.cookieSettingsCheck}>
                                 <label>
                                     <input
@@ -68,7 +63,7 @@ const CookieBanner = () => {
                                         checked={analyticsCookies}
                                         onChange={() => setAnalyticsCookies(!analyticsCookies)}
                                     />
-                                    Analytics Cookies (Google Analytics)
+                                    Analytics Cookies
                                 </label>
                                 <label>
                                     <input
@@ -79,16 +74,40 @@ const CookieBanner = () => {
                                     Marketing Cookies
                                 </label>
                             </div>
+
+                            <p className={styles.info}>Our website values your privacy and complies with GDPR regulations.</p>
+                            <p className={styles.info}>For more information, please refer to our <a href="/cookieConsent" className={styles.infoLink}>Privacy Policy</a></p>
+
                             <div className={styles.cookieSettingsButtons}>
-                                <button onClick={handleSavePreferences} className={styles.primaryButton}>Save Preferences</button>
-                                <button onClick={handleDeclineAll} className={styles.secondaryButton}>Decline All</button>
+                                <button onClick={handleSavePreferences} className={styles.primaryButton}>Save
+                                    Preferences
+                                </button>
+                                <button onClick={handleDeclineAll} className={styles.secondaryButton}>Decline All
+                                </button>
                             </div>
                         </div>
                     )
-                )
+            )
             }
         </div>
     );
 };
+
+export function changeCookie(imageGameInfo) {
+    if (useFunctionCookies) {
+        fetch('/api/setCookie', {
+            method : 'POST',
+            credentials: 'include',
+            headers : {
+                'Content-Type' : 'application/json',
+            },
+            body: JSON.stringify({data : imageGameInfo}),
+        })
+            .then((data) => console.log(data))
+            .catch((error) => console.error("Error:", error));
+    } else {
+        Cookies.remove("savedData");
+    }
+}
 
 export default CookieBanner;

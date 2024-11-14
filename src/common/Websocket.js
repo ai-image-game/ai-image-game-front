@@ -3,7 +3,6 @@ import { Client } from "@stomp/stompjs";
 
 let client = null;
 let isConnected = false;
-let functionCookies = false;
 
 export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo, setIsDisconnect) {
     if (client != null) return;
@@ -49,7 +48,7 @@ export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo
 
     client.onDisconnect = () => {
         isConnected = false;
-        if (functionCookies) setIsDisconnect(true);
+        setIsDisconnect(true);
     };
 
     client.onStompError = (frame) => {
@@ -60,7 +59,7 @@ export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo
     client.onWebSocketClose = function(evt) {
         isConnected = false;
         console.log(evt);
-        if (functionCookies) setIsDisconnect(true);
+        setIsDisconnect(true);
     };
 
     client.activate();
@@ -73,10 +72,6 @@ export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo
                 });
         }
     };
-}
-
-export function changeUsingFunctionCookies(useFunctionCookies) {
-    functionCookies = useFunctionCookies;
 }
 
 export function guess (guessInfo) {

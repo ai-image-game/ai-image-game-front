@@ -11,7 +11,7 @@ import Footer from './Footer';
 import CookieBanner from './CookieBanner';
 import Share from './Share.jsx'
 import styles from '../css/App.module.css';
-import CryptoJS from 'crypto-js';
+import { changeCookie } from "./CookieBanner";
 
 const luckiestGuyFont = Luckiest_Guy({
   weight : "400",
@@ -30,7 +30,8 @@ function App({imageGame, currentUrl}) {
     guessInfo : initGuessInfo(),
     letters : initLetters(),
     statusInfo : { correct : false, levelUp : false, clear : false, gameOver : false, share : false },
-    imgHistory : []
+    imgHistory : [],
+    version : 1
   });
 
   useEffect(() => {
@@ -66,16 +67,7 @@ function App({imageGame, currentUrl}) {
 
   useEffect(() => {
     if (isDisconnect) {
-      fetch('/api/setCookie', {
-        method : 'POST',
-        credentials: 'include',
-        headers : {
-          'Content-Type' : 'application/json',
-        },
-        body: JSON.stringify({data : imageGameInfo}),
-      })
-          .then((data) => console.log(data))
-          .catch((error) => console.error("Error:", error));
+      changeCookie(imageGameInfo);
     }
   }, [isDisconnect]);
 
@@ -89,6 +81,7 @@ function App({imageGame, currentUrl}) {
         }
       }, 5000);
     }
+    changeCookie(imageGameInfo);
   }, [imageGameInfo.statusInfo.correct]);
 
   return (<div className={styles.app} ref={appRef} tabIndex="0">
