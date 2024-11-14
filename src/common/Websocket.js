@@ -69,6 +69,7 @@ export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo
             client.deactivate()
                 .then(() => {
                     console.log('Disconnected from server');
+                    setIsDisconnect(true);
                 });
         }
     };
