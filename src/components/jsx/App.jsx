@@ -42,27 +42,27 @@ function App({imageGame, currentUrl}) {
   }, []);
 
   function processImageGameInfo(response) {
-    response.statusInfo = {
-      levelUp : response.statusInfo.levelUp,
-      clear : response.statusInfo.clear,
-      correct : false,
-      gameOver : false,
-      share : false
-    };
-    response.guessInfo = response.guessResult === undefined || response.guessResult === null ?  initGuessInfo(response) : response.guessResult;
-    response.letters = response.letters === undefined ? initLetters(response) : response.letters;
-    setImageGameInfo((prevState) => {
-      if (prevState.imgHistory.includes(response.imageInfo.uuid)) {
-        console.log("refreshed.");
-        goNextStage();
-        return prevState;
-      }
+        setImageGameInfo((prevState) => {
+          if (prevState.imgHistory.includes(response.imageInfo.uuid)) {
+            console.log("refreshed.");
+            goNextStage();
+            return prevState;
+          }
 
-      return {
-      ...prevState,
-      ...response,response,
-      imgHistory : response.imgHistory === undefined ? [...prevState.imgHistory, response.imageInfo.uuid] : response.imgHistory
-    }});
+          return {
+            ...prevState,
+            ...response,response,
+            statusInfo : {
+              levelUp : response.statusInfo.levelUp,
+              clear : response.statusInfo.clear,
+              correct : false,
+              gameOver : false,
+              share : false
+            },
+            guessInfo : response.guessResult === undefined || response.guessResult === null ?  initGuessInfo(response) : response.guessResult,
+            letters : response.letters === undefined ? initLetters(response) : response.letters,
+            imgHistory : response.imgHistory === undefined ? [...prevState.imgHistory, response.imageInfo.uuid] : response.imgHistory
+          }});
   }
 
   useEffect(() => {
