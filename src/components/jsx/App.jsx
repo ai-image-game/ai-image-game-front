@@ -18,7 +18,7 @@ const luckiestGuyFont = Luckiest_Guy({
   subsets : ["latin"]
 });
 
-function App({imageGame, currentUrl}) {
+function App({imageGame, currentUrl, wsUrl}) {
   const appRef = useRef(null);
   const initRef = useRef(false);
   const [isDisconnect, setIsDisconnect] = useState (false);
@@ -37,7 +37,7 @@ function App({imageGame, currentUrl}) {
   useEffect(() => {
     if (initRef.current) return;
     processImageGameInfo(imageGame);
-    initSocket(imageGame, setImageGameInfo, processImageGameInfo, setIsDisconnect);
+    initSocket(wsUrl, imageGame, setImageGameInfo, processImageGameInfo, setIsDisconnect);
     initRef.current = true;
   }, []);
 

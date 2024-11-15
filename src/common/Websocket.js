@@ -4,10 +4,10 @@ import { Client } from "@stomp/stompjs";
 let client = null;
 let isConnected = false;
 
-export function initSocket(imageGameInfo, setImageGameInfo, processImageGameInfo, setIsDisconnect) {
+export function initSocket(webSocketUrl, imageGameInfo, setImageGameInfo, processImageGameInfo, setIsDisconnect) {
     if (client != null) return;
 
-    const sockJS = new SockJS('http://192.168.219.100/connect');
+    const sockJS = new SockJS(webSocketUrl);
 
     client = new Client({
         webSocketFactory: () => sockJS,
