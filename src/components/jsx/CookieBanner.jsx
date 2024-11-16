@@ -95,7 +95,7 @@ const CookieBanner = () => {
 
 export function changeCookie(imageGameInfo) {
     if (useFunctionCookies) {
-        fetch('/server/setCookie', {
+        fetch('/api/setCookie', {
             method : 'POST',
             credentials: 'include',
             headers : {
