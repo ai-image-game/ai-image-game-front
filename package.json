@@ -13,8 +13,9 @@
     "cookie": "^1.0.1",
     "crypto-browserify": "^3.12.0",
     "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.5",
     "https-browserify": "^1.0.0",
-    "next": "^14.2.13",
+    "next": "^14.2.18",
     "react": "^18.3.1",
     "react-cookie-consent": "^9.0.0",
     "react-dom": "^18.3.1",
@@ -31,6 +32,7 @@
     "dev": "next dev",
     "build": "next build",
     "test": "next test",
+    "install-prod": "rmdir /S /Q build && mkdir build && xcopy .next build\\.next /E /I /Y && xcopy package.json build /Y && xcopy package-lock.json build /Y && xcopy public build\\public /E /I /Y && tar -czf ai-image-game-front.tar.gz build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -50,5 +52,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }
