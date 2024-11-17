@@ -1,5 +1,3 @@
-// pages/privacy-policy.js
-import Link from 'next/link';
 import styles from './styles/CookieConsent.module.css'
 
 const PrivacyPolicy = () => {

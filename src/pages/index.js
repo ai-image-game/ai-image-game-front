@@ -2,7 +2,6 @@ import Head from 'next/head';
 import axios from 'axios';
 import App from '../components/jsx/App';
 import { getCurrentUrl, initOpenGraph } from '../common/InitImageGame';
-import * as cookie from 'cookie';
 
 export async function getServerSideProps(context) {
     const cookies = context.req.headers.cookie || '';
