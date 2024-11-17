@@ -115,7 +115,6 @@ function processGuessResult(response, setImageGameInfo) {
             gameInfo : response.gameInfo,
             guessInfo : {
                 ...prevState.guessInfo,
-                input: response.guessResult.input,
                 answerIndexList: response.guessResult.answerIndexList,
                 wrongLetters: response.guessResult.wrongLetters
             }
