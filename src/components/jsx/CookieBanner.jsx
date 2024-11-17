@@ -93,15 +93,15 @@ const CookieBanner = () => {
     );
 };
 
-export function changeCookie(imageGameInfo) {
+export function changeCookie(serverUrl, imageGameInfo) {
     if (useFunctionCookies) {
-        fetch('/api/setCookie', {
+        fetch(serverUrl + '/api/v1/image-game/save', {
             method : 'POST',
             credentials: 'include',
             headers : {
                 'Content-Type' : 'application/json',
             },
-            body: JSON.stringify({data : imageGameInfo}),
+            body: JSON.stringify(imageGameInfo),
         })
             .then((data) => console.log(data))
             .catch((error) => console.error("Error:", error));

@@ -18,7 +18,7 @@ const luckiestGuyFont = Luckiest_Guy({
   subsets : ["latin"]
 });
 
-function App({imageGame, currentUrl, wsUrl}) {
+function App({imageGame, currentUrl, serverUrl}) {
   const appRef = useRef(null);
   const initRef = useRef(false);
   const [isDisconnect, setIsDisconnect] = useState (false);
@@ -37,7 +37,7 @@ function App({imageGame, currentUrl, wsUrl}) {
   useEffect(() => {
     if (initRef.current) return;
     processImageGameInfo(imageGame);
-    initSocket(wsUrl, imageGame, setImageGameInfo, processImageGameInfo, setIsDisconnect);
+    initSocket(serverUrl, imageGame, setImageGameInfo, processImageGameInfo, setIsDisconnect);
     initRef.current = true;
   }, []);
 
@@ -51,7 +51,7 @@ function App({imageGame, currentUrl, wsUrl}) {
 
           return {
             ...prevState,
-            ...response,response,
+            ...response,
             statusInfo : {
               levelUp : response.statusInfo.levelUp,
               clear : response.statusInfo.clear,
@@ -67,7 +67,7 @@ function App({imageGame, currentUrl, wsUrl}) {
 
   useEffect(() => {
     if (isDisconnect) {
-      changeCookie(imageGameInfo);
+      changeCookie(serverUrl, imageGameInfo);
     }
   }, [isDisconnect]);
 
@@ -81,7 +81,7 @@ function App({imageGame, currentUrl, wsUrl}) {
         }
       }, 5000);
     }
-    changeCookie(imageGameInfo);
+    changeCookie(serverUrl, imageGameInfo);
   }, [imageGameInfo.statusInfo.correct]);
 
   return (<div className={styles.app} ref={appRef} tabIndex="0">

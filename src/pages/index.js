@@ -7,7 +7,7 @@ export async function getServerSideProps(context) {
     const cookies = context.req.headers.cookie || '';
 
     const { req } = context;
-    const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+    const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
     const apiClient = axios.create({
         baseURL: BASE_URL, // API의 기본 URL
         timeout: 10000, // 요청 제한 시간 (ms)
@@ -61,7 +61,7 @@ export default function Home({imageGame, currentUrl}) {
                 <meta name="twitter:image" content={imageGame.imageInfo.mobileImage}/>
                 <meta name="twitter:site" content="@aiimagegame"/>
             </Head>
-            <App imageGame={imageGame} currentUrl={currentUrl} wsUrl={process.env.NEXT_PUBLIC_WS_URL}/>
+            <App imageGame={imageGame} currentUrl={currentUrl} serverUrl={process.env.NEXT_PUBLIC_SERVER_URL}/>
         </>
     );
 }
