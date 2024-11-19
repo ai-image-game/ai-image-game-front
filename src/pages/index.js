@@ -5,9 +5,9 @@ import { getCurrentUrl, initOpenGraph } from '../common/InitImageGame';
 
 export async function getServerSideProps(context) {
     const cookies = context.req.headers.cookie || '';
-
+    console.log("#############", process.env.PRIVATE_SERVER_URL)
     const { req } = context;
-    const BASE_URL = process.env.NEXT_SERVER_URL;
+    const BASE_URL = process.env.PRIVATE_SERVER_URL;
     const apiClient = axios.create({
         baseURL: BASE_URL, // API의 기본 URL
         timeout: 10000, // 요청 제한 시간 (ms)
