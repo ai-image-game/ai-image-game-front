@@ -32,7 +32,7 @@
     "dev": "next dev",
     "build": "next build",
     "test": "next test",
-    "install-prod": "rmdir /S /Q build && mkdir build && xcopy .next build\\.next /E /I /Y && xcopy package.json build /Y && xcopy package-lock.json build /Y && xcopy public build\\public /E /I /Y && tar -czf ai-image-game-front.tar.gz build",
+    "install-prod": "tar -czf ai-image-game-front.tar.gz .next public .env.production.local package.json",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
