@@ -3,7 +3,7 @@ function Footer() {
     return (
         <div className={styles.footer}>
             <div className={styles.report}>
-                <p>Bug report to <a href="mailto:blarblar@gmail.com">blarblar@gmail.com</a></p>
+                <p>Bug report to <a href="mailto:ai.image.game@gmail.com">ai.image.game@gmail.com</a></p>
             </div>
         </div>
     )
