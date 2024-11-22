@@ -8,7 +8,11 @@ function Share({stageStatus, url}) {
             console.error('Could not copy text: ', err);
         });
     }
-    return (
+
+    function alertPreparing() {
+        alert("This feature is currently being prepared.");
+    }
+    return (/*
         <div className={`${styles.shareArea} ${stageStatus.share ? styles.shareAreaPink : ''}`}>
             <a target="_blank" rel="noreferrer"
                href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">
@@ -24,7 +28,15 @@ function Share({stageStatus, url}) {
                 <img src="whats-app_icon.png" className={styles.logo}/>
             </a>
             <img src="link_icon.png" className={`${styles.logo} ${styles.copy}`} onClick={copyTextToClipboard}/>
+        </div>*/
+
+        <div className={`${styles.shareArea} ${stageStatus.share ? styles.shareAreaPink : ''}`}>
+                <img src="facebook_icon.png" alt="facebook" className={`${styles.logo}`} onClick={alertPreparing}/>
+                <img src="x-black_icon.png" alt="x" className={styles.logo}  onClick={alertPreparing}/>
+                <img src="whats-app_icon.png" alt="whats app" className={styles.logo} onClick={alertPreparing}/>
+                <img src="link_icon.png" alt="copy" className={`${styles.logo} ${styles.copy}`} onClick={alertPreparing}/>
         </div>
     )
 }
+
 export default Share;
