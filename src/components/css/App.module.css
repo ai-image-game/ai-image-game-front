@@ -103,6 +103,10 @@ div.guessArea {
 
 
 @media (min-width: 769px) {
+    .app {
+        align-items: center;
+    }
+
     .container {
         flex-direction: row;
         justify-content: center;
@@ -114,6 +118,8 @@ div.guessArea {
         display: block;
         width: 100%;
         height: auto;
+        min-width : 120px;
+        max-width : 240px;
     }
 
     .mainContent {
@@ -123,6 +129,7 @@ div.guessArea {
         align-items: center;
         justify-content: center;
         width: 100%;
+        align-self: center;
     }
 
     .gameArea {

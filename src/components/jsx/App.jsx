@@ -86,7 +86,7 @@ function App({imageGame, currentUrl, serverUrl}) {
 
   return (<div className={styles.app} ref={appRef} tabIndex="0">
       <div className={styles.container}>
-        <div className={`${styles.adsense} ${styles.adsenseLeft}`}>Google Adsense Area</div>
+        <div className={`${styles.adsense} ${styles.adsenseLeft}`}></div>
         <div className={styles.mainContent}>
           <div className={`${styles.gameTitle} ${luckiestGuyFont.className}`}>
             <h1>AI IMAGE GAME</h1>
@@ -109,7 +109,7 @@ function App({imageGame, currentUrl, serverUrl}) {
             <Footer/>
           </div>
         </div>
-        <div className={`${styles.adsense} ${styles.adsenseRight}`}>Google Adsense Area</div>
+        <div className={`${styles.adsense} ${styles.adsenseRight}`}></div>
         <CookieBanner/>
       </div>
       </div>
