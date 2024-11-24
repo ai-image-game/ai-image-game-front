@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { initSocket, goNextStage } from '../../common/Websocket';
 import { initGuessInfo, initLetters } from '../../common/InitImageGame';
 import { Luckiest_Guy } from 'next/font/google'
-import Info from './info.jsx';
+import Info from './Info.jsx';
 import ImageArea from './ImageArea.jsx';
 import GuessResult from './GuessResult.jsx';
 import HangManArea from './HangMan.jsx';
