@@ -13,7 +13,7 @@ function GuessResult({questionInfo}) {
                 {char === '*' ? ' ' : (index === 0 || questionInfo.maskedAnswer[index - 1] === ' ' ? char.toUpperCase() : char)}
                     {
                         Array(5).fill("").map((_, index) => (
-                        <span key={index} className={`${char === '*' ? '' : styles.particle}`}></span>
+                        <span key={index} className={`${char === '*' || char === ' ' ? '' : styles.particle}`}></span>
                     ))}
             </span>
             ))}
