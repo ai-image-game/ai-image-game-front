@@ -94,6 +94,8 @@ const CookieBanner = () => {
 };
 
 export function changeCookie(serverUrl, imageGameInfo) {
+    if (useFunctionCookies === null) return;
+
     if (useFunctionCookies) {
         fetch(serverUrl + '/api/v1/image-game/save', {
             method : 'POST',
