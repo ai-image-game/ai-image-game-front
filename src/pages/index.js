@@ -27,7 +27,7 @@ export async function getServerSideProps(context) {
     if (req.url.includes("?")) {
         const uuid = req.url.split('?')[1];
         imageGame = (await apiClient.get("/api/v1/image-game/" + uuid)).data;
-    } else if (cookies !== '') {
+    } else if (cookies.includes("savedData")) {
         imageGame = (await apiClient.get("/api/v1/image-game/reconnect")).data;
     } else {
         imageGame = (await apiClient.put("/api/v1/image-game", {})).data;
