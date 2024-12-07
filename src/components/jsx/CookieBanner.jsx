@@ -15,24 +15,36 @@ const CookieBanner = () => {
         setShowBanner(false);
         useFunctionCookies = true;
 
-        /*window.gtag('consent', 'update', {
+        window.gtag('consent', 'update', {
             'analytics_storage': 'granted'
-        });*/ //TODO GOOGLE ANALYTICS
+        });
+        window.gtag('event', 'page_view', {
+            page_title: document.title,
+            page_location: window.location.href,
+            page_path: window.location.pathname,
+        });
     };
 
     const handleDeclineAll = () => {
         Cookies.remove("savedData");
-        /*window.gtag('consent', 'update', {
+        window.gtag('consent', 'update', {
             'analytics_storage': 'denied'
-        });*/ //TODO GOOGLE ANALYTICS
+        });
         setShowBanner(false);
     };
 
     const handleSavePreferences = () => {
         useFunctionCookies = functionalCookies;
-        /* window.gtag('consent', 'update', {
+        window.gtag('consent', 'update', {
             'analytics_storage': analyticsCookies ? 'granted' : 'denied'
-        }); */ //TODO Google Analytics
+        });
+        if (analyticsCookies) {
+            window.gtag('event', 'page_view', {
+                page_title: document.title,
+                page_location: window.location.href,
+                page_path: window.location.pathname,
+            });
+        }
         setShowBanner(false);
     };
 
