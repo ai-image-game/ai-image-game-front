@@ -29,7 +29,7 @@
   },
   "scripts": {
     "start": "next start",
-    "dev": "next dev",
+    "dev": "next dev -p 80",
     "build": "next build",
     "test": "next test",
     "install-prod": "tar -czf ai-image-game-front.tar.gz .next public .env.production.local package.json",
