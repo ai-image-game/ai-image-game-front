@@ -15,7 +15,6 @@ const Adsense = memo(() => {
                             isMobile = window.innerWidth <= 768; // 로컬 변수로 관리
                             window.adsbygoogle.push({});
                             ad.setAttribute("data-ad-loaded", "true"); // 초기화 플래그 설정
-                            window.alert(isMobile);
                         }
                     } catch (e) {
                         console.error("Adsense error:", e);
