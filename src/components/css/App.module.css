@@ -15,15 +15,17 @@
 .adsense {
     /*border: 1px solid #ddd;*/
     margin: 0;
-    padding: 20px;
     user-select: none;
     pointer-events: none;
     text-align: center;
-    max-height: 5vh;
 }
 
-.adsenseLeft, .adsenseRight {
-    max-width: 25%;
+.adsenseLeft {
+    order: 1
+}
+
+.adsenseRight {
+    order: 3
 }
 
 .container {
@@ -41,6 +43,7 @@
     align-self: flex-start;
     flex: 1;
     width: 100%;
+    order: 2;
 }
 
 div.gameTitle {
@@ -120,6 +123,8 @@ div.guessArea {
         height: auto;
         min-width : 120px;
         max-width : 240px;
+        max-height: 5vh;
+        margin: 20px;
     }
 
     .mainContent {
@@ -149,6 +154,9 @@ div.guessArea {
         display: block;
         width: 100%;
         max-width: 100%;
+        height: 90px;
+        max-height: 90px;
+        overflow: hidden;
     }
 
     .container {

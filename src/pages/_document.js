@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document';
+import Script from "next/script";
 
 export default function Document() {
     return (
@@ -16,6 +17,10 @@ export default function Document() {
                      `
                     }}
                 />
+                <Script
+                    strategy="lazyOnload"
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4453438517391105"
+                    crossOrigin="anonymous"></Script>
             </Head>
             <body>
             <Main/>

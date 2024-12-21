@@ -12,6 +12,7 @@ import CookieBanner from './CookieBanner';
 import Share from './Share.jsx'
 import styles from '../css/App.module.css';
 import { changeCookie } from "./CookieBanner";
+import dynamic from "next/dynamic";
 
 const luckiestGuyFont = Luckiest_Guy({
   weight : "400",
@@ -22,6 +23,7 @@ function App({imageGame, currentUrl, serverUrl}) {
   const appRef = useRef(null);
   const initRef = useRef(false);
   const [isDisconnect, setIsDisconnect] = useState (false);
+  const AdSenseArea = dynamic(() => import("./Adsense"), { ssr: false });
 
   const [ imageGameInfo, setImageGameInfo ] = useState( {
     gameInfo : { level : 1, questions : 10, corrects : 0, retry : 3 },
@@ -34,6 +36,7 @@ function App({imageGame, currentUrl, serverUrl}) {
     version : 1
   });
 
+
   useEffect(() => {
     if (initRef.current) return;
     processImageGameInfo(imageGame);
@@ -42,27 +45,27 @@ function App({imageGame, currentUrl, serverUrl}) {
   }, []);
 
   function processImageGameInfo(response) {
-        setImageGameInfo((prevState) => {
-          if (prevState.imgHistory.includes(response.imageInfo.uuid)) {
-            console.log("refreshed.");
-            goNextStage();
-            return prevState;
-          }
+    setImageGameInfo((prevState) => {
+      if (prevState.imgHistory.includes(response.imageInfo.uuid)) {
+        console.log("refreshed.");
+        goNextStage();
+        return prevState;
+      }
 
-          return {
-            ...prevState,
-            ...response,
-            statusInfo : {
-              levelUp : response.statusInfo.levelUp,
-              clear : response.statusInfo.clear,
-              correct : false,
-              gameOver : false,
-              share : false
-            },
-            guessInfo : response.guessResult === undefined || response.guessResult === null ?  initGuessInfo(response) : response.guessResult,
-            letters : response.letters === undefined ? initLetters(response) : response.letters,
-            imgHistory : response.imgHistory === undefined ? [...prevState.imgHistory, response.imageInfo.uuid] : response.imgHistory
-          }});
+      return {
+        ...prevState,
+        ...response,
+        statusInfo : {
+          levelUp : response.statusInfo.levelUp,
+          clear : response.statusInfo.clear,
+          correct : false,
+          gameOver : false,
+          share : false
+        },
+        guessInfo : response.guessResult === undefined || response.guessResult === null ?  initGuessInfo(response) : response.guessResult,
+        letters : response.letters === undefined ? initLetters(response) : response.letters,
+        imgHistory : response.imgHistory === undefined ? [...prevState.imgHistory, response.imageInfo.uuid] : response.imgHistory
+      }});
   }
 
   useEffect(() => {
@@ -85,33 +88,32 @@ function App({imageGame, currentUrl, serverUrl}) {
   }, [imageGameInfo.statusInfo.correct]);
 
   return (<div className={styles.app} ref={appRef} tabIndex="0">
-      <div className={styles.container}>
-        <div className={`${styles.adsense} ${styles.adsenseLeft}`}></div>
-        <div className={styles.mainContent}>
-          <div className={`${styles.gameTitle} ${luckiestGuyFont.className}`}>
-            <h1>AI IMAGE GAME</h1>
-          </div>
-          <div className={styles.gameArea}>
-            <Info gameInfo={imageGameInfo.gameInfo}/>
-            <ImageArea imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo}/>
-            <Share stageStatus={imageGameInfo.statusInfo} url={currentUrl}/>
-          </div>
-          <div className={styles.gameFooter}>
-            <span className={styles.imageCreatedBy}>Created by Chat GPT. Chat GPT titled </span>
-            <GuessResult questionInfo={imageGameInfo.questionInfo}/>
-          </div>
-          <div className={styles.bottomArea}>
-            <div className={styles.guessArea}>
-              <HangManArea guessInfo={imageGameInfo.guessInfo}/>
-              <AlphabetInput letters={imageGameInfo.letters} imageGameInfo={imageGameInfo}
-                             setImageGameInfo={setImageGameInfo}/>
+        <div className={styles.container}>
+          <AdSenseArea />
+          <div className={styles.mainContent}>
+            <div className={`${styles.gameTitle} ${luckiestGuyFont.className}`}>
+              <h1>AI IMAGE GAME</h1>
             </div>
-            <Footer/>
+            <div className={styles.gameArea}>
+              <Info gameInfo={imageGameInfo.gameInfo}/>
+              <ImageArea imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo}/>
+              <Share stageStatus={imageGameInfo.statusInfo} url={currentUrl}/>
+            </div>
+            <div className={styles.gameFooter}>
+              <span className={styles.imageCreatedBy}>Created by Chat GPT. Chat GPT titled </span>
+              <GuessResult questionInfo={imageGameInfo.questionInfo}/>
+            </div>
+            <div className={styles.bottomArea}>
+              <div className={styles.guessArea}>
+                <HangManArea guessInfo={imageGameInfo.guessInfo}/>
+                <AlphabetInput letters={imageGameInfo.letters} imageGameInfo={imageGameInfo}
+                               setImageGameInfo={setImageGameInfo}/>
+              </div>
+              <Footer/>
+            </div>
           </div>
+          <CookieBanner/>
         </div>
-        <div className={`${styles.adsense} ${styles.adsenseRight}`}></div>
-        <CookieBanner/>
-      </div>
       </div>
   );
 }
