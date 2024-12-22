@@ -13,8 +13,7 @@ const pressStart2p = Press_Start_2P({
     subsets : ["latin"]
 })
 
-export default function ImageArea({imageGameInfo, setImageGameInfo}) {
-    const [isMobile, setIsMobile] = useState(true);
+export default function ImageArea({imageGameInfo, setImageGameInfo, isMobile}) {
     const [isCorrectVisible, setIsCorrectVisible] = useState(false);
     const [isLevelUpVisible, setIsLevelUpVisible] = useState(false);
     const [isGameOverVisible, setIsGameOverVisible] = useState(false);
@@ -22,20 +21,6 @@ export default function ImageArea({imageGameInfo, setImageGameInfo}) {
     const imgRef = useRef(null);
     const [correctMessage, setCorrectMessage] = useState("CORRECT");
     const correctMessages = ["CORRECT", "PERFECT", "EXCELLENT", "WELL DONE", "GREAT"];
-
-    useEffect(() => {
-        const handleResize = () => {
-            if (typeof window !== 'undefined') {
-                setIsMobile(window.innerWidth <= 768);
-            }
-        };
-
-        handleResize();
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
 
     useEffect(() => {
         if (imageGameInfo.statusInfo.gameOver) {

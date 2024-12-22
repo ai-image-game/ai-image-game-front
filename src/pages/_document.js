@@ -17,10 +17,9 @@ export default function Document() {
                      `
                     }}
                 />
-                <Script
-                    strategy="lazyOnload"
-                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4453438517391105"
-                    crossOrigin="anonymous"></Script>
+                <script async
+                        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4453438517391105"
+                    crossOrigin="anonymous"/>
             </Head>
             <body>
             <Main/>

@@ -17,7 +17,7 @@ const luckiestGuyFont = Luckiest_Guy({
     subsets : ["latin"]
 });
 
-export default function ImageGame({imageGame, currentUrl, serverUrl}) {
+export default function ImageGame({imageGame, currentUrl, serverUrl, isMobile}) {
     const initRef = useRef(false);
     const [isDisconnect, setIsDisconnect] = useState (false);
 
@@ -90,7 +90,7 @@ export default function ImageGame({imageGame, currentUrl, serverUrl}) {
             </div>
             <div className={styles.gameArea}>
                 <Info gameInfo={imageGameInfo.gameInfo}/>
-                <ImageArea imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo}/>
+                <ImageArea imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo} isMobile={isMobile}/>
                 <Share stageStatus={imageGameInfo.statusInfo} url={currentUrl}/>
             </div>
             <div className={styles.gameFooter}>

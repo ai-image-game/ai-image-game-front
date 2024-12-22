@@ -60,10 +60,6 @@ export default function Home({imageGame, currentUrl}) {
                 <meta name="twitter:description" content={openGraph.description}/>
                 <meta name="twitter:image" content={imageGame.imageInfo.mobileImage}/>
                 <meta name="twitter:site" content="@aiimagegame"/>
-
-                <script async
-                        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4453438517391105"
-                        crossOrigin="anonymous"></script>
             </Head>
             <App imageGame={imageGame} currentUrl={currentUrl} serverUrl={process.env.NEXT_PUBLIC_SERVER_URL}/>
         </>
