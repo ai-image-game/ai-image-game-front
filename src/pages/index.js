@@ -29,7 +29,8 @@ export async function getServerSideProps(context) {
         imageGame = (await apiClient.get("/api/v1/image-game/" + uuid)).data;
     } else if (cookies.includes("savedData")) {
         imageGame = (await apiClient.get("/api/v1/image-game/reconnect")).data;
-    } else {
+    }
+    if (imageGame == null) {
         imageGame = (await apiClient.put("/api/v1/image-game", {})).data;
     }
 
