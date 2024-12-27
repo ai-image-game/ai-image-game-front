@@ -4,11 +4,10 @@ import styles from '../css/CookieBanner.module.css';
 
 let useFunctionCookies = null;
 
-const CookieBanner = () => {
+const CookieBanner = ({analyticsCookies, setAnalyticsCookies}) => {
     const [showBanner, setShowBanner] = useState(true);
     const [showSettings, setShowSettings] = useState(false);
     const [functionalCookies, setFunctionalCookies] = useState(true);
-    const [analyticsCookies, setAnalyticsCookies] = useState(true);
     const [marketingCookies, setMarketingCookies] = useState(true);
 
     const handleAcceptAll = () => {

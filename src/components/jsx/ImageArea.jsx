@@ -13,7 +13,7 @@ const pressStart2p = Press_Start_2P({
     subsets : ["latin"]
 })
 
-export default function ImageArea({imageGameInfo, setImageGameInfo, isMobile}) {
+export default function ImageArea({imageGameInfo, setImageGameInfo, isMobile, analyticsCookies}) {
     const [isCorrectVisible, setIsCorrectVisible] = useState(false);
     const [isLevelUpVisible, setIsLevelUpVisible] = useState(false);
     const [isGameOverVisible, setIsGameOverVisible] = useState(false);
@@ -25,6 +25,13 @@ export default function ImageArea({imageGameInfo, setImageGameInfo, isMobile}) {
     useEffect(() => {
         if (imageGameInfo.statusInfo.gameOver) {
             setIsGameOverVisible(true);
+            if (analyticsCookies) {
+                window.gtag('event', 'game_over', {
+                    'event_category': 'game_status',
+                    'img_uuid': imageGameInfo.imageInfo.uuid,
+                    'level' : imageGameInfo.gameInfo.level
+                });
+            }
             return;
         } else {
             setIsGameOverVisible(false);

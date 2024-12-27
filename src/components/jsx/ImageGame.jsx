@@ -17,7 +17,7 @@ const luckiestGuyFont = Luckiest_Guy({
     subsets : ["latin"]
 });
 
-export default function ImageGame({imageGame, currentUrl, serverUrl, isMobile}) {
+export default function ImageGame({imageGame, currentUrl, serverUrl, isMobile, analyticsCookies}) {
     const initRef = useRef(false);
     const [isDisconnect, setIsDisconnect] = useState (false);
 
@@ -83,6 +83,18 @@ export default function ImageGame({imageGame, currentUrl, serverUrl, isMobile}) 
         changeCookie(serverUrl, imageGameInfo);
     }, [imageGameInfo.statusInfo.correct]);
 
+    if (typeof window !== 'undefined') {
+        window.addEventListener('beforeunload', (event) => {
+            if (analyticsCookies) {
+                window.gtag('event', 'close_game', {
+                    'event_category': 'user_interaction',
+                    'img_uuid': imageGameInfo.imageInfo.uuid,
+                    'level': imageGameInfo.gameInfo.level
+                });
+            }
+        });
+    }
+
     return (
         <div className={styles.mainContent}>
             <div className={`${styles.gameTitle} ${luckiestGuyFont.className}`}>
@@ -90,7 +102,7 @@ export default function ImageGame({imageGame, currentUrl, serverUrl, isMobile}) 
             </div>
             <div className={styles.gameArea}>
                 <Info gameInfo={imageGameInfo.gameInfo}/>
-                <ImageArea imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo} isMobile={isMobile}/>
+                <ImageArea imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo} isMobile={isMobile} analyticsCookies={analyticsCookies}/>
                 <Share stageStatus={imageGameInfo.statusInfo} url={currentUrl}/>
             </div>
             <div className={styles.gameFooter}>
