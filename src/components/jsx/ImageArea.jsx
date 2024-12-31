@@ -39,6 +39,11 @@ export default function ImageArea({imageGameInfo, setImageGameInfo, isMobile, an
 
         let clearTimer;
         if (imageGameInfo.statusInfo.clear) {
+            if (analyticsCookies) {
+                window.gtag('event', 'clear', {
+                    'event_category': 'game_status'
+                });
+            }
             clearTimer = setTimeout(() => {
                 setIsClearVisible(true);
             }, 1000);
