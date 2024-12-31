@@ -103,7 +103,7 @@ export default function ImageGame({imageGame, currentUrl, serverUrl, isMobile, a
             <div className={styles.gameArea}>
                 <Info gameInfo={imageGameInfo.gameInfo}/>
                 <ImageArea imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo} isMobile={isMobile} analyticsCookies={analyticsCookies}/>
-                <Share stageStatus={imageGameInfo.statusInfo} url={`${currentUrl}${imageGameInfo.imageInfo.uuid}`}/>
+                <Share stageStatus={imageGameInfo.statusInfo} url={`${currentUrl}?${imageGameInfo.imageInfo.uuid}`}/>
             </div>
             <div className={styles.gameFooter}>
                 <span className={styles.imageCreatedBy}>Created by Chat GPT. Chat GPT titled </span>
