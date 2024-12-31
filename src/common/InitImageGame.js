@@ -19,7 +19,7 @@ export function initOpenGraph(imageGameInfo, currentUrl) {
             + (imageGameInfo.questionInfo.prefix || "")
             + imageGameInfo.questionInfo.maskedAnswer.replaceAll("*", "_")
             + (imageGameInfo.questionInfo.postfix || ""),
-        description: "Guess this image created by Chat GPT",
+        description: "Guess What it is.",
         shareUrl: rootUrl + "?" + imageGameInfo.imageInfo.uuid
     };
 }

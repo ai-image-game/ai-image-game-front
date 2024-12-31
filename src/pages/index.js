@@ -51,7 +51,7 @@ export default function Home({imageGame, currentUrl}) {
                 {/* Facebook Open Graph Tags */}
                 <meta property="og:title" content={openGraph.title}/>
                 <meta property="og:description" content={openGraph.description}/>
-                <meta property="og:image" content={imageGame.imageInfo.mobileImage}/>
+                <meta property="og:image" content={imageGame.imageInfo.snsImage}/>
                 <meta property="og:url" content={openGraph.shareUrl}/>
                 <meta property="og:type" content="website"/>
 
@@ -59,7 +59,7 @@ export default function Home({imageGame, currentUrl}) {
                 <meta name="twitter:card" content="summary_large_image"/>
                 <meta name="twitter:title" content={openGraph.title}/>
                 <meta name="twitter:description" content={openGraph.description}/>
-                <meta name="twitter:image" content={imageGame.imageInfo.mobileImage}/>
+                <meta name="twitter:image" content={imageGame.imageInfo.snsImage}/>
                 <meta name="twitter:site" content="@aiimagegame"/>
             </Head>
             <App imageGame={imageGame} currentUrl={currentUrl} serverUrl={process.env.NEXT_PUBLIC_SERVER_URL}/>

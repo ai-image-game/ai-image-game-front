@@ -23,7 +23,7 @@ export default function ImageGame({imageGame, currentUrl, serverUrl, isMobile, a
 
     const [ imageGameInfo, setImageGameInfo ] = useState( {
         gameInfo : { level : 1, questions : 10, corrects : 0, retry : 3 },
-        imageInfo : { mobileImage : "", pcImage : "", uuid : "" },
+        imageInfo : { uuid : "", mobileImage : "", pcImage : "", snsImage : "" },
         questionInfo : { maskedAnswer : "", prefix : null, postfix : null },
         guessInfo : initGuessInfo(),
         letters : initLetters(),
