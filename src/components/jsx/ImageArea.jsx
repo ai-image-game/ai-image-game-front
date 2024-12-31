@@ -185,7 +185,7 @@ export default function ImageArea({imageGameInfo, setImageGameInfo, isMobile, an
                     <>
                         <button className={`${styles.retryButton} ${pressStart2p.className} 
                                             ${imageGameInfo.gameInfo.retry === 1 ? `${styles.last}` : '' }`} onClick={onRetry}>
-                            Watch Ads & Try Again!
+                            Try Again!
                             <span
                                 className={`${styles.last}`}> {imageGameInfo.gameInfo.retry === 1 ? "(Last)" : ""}</span>
                         </button>
