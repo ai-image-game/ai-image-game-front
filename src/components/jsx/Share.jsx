@@ -2,6 +2,15 @@ import styles from "../css/Share.module.css";
 
 function Share({stageStatus, url}) {
     function copyTextToClipboard() {
+        if (typeof navigator == "undefined") {
+            console.log("navigator is undefined.");
+            return;
+        }
+        if (!navigator.clipboard) {
+            alert('Sorry! Could not copy text.');
+            return;
+        }
+
         navigator.clipboard.writeText(url).then(function () {
             alert('This page URL has been copied.');
         }, function (err) {
