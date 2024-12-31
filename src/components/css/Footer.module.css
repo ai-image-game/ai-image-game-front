@@ -8,4 +8,13 @@ div.footer {
 div.report {
     padding: 0;
     font-size:12px;
+    color: black;
+}
+
+div.report a:link, div.report a:visited {
+    color: black;
+}
+
+div.report a:hover {
+    color: green;
 }

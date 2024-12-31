@@ -3,11 +3,10 @@ function Footer() {
     return (
         <div className={styles.footer}>
             <div className={styles.report}>
-                <p>Bug report to <a href="mailto:ai.image.game@gmail.com">ai.image.game@gmail.com</a></p>
+                <p><a href="https://discord.gg/wqraGzAfSh" target="_blank">Discord</a> <a href="https://www.instagram.com/ai.image.game/" target="_blank">Instagram</a></p>
             </div>
         </div>
-    )
-        ;
+    );
 }
 
 export default Footer;
