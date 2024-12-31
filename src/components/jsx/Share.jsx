@@ -20,15 +20,15 @@ function Share({stageStatus, url}) {
     return (
             <div className={`${styles.shareArea} ${stageStatus.share ? styles.shareAreaPink : ''}`}>
                 <a target="_blank" rel="noreferrer"
-                   href={`'https://www.facebook.com/sharer/sharer.php?u='${url}';src=sdkpreparse'`}>
+                   href={`https://www.facebook.com/sharer/sharer.php?u=${url};src=sdkpreparse`}>
                     <img src="facebook_icon.png" className={`${styles.logo}`}/>
                 </a>
                 <a target="_blank" rel="noreferrer"
-                   href={`'https://twitter.com/intent/tweet?url='${url}'&text=Guess What It Is!'`}>
+                   href={`https://twitter.com/intent/tweet?url=${url}&text=Guess What It Is!`}>
                     <img src="x-black_icon.png" className={styles.logo}/>
                 </a>
                 <a target="_blank" rel="noreferrer"
-                   href={`'https://api.whatsapp.com/send?text=Guess What It Is! ${url}'`}
+                   href={`https://api.whatsapp.com/send?text=Guess What It Is! ${url}`}
                    target="_blank">
                     <img src="whats-app_icon.png" className={styles.logo}/>
                 </a>
