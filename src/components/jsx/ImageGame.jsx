@@ -20,7 +20,6 @@ const luckiestGuyFont = Luckiest_Guy({
 export default function ImageGame({imageGame, currentUrl, serverUrl, isMobile, analyticsCookies}) {
     const initRef = useRef(false);
     const [isDisconnect, setIsDisconnect] = useState (false);
-
     const [ imageGameInfo, setImageGameInfo ] = useState( {
         gameInfo : { level : 1, questions : 10, corrects : 0, retry : 3 },
         imageInfo : { uuid : "", mobileImage : "", pcImage : "", snsImage : "" },
@@ -31,7 +30,7 @@ export default function ImageGame({imageGame, currentUrl, serverUrl, isMobile, a
         imgHistory : [],
         version : 1
     });
-
+    const shareUrl = currentUrl.includes("?id=") ? `${currentUrl}` : `${currentUrl}?id=${imageGameInfo.imageInfo.uuid}`;
 
     useEffect(() => {
         if (initRef.current) return;
@@ -73,14 +72,16 @@ export default function ImageGame({imageGame, currentUrl, serverUrl, isMobile, a
     useEffect(() => {
         if (imageGameInfo.statusInfo.correct) {
             setTimeout( () => {
-                if (currentUrl.includes("?")) {
+                if (currentUrl.includes("?id=")) {
                     window.location.href = "/";
                 } else {
                     goNextStage();
                 }
             }, 5000);
         }
-        changeCookie(serverUrl, imageGameInfo);
+        if (!currentUrl.includes("?id=")) {
+            changeCookie(serverUrl, imageGameInfo);
+        }
     }, [imageGameInfo.statusInfo.correct]);
 
     if (typeof window !== 'undefined') {
@@ -103,7 +104,7 @@ export default function ImageGame({imageGame, currentUrl, serverUrl, isMobile, a
             <div className={styles.gameArea}>
                 <Info gameInfo={imageGameInfo.gameInfo}/>
                 <ImageArea imageGameInfo={imageGameInfo} setImageGameInfo={setImageGameInfo} isMobile={isMobile} analyticsCookies={analyticsCookies}/>
-                <Share stageStatus={imageGameInfo.statusInfo} url={`${currentUrl}/?id=${imageGameInfo.imageInfo.uuid}`}/>
+                <Share stageStatus={imageGameInfo.statusInfo} url={shareUrl}/>
             </div>
             <div className={styles.gameFooter}>
                 <span className={styles.imageCreatedBy}>Created by Chat GPT. Chat GPT titled </span>
