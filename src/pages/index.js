@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import axios from 'axios';
 import App from '../components/jsx/App';
-import {getCurrentUrl, getUuid, initOpenGraph} from '../common/InitImageGame';
+import {getCurrentUrl, initOpenGraph} from '../common/InitImageGame';
 
 export async function getServerSideProps(context) {
     const cookies = context.req.headers.cookie || '';
@@ -24,8 +24,9 @@ export async function getServerSideProps(context) {
 
     let imageGame = null;
 
-    if (req.url.includes("?")) {
-        let uuid = getUuid(req.url);
+    const url = new URL(req.url, BASE_URL);
+    if (url.searchParams.get("id")) {
+        const uuid = url.searchParams.get("id");
         imageGame = (await apiClient.get("/api/v1/image-game/" + uuid)).data;
     } else if (cookies.includes("savedData")) {
         imageGame = (await apiClient.get("/api/v1/image-game/reconnect")).data;
