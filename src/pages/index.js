@@ -45,14 +45,16 @@ export default function Home({imageGame, currentUrl}) {
         <>
             <Head>
                 <title>AI Image Game</title>
-                <meta property="title" content="AI Image Game"/>
-                <meta property="description" content={openGraph.description}/>
-                <meta property="image" content={imageGame.imageInfo.mobileImage}/>
+                <meta property="title" content="Fun and Challenging AI-Based Image Hangman Game - AI Image Game"/>
+                <meta property="description"
+                      content="Play a fun, AI-powered image-based hangman game! Use creative image clues to guess words and enjoy free, exciting gameplay online. Test your skills today!"/>
+                <meta property="image" content={imageGame.imageInfo.snsImage}/>
 
                 {/* Facebook Open Graph Tags */}
                 <meta property="og:title" content={openGraph.title}/>
                 <meta property="og:description" content={openGraph.description}/>
                 <meta property="og:image" content={imageGame.imageInfo.snsImage}/>
+                <meta property="og:image:alt" content={openGraph.title}/>
                 <meta property="og:url" content={openGraph.shareUrl}/>
                 <meta property="og:type" content="website"/>
 

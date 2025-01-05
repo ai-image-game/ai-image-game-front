@@ -19,7 +19,7 @@ export function initOpenGraph(imageGameInfo, currentUrl) {
             + (imageGameInfo.questionInfo.prefix || "")
             + imageGameInfo.questionInfo.maskedAnswer.replaceAll("*", "_")
             + (imageGameInfo.questionInfo.postfix || ""),
-        description: "Guess What it is.",
-        shareUrl: rootUrl + "?" + imageGameInfo.imageInfo.uuid
+        description: "Solve fun and creative image artworks. Can you guess the word before it's too late?",
+        shareUrl: rootUrl + "?id=" + imageGameInfo.imageInfo.uuid
     };
 }
