@@ -5,7 +5,6 @@ import {getCurrentUrl, initOpenGraph} from '../common/InitImageGame';
 
 export async function getServerSideProps(context) {
     const cookies = context.req.headers.cookie || '';
-    console.log("### private url ### ", process.env.PRIVATE_SERVER_URL)
     const { req } = context;
     const BASE_URL = process.env.PRIVATE_SERVER_URL;
     const apiClient = axios.create({
