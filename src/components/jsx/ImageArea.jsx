@@ -59,6 +59,11 @@ export default function ImageArea({imageGameInfo, setImageGameInfo, isMobile, an
 
         let levelUpTimer;
         if (imageGameInfo.statusInfo.levelUp) {
+            if (analyticsCookies) {
+                window.gtag('event', 'levelUp', {
+                    'event_category': 'game_status'
+                });
+            }
             levelUpTimer = setTimeout(() => {
                 setIsLevelUpVisible(true);
             }, 1000);
@@ -73,6 +78,11 @@ export default function ImageArea({imageGameInfo, setImageGameInfo, isMobile, an
 
         let correctTimer;
         if (imageGameInfo.statusInfo.correct) {
+            if (analyticsCookies) {
+                window.gtag('event', 'correct', {
+                    'event_category': 'game_status'
+                });
+            }
             correctTimer = setTimeout(() => {
                 setCorrectMessage(correctMessages[Math.floor(Math.random() * correctMessages.length)]);
                 setIsCorrectVisible(true);
