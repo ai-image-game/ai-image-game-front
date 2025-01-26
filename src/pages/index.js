@@ -23,8 +23,9 @@ export async function getServerSideProps(context) {
 
     let imageGame = null;
     const url = new URL(req.url, BASE_URL);
+    const currentUrl = getCurrentUrl(req);
     let previousDomain = req.headers.referer ? new URL(req.headers.referer).hostname : '';
-    let showIntro = shouldShowIntro(cookies, url, previousDomain);
+    let showIntro = shouldShowIntro(cookies, url, req.headers.host, previousDomain);
 
     if (url.searchParams.get("id")) {
         const uuid = url.searchParams.get("id");
@@ -36,7 +37,6 @@ export async function getServerSideProps(context) {
         imageGame = (await apiClient.put("/api/v1/image-game", {})).data;
     }
 
-    const currentUrl = getCurrentUrl(req);
     return { props: { imageGame: imageGame, currentUrl : currentUrl, showIntro: showIntro } };
 }
 export default function Home({imageGame, currentUrl, showIntro}) {

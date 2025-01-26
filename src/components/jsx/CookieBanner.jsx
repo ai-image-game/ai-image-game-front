@@ -4,8 +4,8 @@ import styles from '../css/CookieBanner.module.css';
 
 let useFunctionCookies = null;
 
-const CookieBanner = ({analyticsCookies, setAnalyticsCookies}) => {
-    const [showBanner, setShowBanner] = useState(true);
+const CookieBanner = ({isSharedLink, analyticsCookies, setAnalyticsCookies}) => {
+    const [showBanner, setShowBanner] = useState(!isSharedLink);
     const [showSettings, setShowSettings] = useState(false);
     const [functionalCookies, setFunctionalCookies] = useState(true);
     const [marketingCookies, setMarketingCookies] = useState(true);

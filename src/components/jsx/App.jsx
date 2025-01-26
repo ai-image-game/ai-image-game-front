@@ -29,11 +29,11 @@ function App({imageGame, currentUrl, serverUrl, showIntro}) {
   return (
     <div className={styles.app} ref={appRef} tabIndex="0">
       <div className={styles.container}>
+        <AdSenseArea isMobile={isMobile}/>
         {(showIntro && !gameStarted) ? (
           <Intro onStart={() => setGameStarted(true)}/>
         ) : (
           <>
-            <AdSenseArea isMobile={isMobile}/>
             <ImageGame 
               imageGame={imageGame} 
               currentUrl={currentUrl} 
@@ -41,7 +41,8 @@ function App({imageGame, currentUrl, serverUrl, showIntro}) {
               isMobile={isMobile} 
               analyticsCookies={analyticsCookies}
             />
-            <CookieBanner 
+            <CookieBanner
+              isSharedLink={currentUrl.includes("?id=")}
               analyticsCookies={analyticsCookies} 
               setAnalyticsCookies={setAnalyticsCookies}
             />
