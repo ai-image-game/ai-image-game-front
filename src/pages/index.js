@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import axios from 'axios';
 import App from '../components/jsx/App';
-import {getCurrentUrl, initOpenGraph} from '../common/InitImageGame';
+import {getCurrentUrl, initOpenGraph, shouldShowIntro} from '../common/InitImageGame';
 
 export async function getServerSideProps(context) {
     const cookies = context.req.headers.cookie || '';
@@ -23,7 +23,8 @@ export async function getServerSideProps(context) {
 
     let imageGame = null;
     const url = new URL(req.url, BASE_URL);
-    let showIntro = !cookies.includes("savedData") && !url.searchParams.get("id");
+    let previousDomain = req.headers.referer ? new URL(req.headers.referer).hostname : '';
+    let showIntro = shouldShowIntro(cookies, url, previousDomain);
 
     if (url.searchParams.get("id")) {
         const uuid = url.searchParams.get("id");

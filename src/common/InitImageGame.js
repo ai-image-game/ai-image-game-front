@@ -23,3 +23,11 @@ export function initOpenGraph(imageGameInfo, currentUrl) {
         shareUrl: rootUrl + "?id=" + imageGameInfo.imageInfo.uuid
     };
 }
+
+export function shouldShowIntro(cookies, url, previousDomain) {
+    let currentDomain = url.hostname;
+    return cookies.includes("savedData") === false
+        && url.searchParams.get("id") === null
+        && (previousDomain.includes(currentDomain) === false
+        || (typeof document !== 'undefined' && document.referrer.includes(window.location.hostname) === false));
+}
