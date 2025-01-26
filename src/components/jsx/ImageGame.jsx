@@ -99,7 +99,7 @@ export default function ImageGame({imageGame, currentUrl, serverUrl, isMobile, a
     return (
         <div className={styles.mainContent}>
             <div className={`${styles.gameTitle} ${luckiestGuyFont.className}`}>
-                <h1>AI IMAGE GAME</h1>
+                <h1 onClick={() => window.location.reload()}>AI IMAGE GAME</h1>
             </div>
             <div className={styles.gameArea}>
                 <Info gameInfo={imageGameInfo.gameInfo}/>

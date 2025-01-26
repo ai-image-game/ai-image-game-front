@@ -22,8 +22,9 @@ export async function getServerSideProps(context) {
     });
 
     let imageGame = null;
-
     const url = new URL(req.url, BASE_URL);
+    let showIntro = !cookies.includes("savedData") && !url.searchParams.get("id");
+
     if (url.searchParams.get("id")) {
         const uuid = url.searchParams.get("id");
         imageGame = (await apiClient.get("/api/v1/image-game/" + uuid)).data;
@@ -35,10 +36,29 @@ export async function getServerSideProps(context) {
     }
 
     const currentUrl = getCurrentUrl(req);
-    return { props: { imageGame: imageGame, currentUrl : currentUrl } };
+    return { props: { imageGame: imageGame, currentUrl : currentUrl, showIntro: showIntro } };
 }
-export default function Home({imageGame, currentUrl}) {
+export default function Home({imageGame, currentUrl, showIntro}) {
     const openGraph = initOpenGraph(imageGame, currentUrl);
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "AI Image Game",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Any",
+        "description": "Experience a unique word guessing game where AI generates creative image clues! Challenge yourself with our innovative take on the classic hangman game. Perfect for word game enthusiasts and puzzle lovers. Play for free now!",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "genre": ["Word Game", "Puzzle Game", "Educational Game"],
+        "url": currentUrl,
+        "image": imageGame.imageInfo.snsImage,
+        "inLanguage": "en",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "gameplayExample": "Players are shown AI-generated images and must guess the related word letter by letter."
+    };
 
     return (
         <>
@@ -63,8 +83,15 @@ export default function Home({imageGame, currentUrl}) {
                 <meta name="twitter:description" content={openGraph.description}/>
                 <meta name="twitter:image" content={imageGame.imageInfo.snsImage}/>
                 <meta name="twitter:site" content="@aiimagegame"/>
+
+                <script 
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(structuredData)
+                    }}
+                />
             </Head>
-            <App imageGame={imageGame} currentUrl={currentUrl} serverUrl={process.env.NEXT_PUBLIC_SERVER_URL}/>
+            <App imageGame={imageGame} currentUrl={currentUrl} serverUrl={process.env.NEXT_PUBLIC_SERVER_URL} showIntro={showIntro}/>
         </>
     );
 }

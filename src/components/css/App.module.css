@@ -46,7 +46,6 @@
 
 div.gameTitle {
     user-select: none;
-    pointer-events: none;
     text-align: center;
     width: 100%;
 }
@@ -60,6 +59,9 @@ div.gameTitle h1 {
     -webkit-text-stroke: 1px #606060;
     text-shadow: 4px 1px 5px rgb(106, 106, 106);
     -webkit-font-smoothing: antialiased;
+}
+div.gameTitle h1:hover {
+    cursor: pointer;
 }
 
 div.gameArea {

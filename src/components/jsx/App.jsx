@@ -3,12 +3,14 @@ import CookieBanner from './CookieBanner';
 import styles from '../css/App.module.css';
 import dynamic from "next/dynamic";
 import ImageGame from "./ImageGame";
+import Intro from "./Intro";
 
-function App({imageGame, currentUrl, serverUrl}) {
+function App({imageGame, currentUrl, serverUrl, showIntro}) {
   const appRef = useRef(null);
   const AdSenseArea = dynamic(() => import("./Adsense"), { ssr: false });
   const [isMobile, setIsMobile] = useState(false);
   const [analyticsCookies, setAnalyticsCookies] = useState(true);
+  const [gameStarted, setGameStarted] = useState(!showIntro);
 
   useEffect(() => {
     const handleResize = () => {
@@ -24,13 +26,29 @@ function App({imageGame, currentUrl, serverUrl}) {
     };
   }, []);
 
-  return (<div className={styles.app} ref={appRef} tabIndex="0">
-        <div className={styles.container}>
-          <AdSenseArea isMobile={isMobile}/>
-          <ImageGame imageGame={imageGame} currentUrl={currentUrl} serverUrl={serverUrl} isMobile={isMobile} analyticsCookies={analyticsCookies}/>
-          <CookieBanner analyticsCookies={analyticsCookies} setAnalyticsCookies={setAnalyticsCookies}/>
-        </div>
+  return (
+    <div className={styles.app} ref={appRef} tabIndex="0">
+      <div className={styles.container}>
+        {(showIntro && !gameStarted) ? (
+          <Intro onStart={() => setGameStarted(true)}/>
+        ) : (
+          <>
+            <AdSenseArea isMobile={isMobile}/>
+            <ImageGame 
+              imageGame={imageGame} 
+              currentUrl={currentUrl} 
+              serverUrl={serverUrl} 
+              isMobile={isMobile} 
+              analyticsCookies={analyticsCookies}
+            />
+            <CookieBanner 
+              analyticsCookies={analyticsCookies} 
+              setAnalyticsCookies={setAnalyticsCookies}
+            />
+          </>
+        )}
       </div>
+    </div>
   );
 }
 
