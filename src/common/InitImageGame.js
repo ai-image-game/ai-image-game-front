@@ -24,8 +24,7 @@ export function initOpenGraph(imageGameInfo, currentUrl) {
     };
 }
 
-export function shouldShowIntro(cookies, url, previousDomain) {
-    let currentDomain = url.hostname;
+export function shouldShowIntro(cookies, url, currentDomain, previousDomain) {
     return cookies.includes("savedData") === false
         && url.searchParams.get("id") === null
         && (previousDomain.includes(currentDomain) === false
