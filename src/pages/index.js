@@ -66,7 +66,7 @@ export default function Home({imageGame, currentUrl, showIntro}) {
                 <title>AI Image Game</title>
                 <meta property="title" content="Fun and Challenging AI-Based Image Hangman Game - AI Image Game"/>
                 <meta property="description"
-                      content="Play a fun, AI-powered image-based hangman game! Use creative image clues to guess words and enjoy free, exciting gameplay online. Test your skills today!"/>
+                      content="Play a fun, AI-powered image-based hangman game! Use creative image clues to guess words and enjoy free, exciting gameplay online. Guess the word from captivating image clues while boosting your English alphabet skills. Test your skills today!"/>
                 <meta property="image" content={imageGame.imageInfo.snsImage}/>
 
                 {/* Facebook Open Graph Tags */}
