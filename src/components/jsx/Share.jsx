@@ -18,22 +18,26 @@ function Share({stageStatus, url}) {
         });
     }
     return (
-            <div className={`${styles.shareArea} ${stageStatus.share ? styles.shareAreaPink : ''}`}>
-                <a target="_blank" rel="noreferrer"
-                   href={`https://www.facebook.com/sharer/sharer.php?u=${url};src=sdkpreparse`}>
-                    <img src="facebook_icon.png" className={`${styles.logo}`}/>
-                </a>
-                <a target="_blank" rel="noreferrer"
-                   href={`https://twitter.com/intent/tweet?url=${url}&text=Guess What It Is!`}>
-                    <img src="x-black_icon.png" className={styles.logo}/>
-                </a>
-                <a target="_blank" rel="noreferrer"
-                   href={`https://api.whatsapp.com/send?text=Guess What It Is! ${url}`}
-                   target="_blank">
-                    <img src="whats-app_icon.png" className={styles.logo}/>
-                </a>
-                <img src="link_icon.png" className={`${styles.logo} ${styles.copy}`} onClick={copyTextToClipboard}/>
-            </div>
+        <div className={`${styles.shareArea} ${stageStatus.share ? styles.shareAreaPink : ''}`}>
+            <a target="_blank" rel="noreferrer"
+               href={`https://www.reddit.com/submit?url=${url}&title=Guess What It is!`}>
+                <img src="reddit_icon.png" alt="reddit share button" className={styles.logo}/>
+            </a>
+            <a target="_blank" rel="noreferrer"
+               href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}>
+                <img src="facebook_icon.png" alt="facebook share button" className={`${styles.logo}`}/>
+            </a>
+            <a target="_blank" rel="noreferrer"
+               href={`https://twitter.com/intent/tweet?url=${url}&text=Guess What It Is!`}>
+                <img src="x-black_icon.png" alt="x share button" className={styles.logo}/>
+            </a>
+            <a target="_blank" rel="noreferrer"
+               href={`https://api.whatsapp.com/send?text=Guess What It Is! ${url}`}
+               target="_blank">
+                <img src="whats-app_icon.png" alt="whats app share button" className={styles.logo}/>
+            </a>
+            <img src="link_icon.png" className={`${styles.logo} ${styles.copy}`} onClick={copyTextToClipboard}/>
+        </div>
     )
 }
 
