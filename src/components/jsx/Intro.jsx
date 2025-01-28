@@ -17,8 +17,7 @@ function Intro({ onStart }) {
             <div className={styles.description}>
                 <p>
                 Experience a creative twist on the classic Hangman game with our AI-powered image-based challenge!<br/>
-                Guess the word from captivating image clues while boosting your English alphabet skills.<br/>
-                Fun, engaging, and educational—perfect for all ages!<br/>
+                Fun, engaging, and alphabet skills for all ages!<br/>
                 </p>
                 
                 <div className={styles.features}>
