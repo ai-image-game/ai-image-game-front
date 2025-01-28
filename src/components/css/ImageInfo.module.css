@@ -118,7 +118,6 @@ div.clear button.restartButton {/* 버튼에 동일한 폰트 적용 */
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-size: clamp(10px, 5%, 16px);
 }
 
 div.gameover button.retryButton {
@@ -127,7 +126,6 @@ div.gameover button.retryButton {
     align-items: center;
     justify-content: center;
     flex-wrap: nowrap;
-    font-size: clamp(11px, 10%, 20px);
 }
 
 div.gameover .lastRetry{
