@@ -21,7 +21,6 @@ export default function ImageArea({imageGameInfo, setImageGameInfo, isMobile, an
     const imgRef = useRef(null);
     const [correctMessage, setCorrectMessage] = useState("CORRECT");
     const correctMessages = ["CORRECT", "PERFECT", "EXCELLENT", "WELL DONE", "GREAT"];
-    const imgAlt = (imageGameInfo.questionInfo.prefix || "") + imageGameInfo.questionInfo.maskedAnswer + (imageGameInfo.questionInfo.postfix || "");
 
     useEffect(() => {
         if (imageGameInfo.statusInfo.gameOver) {
@@ -140,7 +139,8 @@ export default function ImageArea({imageGameInfo, setImageGameInfo, isMobile, an
 
     return (
         <div className={`${styles.imageArea} ${imageGameInfo.statusInfo.correct ? styles.bright : ''}`}>
-            <img ref={imgRef} src={isMobile ? imageGameInfo.imageInfo.mobileImage : imageGameInfo.imageInfo.pcImage} alt={imgAlt}/>
+            <img ref={imgRef} src={isMobile ? imageGameInfo.imageInfo.mobileImage : imageGameInfo.imageInfo.pcImage}/>
+
             { isClearVisible && <div className={`${styles.congratulation} ${styles.clear} ${luckiestGuyFont.className}`}>
                 <h1>
                     <span>G</span>
