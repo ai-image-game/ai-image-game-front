@@ -41,11 +41,11 @@ function App({imageGame, currentUrl, serverUrl, showIntro}) {
               isMobile={isMobile} 
               analyticsCookies={analyticsCookies}
             />
-            <CookieBanner
+            {/*<CookieBanner
               isSharedLink={currentUrl.includes("?id=")}
-              analyticsCookies={analyticsCookies} 
+              analyticsCookies={analyticsCookies}
               setAnalyticsCookies={setAnalyticsCookies}
-            />
+            />*/}
           </>
         )}
       </div>
