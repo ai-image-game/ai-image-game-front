@@ -28,3 +28,5 @@ yarn-error.log*
 
 /public/images/
 .env.development.local
+
+.history
