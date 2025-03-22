@@ -13,7 +13,6 @@
 # misc
 .DS_Store
 .env.development.local
-.env.development.local
 .env.test.local
 .env.production.local
 
@@ -27,6 +26,5 @@ yarn-error.log*
 
 
 /public/images/
-.env.development.local
 
 .history
